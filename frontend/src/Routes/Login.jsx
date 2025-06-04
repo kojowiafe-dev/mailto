@@ -4,11 +4,12 @@ import { Bounce, Slide, Zoom, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/ReactToastify.css'
 import AOS from 'aos';
 import api from '../components/api';
+// import api from '../components/api';
 import { } from 'recharts'
 
 const Login = () => {
 
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
@@ -18,7 +19,7 @@ const Login = () => {
     <div className='p-3' data-aos="fade-up">
         <form onSubmit={async(e) => {
           e.preventDefault();
-          if (!email || !password) {
+          if (!username || !password) {
             toast.error("Please fill out all the required fields", {
               style: {
                 background: "#000",
@@ -29,10 +30,15 @@ const Login = () => {
             return;
           }
           try {
-            const response = await api.post('/login', { email, password });
-            const result = await response.json();
+            const response = await api.post('/auth/login', { username, password }, {
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            })
+            
+            console.log(response)
 
-            toast.success(result.message || "Login successfully!", {
+            toast.success(response.message || "Login successfully!", {
               style: {
                 background: "#000"
               },
@@ -41,7 +47,7 @@ const Login = () => {
           } catch (error) {
             console.log(error);
             
-            toast.error("Login failed", {
+            toast.error(error.message || "Login failed", {
               style: {
                 background: "#000",
                 color: "#fff",
@@ -51,7 +57,7 @@ const Login = () => {
         }} action='' className='space-y-8 max-w-xl mx-auto bg-gray-900 p-6 rounded-2xl shadow flex flex-col items-center'>
         <h2 className='text-yellow-300 text-2xl'>Welcome Back</h2>
 
-        <input type="email" placeholder='Email' className='w-full p-3 rounded-md text-yellow-300' value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input type="text" placeholder='Username' className='w-full p-3 rounded-md text-yellow-300' value={username} onChange={(e) => setUsername(e.target.value)} />
         
         <input type='password' placeholder='Password' rows='4' className='w-full p-3 rounded-md text-yellow-300' value={password} onChange={(e) => setPassword(e.target.value)} />
 

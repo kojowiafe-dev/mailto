@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import database, models, schemas, hashing
 from routers import user, message, authentication, register
-
+# from fastapi.security import OAuth2PasswordBearer
 
 app = FastAPI()
 

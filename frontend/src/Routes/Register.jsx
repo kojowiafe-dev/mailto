@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Bounce, Slide, Zoom, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/ReactToastify.css'
 import { useForm } from 'react-hook-form'
@@ -7,6 +7,8 @@ import AOS from 'aos';
 import api from '../components/api';
 
 const Register = () => {
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     AOS.init({ duration: 1000 })
@@ -55,7 +57,8 @@ const Register = () => {
                     color: "#fff",
                     transition: "all 0.3s ease-in-out"
                   }
-              });
+              })
+              navigate('/login')
               setUserName("");
               setEmail("");
               setPassword("");
