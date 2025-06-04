@@ -1,0 +1,85 @@
+@import 'tailwindcss';
+
+@font-face {
+    font-family: myFont;
+    src: url('myFonts/Nunito-Black.ttf')
+}
+
+body {
+    font-family: myFont;
+}
+
+@keyframes slide-in {
+    from {
+        /* transform: translateX(100%); */
+        /* opacity: 0; */
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.animate-slide-in {
+    animation: slide-in 0.4s ease-out forwards;
+}
+
+
+@keyframes animate {
+    40%, 60% {
+        left: calc(100% + 4px);
+    }
+    100% {
+        left: 0%;
+    }
+}
+
+@media (max-width: 768px) {
+    .textName {
+        -webkit-box-reflect: below -47px linear-gradient(transparent, rgba(255, 255, 255, 0.4));
+    }
+}
+@media (max-width: 640px) {
+    .textName {
+        -webkit-box-reflect: below -50px linear-gradient(transparent, rgba(255, 255, 255, 0.4));
+    }
+}
+
+
+@theme {
+    --headerBG: #f5f1f1;
+    --deepblue-500: #023047;
+    --amber-500: #fb8500;
+    --alabaster-500: #e0e1dd;
+    --textColor: #1f1a1a;
+}
+
+.bg-color {
+    background-color: var(--bgColor);
+}
+
+.text-color {
+    color: var(--textColor);
+}
+
+.bg-deepblue {
+    background-color: var(--deepblue-500);
+}
+
+.bg-amber {
+    background-color: var(--amber-500);
+}
+
+.text-alabaster {
+    color: var(--alabaster-500);
+}
+
+.text-amber {
+    color: var(--amber-500);
+}
+
+@utility container {
+    padding: 20px;
+    max-width: 1280px;
+    margin: auto;
+}
