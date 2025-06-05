@@ -49,3 +49,8 @@ class Token(SQLModel):
 
 class TokenData(SQLModel):
     email: str | None = None
+
+
+# class ForgotPassword(SQLModel):
+#     email: str
+#     reset_password_link: str
