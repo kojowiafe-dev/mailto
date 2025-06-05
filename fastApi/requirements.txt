@@ -11,3 +11,7 @@ timescaledb
 requests
 python-decouple
 psycopg[binary]
+python-dotenv
+fastapi-mail
+fastapi-authlib
+jinja2
