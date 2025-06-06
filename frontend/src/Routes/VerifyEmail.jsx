@@ -10,7 +10,7 @@ const VerifyEmail = () => {
         const token = queryParams.get("token");
 
         if (token) {
-            api.get(`/verify-email?token=${token}`).then(res => setMessage(res.data.message)).catch(err => setMessage(err.response?.data?.detail || "Verification failed"));
+            api.get(`/mail/verify-email?token=${token}`).then(res => setMessage(res.data.message)).catch(err => setMessage(err.response?.data?.detail || "Verification failed"));
         } else {
             setMessage("No token provided");
         }
