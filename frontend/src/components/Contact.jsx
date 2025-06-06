@@ -66,11 +66,11 @@ const Contact = () => {
             }
           }} action="" className='max-w-xl mx-auto bg-gray-900 p-6 rounded-2xl shadow space-y-4'>
 
-            <input type="text" placeholder='Your Name' className='w-full p-3 rounded-md text-yellow-300 outline-0' value={name} onChange={(e) => setName(e.target.value)} />
+            <input type="text" placeholder='Your Name' className='border-b w-full p-3 rounded-md text-yellow-300 outline-0' value={name} onChange={(e) => setName(e.target.value)} />
 
-            <input type="email" placeholder='Your Email' className='w-full p-3 rounded-md text-yellow-300 outline-0' value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input type="email" placeholder='Your Email' className='border-b w-full p-3 rounded-md text-yellow-300 outline-0' value={email} onChange={(e) => setEmail(e.target.value)} />
 
-            <textarea placeholder='Your Message' rows='4' className='w-full p-3 rounded-md text-yellow-300 outline-0' value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
+            <textarea placeholder='Your Message' rows='4' className='border-b w-full p-3 rounded-md text-yellow-300 outline-0' value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
 
             <button type='submit' className='bg-gray-50 hover:bg-gray-800 hover:text-yellow-300 text-gray-600 font-bold py-2 px-4 rounded-xl border-gray-600 border-1 cursor-pointer'>Send Message</button>
           </form>

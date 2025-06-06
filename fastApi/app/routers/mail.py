@@ -12,8 +12,8 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 
 router = APIRouter(
-    prefix='/',
-    tags='Mail'
+    prefix='/mail',
+    tags=['Mail']
 )
 
 

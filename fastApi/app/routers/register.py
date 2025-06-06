@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status
 import schemas, database, models, hashing
-from mail import create_verification_token, send_verification_email
+from .mail import create_verification_token, send_verification_email
 
 router = APIRouter(
     tags= ['Register'],
@@ -41,5 +41,5 @@ async def create_user(request: schemas.UserCreate, session: database.SessionLoca
     token = create_verification_token(user.email)
     await send_verification_email(user.email, token)
 
-    
+
     return user
