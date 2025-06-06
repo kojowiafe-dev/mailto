@@ -12,6 +12,7 @@ import LandingPage from './Routes/LandingPage'
 import NotFoundPage from './Routes/NotFoundPage'
 import Footer from './components/Footer'
 import Layout from './Routes/Layout'
+import VerifyEmail from './Routes/VerifyEmail'
 
 
 function CustomRoutes () {
@@ -22,7 +23,8 @@ function CustomRoutes () {
       children : [
         {path : 'register', element : <Register />},
         {path : 'login', element : <Login />},
-        {path : 'index', element : <Layout />}
+        {path : 'index', element : <Layout />},
+        {path: 'verify-email', element: <VerifyEmail />}
       ]
     },
     {
