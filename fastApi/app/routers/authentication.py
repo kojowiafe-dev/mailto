@@ -34,6 +34,8 @@ def login(request: schemas.UserLogin, session: Annotated[Session, Depends(get_se
     user = authenticate_user(session, request.username, request.password)
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='User not found')
+    if not user.is_verified:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Please verify your email before logging in")
 
     # generate a jwt token and return it
     access_token_expires = timedelta(minutes=token_access.ACCESS_TOKEN_EXPIRE_MINUTES)

@@ -9,8 +9,11 @@ class UserCreate(SQLModel):
     password: str
 
 
-class UserResponse(UserCreate):
+class UserResponse(SQLModel):
     id: int
+    username: str
+    email: str
+    is_verified: bool
     created_at: datetime
 
 
