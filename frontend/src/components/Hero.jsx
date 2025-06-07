@@ -19,7 +19,7 @@ const Hero = () => {
         <section className='mb-10 relative'>
           
           <motion.h2 initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: 0 }} transition={{ type: 'spring', stiffness: 100 , damping: 10, delay: 0.5 }} className='text-4xl md:text-6xl font-extrabold text-gray-800 mb-4'>
-            Stand out with eventus
+            Stand out with <span className='text-yellow-300'>eventus</span>
           </motion.h2>
 
           <motion.h1 
