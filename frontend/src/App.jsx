@@ -24,8 +24,10 @@ function CustomRoutes () {
         {path : 'register', element : <Register />},
         {path : 'login', element : <Login />},
         {path : 'index', element : <Layout />},
-        {path: 'verify-email', element: <VerifyEmail />}
       ]
+    },
+    {
+      path: 'verify-email', element: <VerifyEmail />
     },
     {
       path : '*', element : <NotFoundPage />
