@@ -44,13 +44,13 @@ const LandingPage = () => {
     <div className='min-h-screen flex flex-col bg-gray-300/55 text-gray-950'>
       <Header />
       <div className='flex-1 text-center px-4 py-12'>
-        <Hero />
+        {/* <Hero /> */}
         <Outlet />
         
         {!linkClicked && ( // 👈 show link only if not clicked
-          <Link to="/index" className="mb-8 block" onClick={handleLinkClick} ref={textRef}>
+          <Link to="/index" className="mb-8 inline-block" onClick={handleLinkClick} ref={textRef}>
             <span
-              className='inline-block cursor-pointer text-yellow-300 text-base font-medium hover:text-yellow-400 transition-all duration-500 tracking-wide'
+              className='cursor-pointer text-yellow-300 text-base font-medium hover:text-yellow-400 transition-all duration-500 tracking-wide'
             >
               Explore eventus ↓
             </span>
