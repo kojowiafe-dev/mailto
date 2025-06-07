@@ -41,10 +41,10 @@ const LandingPage = () => {
   };
 
   return (
-    <div className='min-h-screen flex flex-col bg-gray-300/55 text-gray-950'>
-      <Header />
+    <div>
+      {/* <Header /> */}
       <div className='flex-1 text-center px-4 py-12'>
-        {/* <Hero /> */}
+        <Hero />
         <Outlet />
         
         {!linkClicked && ( // 👈 show link only if not clicked
@@ -58,7 +58,7 @@ const LandingPage = () => {
         )}
         
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   )
 }

@@ -1,11 +1,43 @@
-import React from 'react'
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <div>
-        <footer className='bottom-0 fixed w-full bg-gray-900/70 p-4 text-center text-yellow-300 backdrop-blur-md'>&copy; 2025 eventus. All rights reserved.</footer>
-    </div>
-  )
-}
+    <footer className="bg-gray-900/70 backdrop-blur-md text-white px-6 py-10 md:px-20">
+      <div className="grid md:grid-cols-3 gap-10">
+        {/* Branding */}
+        <div>
+          <h1 className="text-3xl font-extrabold text-yellow-300">eventus</h1>
+          <p className="mt-4 text-gray-400">
+            Elevating businesses with bold, vibrant branding that leaves a lasting impression.
+          </p>
+        </div>
 
-export default Footer
+        {/* Navigation */}
+        <div>
+          <h2 className="text-xl font-semibold mb-4">Quick Links</h2>
+          <ul className="space-y-2 text-gray-400">
+            <li><a href="#" className="hover:text-yellow-300">Home</a></li>
+            <li><a href="#" className="hover:text-yellow-300">Services</a></li>
+            <li><a href="#" className="hover:text-yellow-300">About</a></li>
+            <li><a href="#" className="hover:text-yellow-300">Contact</a></li>
+          </ul>
+        </div>
+
+        {/* Social Media */}
+        <div>
+          <h2 className="text-xl font-semibold mb-4">Follow Us</h2>
+          <div className="flex space-x-4 text-pink-500 text-2xl">
+            <a href="#" className="text-yellow-300"><FaFacebookF /></a>
+            <a href="#" className="text-yellow-300"><FaTwitter /></a>
+            <a href="#" className="text-yellow-300"><FaLinkedinIn /></a>
+            <a href="#" className="text-yellow-300"><FaInstagram /></a>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-10 border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">
+        &copy; {new Date().getFullYear()} Eventus. All rights reserved.
+      </div>
+    </footer>
+  );
+}
