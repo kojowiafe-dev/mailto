@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import AOS from 'aos';
 import api from '../components/api';
 import { GoogleLogin } from '@react-oauth/google';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Register = () => {
 
@@ -25,6 +26,7 @@ const Register = () => {
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
     
 
   return (
@@ -111,7 +113,16 @@ const Register = () => {
     
         <input {...register('email', { required: true })} type="email" placeholder='Email' className='border-b w-full p-3 rounded-md text-yellow-300' value={email} onChange={(e) => setEmail(e.target.value)} />
         
-        <input {...register('password', { required: true, minLength: 8 })} type='password' placeholder='Password' rows='4' className='border-b w-full p-3 rounded-md text-yellow-300' value={password} onChange={(e) => setPassword(e.target.value)} />
+        <div className='relative w-full'>
+          <input {...register('password', { required: true, minLength: 8 })} type={showPassword ? 'text' : 'password'} placeholder='Password' rows='4' className='border-b w-full p-3 rounded-md text-yellow-300' value={password} onChange={(e) => setPassword(e.target.value)} />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+          >
+            {showPassword ? <FaEyeSlash/> : <FaEye />}
+          </button>
+        </div>
         {
           errors.password && errors.password.type === 'minLength' ? toast.error('Password too short') : null
         }
