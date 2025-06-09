@@ -26,22 +26,14 @@ const Testimonials = () => {
   return (
     <div className='p-3'>
         <section id='testimonials' className='mb-20'>
-          <h3 data-aos="fade-left" className='text-3xl font-bold text-gray-900 mb-6'>Testimonials</h3>
+          <h3 data-aos="fade-left" className='text-3xl font-bold text-amber-500 mb-6'>Testimonials</h3>
           <div className='grid md:grid-cols-2 gap-6 max-w-4xl mx-auto'>
             {Testimony.map((data) => (
               <div key={data.id} data-aos={data.fade} className='bg-gray-800 p-6 rounded-2xl shadow'>
                 <p className='text-gray-300 italic'>"{data.info}"</p>
-                <p className='mt-4 font-bold text-yellow-300'>- {data.name}, {data.position}</p>
+                <p className='mt-4 font-bold text-amber-500'>- {data.name}, {data.position}</p>
               </div>
             ))}
-            {/* <div data-aos="fade-up" className='bg-gray-800 p-6 rounded-2xl shadow'>
-              <p className='text-gray-300 italic'>"Eventus completely transformed our business presence online. Highly recommended!"</p>
-              <p className='mt-4 font-bold text-yellow-300'>- Alex Johnson, CEO of TechWave</p>
-            </div>
-            <div data-aos="fade-right" className='bg-gray-800 p-6 rounded-2xl shadow'>
-              <p className='text-gray-300 italic'>"Our customers love the fresh look and feel. It's been a game changer for us."</p>
-              <p className='mt-4 font-bold text-yellow-300'>- Maria Lopez, Founder of Bloom & Co.</p>
-            </div> */}
           </div>
         </section>
     </div>
