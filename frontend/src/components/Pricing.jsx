@@ -10,7 +10,7 @@ const Pricing = () => {
   return (
     <div className='p-3'>
         <section id='pricing' className='mb-20'>
-          <h3 data-aos="fade-left" className='text-3xl font-bold text-gray-900 mb-6'>Pricing</h3>
+          <h3 data-aos="fade-left" className='text-3xl font-bold text-amber-500 mb-6'>Pricing</h3>
           <div className='grid md:grid-cols-3 gap-6 max-w-5xl mx-auto'>
             <div data-aos="fade-up" className='bg-gray-50 p-6 rounded-2xl shadow border-1 border-gray-600'>
               <h4 className='text-gray-700 text-xl font-bold mb-2'>Starter</h4>
@@ -23,7 +23,7 @@ const Pricing = () => {
             </div>
             <div data-aos="fade-right" className='bg-gray-800 p-6 rounded-2xl shadow-lg'>
               <h4 className='text-gray-300 text-xl font-bold mb-2'>Pro</h4>
-              <p className='text-yellow-300 text-2xl font-extrabold mb-4'>$59/mo</p>
+              <p className='text-amber-500 text-2xl font-extrabold mb-4'>$59/mo</p>
               <ul className='text-gray-50 space-y-2'>
                 <li>Full branding suite</li>
                 <li>3 revisions</li>
