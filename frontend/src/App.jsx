@@ -15,7 +15,7 @@ import Layout from './Routes/Layout'
 import VerifyEmail from './Routes/VerifyEmail'
 import Hero from './components/Hero'
 import UseWindowResize from './components/use-window-resize'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
 
 function CustomRoutes () {
@@ -45,31 +45,48 @@ function CustomRoutes () {
 
 const App = () => {
 
-  const windowSize = UseWindowResize();
+  const { scrollY } = useScroll()
+  const y = useTransform(scrollY, [0, 500], [0, 100])
+
+  // const windowSize = UseWindowResize();
   return (
-    <div className='min-h-screen flex flex-col bg-gray-300/55 text-gray-950'>
+    <div className='min-h-screen flex flex-col bg-gray-300/55 text-gray-950 overflow-visible'>
       <Header />
-      <motion.h1 
-        initial={{ opacity: 0, x: 100 }} 
-        animate={{ opacity: 1, x: 0 }} 
-        transition={{ type: 'spring', stiffness: 100 , damping: 10, delay: 0.7 }} 
-        className='scale-150 font-bold text-gray-400/15 select-none z-0 fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none' 
-        style={{ 
+      {/* <motion.h1
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ type: 'spring', stiffness: 100, damping: 10, delay: 0.7 }}
+        className='fixed z-0 pointer-events-none select-none font-bold text-gray-400/15'
+        style={{
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
           fontSize: windowSize.width < 800 ? '80px' : '180px',
           writingMode: windowSize.width < 800 ? 'vertical-rl' : 'horizontal-tb',
-          textOrientation: windowSize.width < 800 ? 'mixed' : 'mixed'
+          textOrientation: 'mixed'
         }}
       >
         EVENTUS
+      </motion.h1> */}
+
+      <motion.h1
+        style={{
+          y,
+          fontSize: window.innerWidth < 800 ? '80px' : '180px',
+          writingMode: window.innerWidth < 800 ? 'vertical-rl' : 'horizontal-tb',
+          textOrientation: 'mixed',
+          position: 'fixed',
+          top: '50%',
+          right: '50%',
+          transform: 'translate(-50%, -50%)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+        className="sticky top-20 text-gray-400/15 font-bold text-[180px] select-none pointer-events-none z-0"
+      >
+        EVENTUS
       </motion.h1>
-      {/* <Hero /> */}
-      {/* <Routes>
-        <Route path='/home' element={<LandingPage />}>
-          <Route path='register' element={<Register />}/>
-          <Route path='login' element={<Login />}/>
-          <Route path='index' element={<Layout />}/>
-        </Route>
-      </Routes> */}
+
       <CustomRoutes />
 
       <Footer />
