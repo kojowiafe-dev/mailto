@@ -11,14 +11,14 @@ const Hero = () => {
       // AOS.refresh()
   }, [])
 
-  const windowSize = UseWindowResize();
+  // const windowSize = UseWindowResize();
   const navigate = useNavigate();
   
   return (
     <div className='p-3 mt-10'>
         <section className='mb-10 relative'>
           
-          <motion.h2 initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: 0 }} transition={{ type: 'spring', stiffness: 100 , damping: 10, delay: 0.5 }} className='text-4xl md:text-6xl font-extrabold text-gray-800 mb-4'>
+          <motion.h2 initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: 0 }} transition={{ type: 'spring', stiffness: 100 , damping: 10, delay: 0.5 }} className='text-4xl md:text-6xl font-bold text-gray-800 mb-4'>
             Stand out with <span className='text-amber-500'><a href='/index'>eventus</a></span>
           </motion.h2>
 
