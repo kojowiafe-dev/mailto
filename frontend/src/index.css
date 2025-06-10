@@ -72,15 +72,33 @@ body {
 
 
 @theme {
-    --headerBG: #f5f1f1;
+    --button-color: #1e90ff;
     --deepblue-500: #023047;
     --amber-500: #fb8500;
     --alabaster-500: #e0e1dd;
-    --textColor: #1f1a1a;
+    /* --textColor: #763626; */
+    --textColor: #2e2e2e;
+    --background-color: #f5f7fa;
+}
+
+.button-color {
+    color: var(--button-color);
+}
+
+.bg-button-color {
+    background-color: var(--button-color);
+}
+
+.nav-color {
+    background-color: var(--textColor);
 }
 
 .bg-color {
-    background-color: var(--bgColor);
+    background-color: var(--background-color);
+}
+
+.text-btn-color {
+    color: var(--background-color);
 }
 
 .text-color {
