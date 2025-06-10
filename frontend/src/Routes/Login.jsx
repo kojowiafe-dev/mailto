@@ -56,13 +56,13 @@ const Login = () => {
               },
             })
           }
-        }} action='' className='space-y-8 max-w-xl mx-auto bg-gray-800 p-6 rounded-2xl shadow flex flex-col items-center'>
-        <h2 className='text-amber-500 text-2xl'>Welcome Back</h2>
+        }} action='' className='space-y-8 max-w-xl mx-auto nav-color border-1 border-gray-600 p-6 rounded-2xl shadow flex flex-col items-center'>
+        <h2 className='button-color text-2xl'>Welcome Back</h2>
 
-        <input type="text" placeholder='Username' className='border-b w-full p-3 rounded-md text-amber-500' value={username} onChange={(e) => setUsername(e.target.value)} />
+        <input type="text" placeholder='Username' className='border-b w-full p-3 rounded-md button-color' value={username} onChange={(e) => setUsername(e.target.value)} />
         
         <div className='relative w-full'>
-          <input type={showPassword ? 'text' : 'password'} placeholder='Password' rows='4' className='border-b w-full p-3 rounded-md text-amber-500' value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input type={showPassword ? 'text' : 'password'} placeholder='Password' rows='4' className='border-b w-full p-3 rounded-md button-color' value={password} onChange={(e) => setPassword(e.target.value)} />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
@@ -73,7 +73,7 @@ const Login = () => {
         </div>
 
         <div className='flex flex-col items-center justify-center'>
-          <button type='submit' className='bg-gray-50 hover:bg-gray-800 hover:text-amber-500 text-gray-600 font-bold py-2 px-4 rounded-xl border-gray-600 border-1 my-2 cursor-pointer transition duration-200'>Login</button>
+          <button type='submit' className='bg-button-color text-color font-bold py-2 px-4 rounded-xl my-2 cursor-pointer transition duration-200'>Login</button>
           <GoogleLogin
             theme='filled_blue'
             text='login_with'
@@ -91,7 +91,7 @@ const Login = () => {
           />
         </div>
         <a href='#' className='text-gray-200 text-sm underline my-2'>Forgot Password?</a>
-        <h4 className='text-gray-200'>Don't have an account? <Link to='/register' className='underline text-amber-500'>Register</Link></h4>
+        <h4 className='text-gray-200'>Don't have an account? <Link to='/register' className='underline button-color'>Register</Link></h4>
     </form>
     <ToastContainer position='top-right' transition={Bounce} autoClose={2000} theme='dark' toastClassName={() => "bg-slate-800 text-white px-6 py-4 rounded-xl shadow-lg animate-slide-in"} bodyClassName={() => "text-sm font-medium"}/>
     </div>
