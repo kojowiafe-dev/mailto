@@ -50,7 +50,7 @@ const LandingPage = () => {
         {!linkClicked && ( // 👈 show link only if not clicked
           <Link to="/index" className="mb-8 inline-block" onClick={handleLinkClick} ref={textRef}>
             <span
-              className='cursor-pointer text-amber-500 text-base font-medium hover:text-amber-600 transition-all duration-500 tracking-wide'
+              className='cursor-pointer button-color text-base font-medium transition-all duration-500 tracking-wide'
             >
               Explore eventus ↓
             </span>

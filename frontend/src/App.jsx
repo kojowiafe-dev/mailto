@@ -15,7 +15,7 @@ import Layout from './Routes/Layout'
 import VerifyEmail from './Routes/VerifyEmail'
 import Hero from './components/Hero'
 import UseWindowResize from './components/use-window-resize'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 
 function CustomRoutes () {
@@ -45,21 +45,21 @@ function CustomRoutes () {
 
 const App = () => {
 
-  const { scrollY } = useScroll()
-  const y = useTransform(scrollY, [0, 500], [0, 100])
+  // const { scrollY } = useScroll()
+  // const y = useTransform(scrollY, [0, 500], [0, 100])
 
-  // const windowSize = UseWindowResize();
+  const windowSize = UseWindowResize();
   return (
-    <div className='min-h-screen flex flex-col bg-gray-300/55 text-gray-950 overflow-visible'>
+    <div className='min-h-screen flex flex-col background-color text-gray-950 overflow-visible'>
       <Header />
-      {/* <motion.h1
+      <motion.h1
         initial={{ opacity: 0, x: 100 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ type: 'spring', stiffness: 100, damping: 10, delay: 0.7 }}
         className='fixed z-0 pointer-events-none select-none font-bold text-gray-400/15'
         style={{
-          top: '50%',
-          left: '50%',
+          top: windowSize.width < 800 ? '50%' : '60%',
+          left: '0%',
           transform: 'translate(-50%, -50%)',
           fontSize: windowSize.width < 800 ? '80px' : '180px',
           writingMode: windowSize.width < 800 ? 'vertical-rl' : 'horizontal-tb',
@@ -67,9 +67,9 @@ const App = () => {
         }}
       >
         EVENTUS
-      </motion.h1> */}
+      </motion.h1>
 
-      <motion.h1
+      {/* <motion.h1
         style={{
           y,
           fontSize: window.innerWidth < 800 ? '80px' : '180px',
@@ -85,7 +85,7 @@ const App = () => {
         className="sticky top-20 text-gray-400/15 font-bold text-[180px] select-none pointer-events-none z-0"
       >
         EVENTUS
-      </motion.h1>
+      </motion.h1> */}
 
       <CustomRoutes />
 
