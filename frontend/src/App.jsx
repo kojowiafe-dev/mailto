@@ -62,12 +62,12 @@ const App = () => {
         initial={{ opacity: 0, x: 100 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ type: 'spring', stiffness: 100, damping: 10, delay: 0.7 }}
-        className='fixed z-0 pointer-events-none select-none font-bold text-gray-400/15'
+        className='fixed z-0 pointer-events-none select-none font-bold text-gray-300/50'
         style={{
-          top: windowSize.width < 800 ? '50%' : '60%',
+          top: windowSize.width < 800 ? '20%' : '60%',
           left: '0%',
           transform: 'translate(-50%, -50%)',
-          fontSize: windowSize.width < 800 ? '80px' : '180px',
+          fontSize: windowSize.width < 800 ? '120px' : '180px',
           writingMode: windowSize.width < 800 ? 'vertical-rl' : 'horizontal-tb',
           textOrientation: 'mixed'
         }}
