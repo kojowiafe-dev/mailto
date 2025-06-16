@@ -7,44 +7,40 @@ import Contact from '../components/Contact'
 import { motion, useScroll } from 'framer-motion'
 
 const LandingPage = () => {
-
   const { scrollY } = useScroll()
   const [backgroundColor, setBackgroundColor] = useState('bg-transparent')
 
   useEffect(() => {
-    return scrollY.onChange((latest) => {
-      // Get the Features section position
+    const handleScroll = (latest) => {
       const featuresSection = document.getElementById('features')
-      if (featuresSection) {
-        const featuresTop = featuresSection.offsetTop
-        if (latest >= featuresTop - 100) {
-          setBackgroundColor('bg-black')
-        } else {
-          setBackgroundColor('bg-transparent')
-        }
+      const contactSection = document.getElementById('contact')
+
+      if (contactSection && latest >= contactSection.offsetTop - 100) {
+        setBackgroundColor('bg-white')
+      } else if (featuresSection && latest >= featuresSection.offsetTop - 100) {
+        setBackgroundColor('bg-black')
+      } else {
+        setBackgroundColor('bg-transparent')
       }
-    })
+    }
+
+    return scrollY.onChange(handleScroll)
   }, [scrollY])
 
   return (
-    <div>
-      
-      <motion.div className={`flex-1 text-center p-4 py-12 scroll-smooth overflow-hidden transition-colors duration-300 ${backgroundColor} min-h-screen flex flex-col`}>
-        <Hero />
-      
-        <div id='features'>
-          <Features />
-        </div>
-        
-        <Testimonials />
-
-        <Pricing />
-
-        <Contact />
-        
-      </motion.div>
-      {/* <Footer /> */}
-    </div>
+    <motion.div 
+      className={`flex-1 text-center p-4 py-12 scroll-smooth overflow-hidden transition-colors duration-300 ${backgroundColor} min-h-screen flex flex-col`}
+    >
+      <Hero />
+      <div id='features'>
+        <Features />
+      </div>
+      <Testimonials />
+      <Pricing />
+      <div id='contact'>
+        <Contact backgroundColor={backgroundColor} />
+      </div>
+    </motion.div>
   )
 }
 
