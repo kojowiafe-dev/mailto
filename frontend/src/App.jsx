@@ -28,10 +28,16 @@ function CustomRoutes () {
       path : '/index', element : <LandingPage />,
       children : [
         // {path: 'home', element: <Hero />},
-        {path : 'register', element : <Register />},
-        {path : 'login', element : <Login />},
+        // {path : 'register', element : <Register />},
+        // {path : 'login', element : <Login />},
         // {path : 'index', element : <Layout />},
       ]
+    },
+    {
+      path: '/register', element: <Register />
+    },
+    {
+      path: '/login', element: <Login />
     },
     {
       path: 'verify-email', element: <VerifyEmail />
