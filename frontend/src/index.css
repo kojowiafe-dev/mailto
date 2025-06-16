@@ -85,6 +85,10 @@ body {
     color: var(--button-color);
 }
 
+.dark {
+    background-color: var(--textColor);
+}
+
 .bg-button-color {
     background-color: var(--button-color);
 }
