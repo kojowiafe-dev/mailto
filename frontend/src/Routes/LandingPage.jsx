@@ -7,38 +7,38 @@ import Contact from '../components/Contact'
 import { Outlet, Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { gsap } from 'gsap'
+// import { gsap } from 'gsap'
 
 const LandingPage = () => {
-  const textRef = useRef(null);
-  const [linkClicked, setLinkClicked] = useState(false); // 👈 Track click state
+  // const textRef = useRef(null);
+  // const [linkClicked, setLinkClicked] = useState(false); // 👈 Track click state
 
-  useEffect(() => {
-    if (!linkClicked) {
-      gsap.fromTo(
-        textRef.current,
-        { y: 30, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          ease: "power2.out"
-        }
-      );
+  // useEffect(() => {
+  //   if (!linkClicked) {
+  //     gsap.fromTo(
+  //       textRef.current,
+  //       { y: 30, opacity: 0 },
+  //       {
+  //         y: 0,
+  //         opacity: 1,
+  //         duration: 1,
+  //         ease: "power2.out"
+  //       }
+  //     );
 
-      gsap.to(textRef.current, {
-        scale: 1.05,
-        duration: 1.2,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-    }
-  }, [linkClicked]); // 👈 re-run GSAP only if not clicked
+  //     gsap.to(textRef.current, {
+  //       scale: 1.05,
+  //       duration: 1.2,
+  //       repeat: -1,
+  //       yoyo: true,
+  //       ease: "sine.inOut"
+  //     });
+  //   }
+  // }, [linkClicked]); // 👈 re-run GSAP only if not clicked
 
-  const handleLinkClick = () => {
-    setLinkClicked(true); // 👈 hide the link
-  };
+  // const handleLinkClick = () => {
+  //   setLinkClicked(true); // 👈 hide the link
+  // };
 
   return (
     <div>
@@ -47,15 +47,15 @@ const LandingPage = () => {
         <Hero />
         <Outlet />
         
-        {!linkClicked && ( // 👈 show link only if not clicked
-          <Link to="/index" className="mb-8 inline-block" onClick={handleLinkClick} ref={textRef}>
+        {/* {!linkClicked && ( // 👈 show link only if not clicked
+          <Link to="/index" className="inline-block" onClick={handleLinkClick} ref={textRef}>
             <span
               className='cursor-pointer button-color text-base font-medium transition-all duration-500 tracking-wide'
             >
               Explore eventus ↓
             </span>
-          </Link>
-        )}
+          </Link> */}
+        {/* )} */}
         
       </div>
       {/* <Footer /> */}

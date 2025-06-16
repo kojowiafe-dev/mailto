@@ -16,9 +16,9 @@ const Contact = () => {
 
 
   return (
-    <div className='p-3' data-aos="fade-up">
-        <section id='contact' className='mb-0'>
-          <h3 className='text-3xl font-bold text-gray-900 mb-6'>Contact Us</h3>
+    <div data-aos="fade-up">
+        <section id='contact'>
+          <h3 className='text-3xl font-bold text-color mb-6'>Contact Us</h3>
 
           <form onSubmit={async(e) => {
             e.preventDefault();
