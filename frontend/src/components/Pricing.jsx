@@ -10,7 +10,7 @@ const Pricing = () => {
   return (
     <div className='p-3'>
         <section id='pricing' className='mb-20'>
-          <h3 data-aos="fade-left" className='text-3xl font-bold text-color mb-6'>Pricing</h3>
+          <h3 data-aos="fade-left" className='text-3xl font-bold text-btn-color mb-6'>Pricing</h3>
           <div className='grid md:grid-cols-3 gap-6 max-w-5xl mx-auto'>
             <div data-aos="fade-up" className='bg-gray-200 p-6 rounded-2xl shadow'>
               <h4 className='text-color text-xl font-bold mb-2'>Starter</h4>
@@ -21,7 +21,7 @@ const Pricing = () => {
                 <li>Email Support</li>
               </ul>
             </div>
-            <div data-aos="fade-right" className='nav-color p-6 rounded-2xl shadow-lg border-1 border-gray-600'>
+            <div data-aos="fade-right" className='nav-color p-6 rounded-2xl shadow-lg border-1 button-color'>
               <h4 className='text-gray-300 text-xl font-bold mb-2'>Pro</h4>
               <p className='button-color text-2xl font-extrabold mb-4'>$59/mo</p>
               <ul className='text-gray-50 space-y-2'>
