@@ -43,7 +43,7 @@ const LandingPage = () => {
   return (
     <div>
       {/* <Header /> */}
-      <div className='flex-1 text-center px-4 py-12'>
+      <div className='flex-1 text-center py-12'>
         <Hero />
         <Outlet />
         

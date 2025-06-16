@@ -27,10 +27,10 @@ export default function Footer() {
         <div>
           <h2 className="text-xl font-semibold mb-4">Follow Us</h2>
           <div className="flex space-x-4 text-2xl">
-            <a href="#" className="button-color"><FaFacebookF /></a>
-            <a href="#" className="button-color"><FaTwitter /></a>
-            <a href="#" className="button-color"><FaLinkedinIn /></a>
-            <a href="#" className="button-color"><FaInstagram /></a>
+            <a href="#" className="button-color cursor-pointer hover:scale-125 transition duration-200"><FaFacebookF /></a>
+            <a href="#" className="button-color cursor-pointer hover:scale-125 transition duration-200"><FaTwitter /></a>
+            <a href="#" className="button-color cursor-pointer hover:scale-125 transition duration-200"><FaLinkedinIn /></a>
+            <a href="#" className="button-color cursor-pointer hover:scale-125 transition duration-200"><FaInstagram /></a>
           </div>
         </div>
       </div>

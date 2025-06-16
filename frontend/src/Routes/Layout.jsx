@@ -10,7 +10,7 @@ import Menu from '../components/Menu'
 const Layout = () => {
   
   return (
-    <div className='flex-1 text-center pz-4 py-12 scroll-smooth overflow-hidden'>
+    <div className='flex-1 text-center p-4 py-12 scroll-smooth overflow-hidden bg-gray-500'>
         {/* <Hero /> */}
         <Features />
         <Testimonials />

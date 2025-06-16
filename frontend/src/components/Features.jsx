@@ -3,12 +3,18 @@ import AOS from 'aos'
 import 'aos/dist/aos.css' // You can also use <link> for styles
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+// import {gsap, ScrollTrigger} from 'gsap'
 
 const Features = () => {
 
   useEffect(() => {
     AOS.init({duration: 1000})
     // AOS.refresh()
+    // gsap.registerPlugin(ScrollTrigger)
+    // gsap.defaults({ease: "none", duration: 2})
+    // const tl = gsap.timeline();
+    // tl.from(".dark", {xPercent: -100})
+
   }, [])
   return (
     <div className='p-3 scroll-mt-24 relative z-0'>
