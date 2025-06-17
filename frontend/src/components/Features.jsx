@@ -5,21 +5,20 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 // import {gsap, ScrollTrigger} from 'gsap'
 
-const Features = () => {
+const Features = ({ backgroundColor }) => {
+  console.log('Features backgroundColor:', backgroundColor); // Debug log
+
+  const headerColor = backgroundColor === 'bg-transparent' ? 'text-black' : 'text-white';
+  console.log('headerColor:', headerColor); // Debug log
 
   useEffect(() => {
     AOS.init({duration: 1000})
-    // AOS.refresh()
-    // gsap.registerPlugin(ScrollTrigger)
-    // gsap.defaults({ease: "none", duration: 2})
-    // const tl = gsap.timeline();
-    // tl.from(".dark", {xPercent: -100})
 
   }, [])
   return (
     <div className='p-3 scroll-mt-24 relative z-0'>
         <section id='features' className='mb-20 pt-10'>
-          <h3 data-aos="fade-left" className='text-3xl font-bold text-btn-color mb-6'>Features</h3>
+          <h3 data-aos="fade-left" className={`text-3xl font-bold ${headerColor} mb-6`}>Features</h3>
           <div className='grid md:grid-cols-3 gap-6 max-w-5xl mx-auto'>
             <div data-aos="fade-up" className='bg-gray-200 p-6 rounded-2xl shadow'>
               <h4 className='text-color text-xl font-semibold mb-2'>Bold Design</h4>

@@ -34,7 +34,7 @@ const LandingPage = () => {
       >
         <Hero />
         <div id='features'>
-          <Features />
+          <Features backgroundColor={backgroundColor} />
         </div>
         <Testimonials />
         <Pricing />
