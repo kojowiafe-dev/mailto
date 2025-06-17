@@ -9,10 +9,12 @@ const Contact = ({ backgroundColor }) => {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
 
-    const textColor = backgroundColor === 'bg-white' ? 'text-gray-200' : 'text-gray-300';
-    const inputColor = backgroundColor === 'bg-white' ? 'bg-transparent' : 'button-color';
-    const formColor = backgroundColor === 'bg-white' ? 'nav-color' : 'bg-gray-200';
-    const headerColor = backgroundColor === 'bg-white' ? 'text-color' : 'text-white'
+    const textColor = backgroundColor === 'bg-white' ? 'text-gray-900' : 'text-gray-300';
+    const inputColor = backgroundColor === 'bg-white' ? 'bg-gray-100' : 'bg-gray-800';
+    const formColor = backgroundColor === 'bg-white' ? 'bg-white' : 'bg-gray-900';
+    const headerColor = backgroundColor === 'bg-white' ? 'text-gray-900' : 'text-white';
+    const borderColor = backgroundColor === 'bg-white' ? 'border-gray-300' : 'border-gray-600';
+    const placeholderColor = backgroundColor === 'bg-white' ? 'placeholder-gray-500' : 'placeholder-gray-400';
 
     useEffect(() => {
       AOS.init({ duration: 1000 })
@@ -67,15 +69,38 @@ const Contact = ({ backgroundColor }) => {
                 }
               })
             }
-          }} action="" className={`max-w-xl mx-auto ${formColor} p-6 rounded-2xl shadow space-y-4 border-1 border-gray-600`}>
+          }} action="" className={`max-w-xl mx-auto ${formColor} p-6 rounded-2xl shadow space-y-4 border-1 ${borderColor}`}>
 
-            <input type="text" placeholder='Your Name' className={`border-b w-full p-3 rounded-md ${inputColor} ${textColor} outline-0`} value={name} onChange={(e) => setName(e.target.value)} />
+            <input 
+              type="text" 
+              placeholder='Your Name' 
+              className={`border-b w-full p-3 rounded-md ${inputColor} ${textColor} ${placeholderColor} outline-0 focus:border-blue-500 transition-colors duration-300`} 
+              value={name} 
+              onChange={(e) => setName(e.target.value)} 
+            />
 
-            <input type="email" placeholder='Your Email' className={`border-b w-full p-3 rounded-md ${inputColor} ${textColor} outline-0`} value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input 
+              type="email" 
+              placeholder='Your Email' 
+              className={`border-b w-full p-3 rounded-md ${inputColor} ${textColor} ${placeholderColor} outline-0 focus:border-blue-500 transition-colors duration-300`} 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+            />
 
-            <textarea placeholder='Your Message' rows='4' className={`border-b w-full p-3 rounded-md ${inputColor} ${textColor} outline-0`} value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
+            <textarea 
+              placeholder='Your Message' 
+              rows='4' 
+              className={`border-b w-full p-3 rounded-md ${inputColor} ${textColor} ${placeholderColor} outline-0 focus:border-blue-500 transition-colors duration-300`} 
+              value={message} 
+              onChange={(e) => setMessage(e.target.value)}
+            ></textarea>
 
-            <button type='submit' className='bg-button-color text-btn-color hover:bg-gray-800 font-bold py-2 px-4 rounded-xl border-gray-600 border-1 cursor-pointer'>Send Message</button>
+            <button 
+              type='submit' 
+              className='bg-button-color text-btn-color hover:bg-gray-800 font-bold py-2 px-4 rounded-xl border-gray-600 border-1 cursor-pointer transition-colors duration-300'
+            >
+              Send Message
+            </button>
           </form>
         </section>
         <ToastContainer position='top-right' transition={Bounce} autoClose={2000} theme='dark' toastClassName={() => "bg-slate-800 text-white px-6 py-4 rounded-xl shadow-lg animate-slide-in"} bodyClassName={() => "text-sm font-medium"}/>
