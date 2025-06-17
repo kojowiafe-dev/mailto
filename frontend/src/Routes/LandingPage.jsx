@@ -28,19 +28,22 @@ const LandingPage = () => {
   }, [scrollY])
 
   return (
-    <motion.div 
-      className={`flex-1 text-center p-4 py-12 scroll-smooth overflow-hidden transition-colors duration-300 ${backgroundColor} min-h-screen flex flex-col`}
-    >
-      <Hero />
-      <div id='features'>
-        <Features />
-      </div>
-      <Testimonials />
-      <Pricing />
-      <div id='contact'>
-        <Contact backgroundColor={backgroundColor} />
-      </div>
-    </motion.div>
+    <div className="flex flex-col min-h-screen">
+      <motion.div 
+        className={`flex-1 text-center p-4 py-12 scroll-smooth overflow-hidden transition-colors duration-300 ${backgroundColor}`}
+      >
+        <Hero />
+        <div id='features'>
+          <Features />
+        </div>
+        <Testimonials />
+        <Pricing />
+        <div id='contact'>
+          <Contact backgroundColor={backgroundColor} />
+        </div>
+      </motion.div>
+      {/* <Footer /> */}
+    </div>
   )
 }
 

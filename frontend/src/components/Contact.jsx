@@ -9,8 +9,10 @@ const Contact = ({ backgroundColor }) => {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
 
-    const textColor = backgroundColor === 'bg-white' ? 'text-gray-900' : 'text-gray-300';
-    const inputColor = backgroundColor === 'bg-white' ? 'bg-gray-100' : 'button-color';
+    const textColor = backgroundColor === 'bg-white' ? 'text-gray-200' : 'text-gray-300';
+    const inputColor = backgroundColor === 'bg-white' ? 'bg-transparent' : 'button-color';
+    const formColor = backgroundColor === 'bg-white' ? 'nav-color' : 'bg-gray-200';
+    const headerColor = backgroundColor === 'bg-white' ? 'text-color' : 'text-white'
 
     useEffect(() => {
       AOS.init({ duration: 1000 })
@@ -19,7 +21,7 @@ const Contact = ({ backgroundColor }) => {
   return (
     <div data-aos="fade-up">
         <section id='contact'>
-          <h3 className={`text-3xl font-bold ${textColor} mb-6`}>Contact Us</h3>
+          <h3 className={`text-3xl font-bold ${headerColor} mb-6`}>Contact Us</h3>
 
           <form onSubmit={async(e) => {
             e.preventDefault();
@@ -65,13 +67,13 @@ const Contact = ({ backgroundColor }) => {
                 }
               })
             }
-          }} action="" className='max-w-xl mx-auto nav-color p-6 rounded-2xl shadow space-y-4 border-1 border-gray-600'>
+          }} action="" className={`max-w-xl mx-auto ${formColor} p-6 rounded-2xl shadow space-y-4 border-1 border-gray-600`}>
 
-            <input type="text" placeholder='Your Name' className={`border-b w-full p-3 rounded-md ${inputColor} outline-0`} value={name} onChange={(e) => setName(e.target.value)} />
+            <input type="text" placeholder='Your Name' className={`border-b w-full p-3 rounded-md ${inputColor} ${textColor} outline-0`} value={name} onChange={(e) => setName(e.target.value)} />
 
-            <input type="email" placeholder='Your Email' className={`border-b w-full p-3 rounded-md ${inputColor} outline-0`} value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input type="email" placeholder='Your Email' className={`border-b w-full p-3 rounded-md ${inputColor} ${textColor} outline-0`} value={email} onChange={(e) => setEmail(e.target.value)} />
 
-            <textarea placeholder='Your Message' rows='4' className={`border-b w-full p-3 rounded-md ${inputColor} outline-0`} value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
+            <textarea placeholder='Your Message' rows='4' className={`border-b w-full p-3 rounded-md ${inputColor} ${textColor} outline-0`} value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
 
             <button type='submit' className='bg-button-color text-btn-color hover:bg-gray-800 font-bold py-2 px-4 rounded-xl border-gray-600 border-1 cursor-pointer'>Send Message</button>
           </form>

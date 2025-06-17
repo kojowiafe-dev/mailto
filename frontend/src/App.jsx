@@ -25,7 +25,7 @@ function CustomRoutes () {
     //   path: '/home', element: <Hero />
     // },
     {
-      path : '/index', element : <LandingPage />,
+      path : '/', element : <LandingPage />,
       children : [
         // {path: 'home', element: <Hero />},
         // {path : 'register', element : <Register />},
