@@ -2,7 +2,7 @@ import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/f
 
 export default function Footer() {
   return (
-    <footer className="nav-color backdrop-blur-md text-white px-6 py-10 md:px-20">
+    <footer className="nav-color backdrop-blur-md text-white px-6 py-10 md:px-20 sticky mb-0">
       <div className="grid md:grid-cols-3 gap-10 pt-6 border-t border-gray-700">
         {/* Branding */}
         <div>
