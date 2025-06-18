@@ -37,6 +37,9 @@ function CustomRoutes () {
       path: '/register', element: <Register />
     },
     {
+      path: '/forgot-password', element: <NotFoundPage />
+    },
+    {
       path: '/login', element: <Login />
     },
     {
