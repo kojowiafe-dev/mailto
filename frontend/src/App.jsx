@@ -16,6 +16,7 @@ import VerifyEmail from './Routes/VerifyEmail'
 import Hero from './components/Hero'
 import UseWindowResize from './components/use-window-resize'
 import { motion } from 'framer-motion'
+import ForgotPassword from './Routes/ForgotPassword'
 
 
 function CustomRoutes () {
@@ -37,7 +38,7 @@ function CustomRoutes () {
       path: '/register', element: <Register />
     },
     {
-      path: '/forgot-password', element: <NotFoundPage />
+      path: '/forgot-password', element: <ForgotPassword />
     },
     {
       path: '/login', element: <Login />

@@ -90,7 +90,7 @@ const Login = () => {
             }}
           />
         </div>
-        <a href='#' className='text-gray-200 text-sm underline my-2'>Forgot Password?</a>
+        <a href='/forgot-password' className='text-gray-200 text-sm underline my-2'>Forgot Password?</a>
         <h4 className='text-gray-200'>Don't have an account? <Link to='/register' className='underline button-color'>Register</Link></h4>
         <Link to="/" className='button-color flex gap-2 items-center justify-center'>
           Explore Eventus
