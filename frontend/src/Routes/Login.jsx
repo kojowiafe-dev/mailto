@@ -5,7 +5,7 @@ import 'react-toastify/ReactToastify.css'
 import AOS from 'aos';
 import api from '../components/api';
 import { GoogleLogin } from '@react-oauth/google';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaHome } from 'react-icons/fa';
 
 const Login = () => {
 
@@ -92,6 +92,10 @@ const Login = () => {
         </div>
         <a href='#' className='text-gray-200 text-sm underline my-2'>Forgot Password?</a>
         <h4 className='text-gray-200'>Don't have an account? <Link to='/register' className='underline button-color'>Register</Link></h4>
+        <Link to="/" className='button-color flex gap-2 items-center justify-center'>
+          Explore Eventus
+          <FaHome />
+        </Link>
     </form>
     <ToastContainer position='top-right' transition={Bounce} autoClose={2000} theme='dark' toastClassName={() => "bg-slate-800 text-white px-6 py-4 rounded-xl shadow-lg animate-slide-in"} bodyClassName={() => "text-sm font-medium"}/>
     </div>
