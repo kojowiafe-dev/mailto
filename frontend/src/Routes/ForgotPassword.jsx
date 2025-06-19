@@ -98,13 +98,16 @@ const ForgotPassword = () => {
 
         <button
           type="submit"
-          className="bg-button-color text-color font-bold py-2 px-4 rounded-xl my-2 cursor-pointer transition duration-200"
+          className="bg-button-color text-white font-bold py-2 px-4 rounded-xl my-2 cursor-pointer hover:scale-105 transition-all duration-200 ease-in-out"
         >
           Submit
         </button>
-        <Link to="/login">
+        <Link
+          to="/login"
+          className="button-color flex gap-2 items-center justify-center hover:gap-3 transition-all duration-300 ease-in-out hover:scale-105 group self-center"
+        >
           Go to Login
-          <FaSignOutAlt />
+          <FaSignOutAlt className="opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-in-out" />
         </Link>
       </form>
 
