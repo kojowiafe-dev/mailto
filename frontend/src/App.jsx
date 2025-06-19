@@ -10,6 +10,7 @@ import VerifyEmail from './Routes/VerifyEmail';
 import UseWindowResize from './components/use-window-resize';
 import { motion } from 'framer-motion';
 import ForgotPassword from './Routes/ForgotPassword';
+import Admin from './Admin/main';
 
 function CustomRoutes() {
   const element = useRoutes([
@@ -32,6 +33,10 @@ function CustomRoutes() {
     {
       path: 'verify-email',
       element: <VerifyEmail />,
+    },
+    {
+      path: 'admin',
+      element: <Admin />,
     },
     {
       path: '*',
