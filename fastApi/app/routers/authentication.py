@@ -81,22 +81,21 @@ async def verify_code(data: schemas.VerifyResetCodeRequest):
 
 
 @router.post("/reset-password")
-async def reset_password(session:database.SessionLocal, data: schemas.ResetPasswordRequest):
-    entry = (
-        session.query(models.PasswordResetCode)
-        .filter(models.PasswordResetCode.email == data.email,
-                models.PasswordResetCode.code == data.code)
-        .order_by(models.PasswordResetCode.created_at.desc())
-        .first()
-    )
-    if not entry or entry.expires_at < datetime.utcnow():
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invald or expired code")
+async def reset_password(data: schemas.ResetPasswordTokenRequest, session: database.SessionLocal):
+    email = r.get(f"reset_token:{data.reset_token}")
     
-    user = session.query(models.User).filter(models.User.email == data.email).first()
+    if not email:
+        raise HTTPException(status_code=400, detail="Invalid or expired reset token")
+    
+    user = session.query(models.User).filter(models.User.email == email).first()
+    
     if not user:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+        raise HTTPException(status_code=404, detail="User not found")
     
-    hashed_pw = hashing.pwd_cxt.hash(data.new_password)
-    user.password = hashed_pw
+    user.password = hashing.pwd_cxt.hash(data.new_password)
     session.commit()
+    
+    # Clean up token after use
+    r.delete(f"reset_token:{data.reset_token}")
+    
     return {"msg": "Password reset successful"}

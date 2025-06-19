@@ -69,7 +69,6 @@ class VerifyResetCodeRequest(SQLModel):
     code: str
 
 
-class ResetPasswordRequest(SQLModel):
-    email: EmailStr
-    code: str
+class ResetPasswordTokenRequest(SQLModel):
+    reset_token: str
     new_password: str
