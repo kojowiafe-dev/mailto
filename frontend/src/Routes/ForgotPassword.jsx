@@ -16,7 +16,7 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/forgot-password', { email });
+      const response = await api.post('/auth/forgot-password', { email });
       console.log(response.data);
     } catch (error) {
       console.log(error.response.data);
