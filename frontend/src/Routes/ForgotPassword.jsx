@@ -100,7 +100,7 @@ const ForgotPassword = () => {
           type="submit"
           className="bg-button-color text-white font-bold py-2 px-4 rounded-xl my-2 cursor-pointer hover:scale-105 transition-all duration-200 ease-in-out"
         >
-          Submit
+          Send Code
         </button>
         <Link
           to="/login"

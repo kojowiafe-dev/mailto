@@ -6,7 +6,7 @@ import { useRoutes } from 'react-router-dom';
 import LandingPage from './Routes/LandingPage';
 import NotFoundPage from './Routes/NotFoundPage';
 import Footer from './components/Footer';
-import VerifyEmail from './Routes/VerifyEmail';
+import VerifyCode from './Routes/VerifyCode';
 import UseWindowResize from './components/use-window-resize';
 import { motion } from 'framer-motion';
 import ForgotPassword from './Routes/ForgotPassword';
@@ -32,7 +32,7 @@ function CustomRoutes() {
     },
     {
       path: 'verify-email',
-      element: <VerifyEmail />,
+      element: <VerifyCode />,
     },
     {
       path: 'admin',
