@@ -75,7 +75,8 @@ async def forgot_password(
 async def verify_reset_code(data: schemas.VerifyResetCodeRequest, session: database.SessionLocal):
     entry = (
         session.query(models.PasswordResetCode)
-        .filter(models.PasswordResetCode.code == data.code)
+        .filter(models.PasswordResetCode.email == data.email, 
+                models.PasswordResetCode.code == data.code)
         .order_by(models.PasswordResetCode.created_at.desc())
         .first()
     )

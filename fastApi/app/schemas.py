@@ -65,10 +65,11 @@ class ForgotPasswordRequest(SQLModel):
 
 
 class VerifyResetCodeRequest(SQLModel):
-    # email: EmailStr
+    email: EmailStr
     code: str
 
 
 class ResetPasswordRequest(SQLModel):
+    email: EmailStr
+    code: str
     new_password: str
-    confirm_password: str
