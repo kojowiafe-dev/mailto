@@ -56,5 +56,5 @@ async def forgot_password(session: database.SessionLocal, email: EmailStr):
     
     token = token_access.create_reset_token(email)
     reset_link = f"http://192.168.73.92:5173/reset-password?token={token}"
-    await mail.send_email(email, "Reset your password", f"Click here to reset: {reset_link}")
+    await mail.send_verification_email(email, "Reset your password", f"Click here to reset: {reset_link}")
     return {"msg": "Password reset link sent"}
