@@ -7,6 +7,7 @@ from sqlmodel import Session
 from datetime import timedelta
 from . import mail
 from pydantic import EmailStr, BaseModel
+from utils import otp
 
 
 router = APIRouter(
@@ -46,25 +47,32 @@ def login(request: schemas.UserLogin, session: Annotated[Session, Depends(get_se
     return schemas.Token(access_token=access_token, token_type='bearer')
 
 
-class ForgotPasswordRequest(BaseModel):
-    email: EmailStr
-
-
 @router.post("/forgot-password")
 async def forgot_password(
-    request: ForgotPasswordRequest,
+    request: schemas.ForgotPasswordRequest,
     session: database.SessionLocal
 ):
     email = request.email
-    # user = session.query(models.User).filter(models.User.email == email).first()
 
     if not email:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Email not found")
     
-    token = token_access.create_reset_token(email)
-    reset_link = f"http://192.168.73.92:5173/reset-password?token={token}"
-    await mail.send_verification_email(email, "Reset your password", f"Click here to reset: {reset_link}")
-    return {"msg": "Password reset link sent"}
+    code = otp.generate_otp()
+    expires_at = otp.get_expiry()
+
+    reset_entry = models.PasswordResetCode(
+        email = email,
+        code = code,
+        expires_at=expires_at
+    )
+    
+    # token = token_access.create_reset_token(email)
+    # reset_link = f"http://192.168.73.92:5173/reset-password?token={token}"
+    session.add(reset_entry)
+    session.commit()
+
+    await mail.send_verification_email(email, "Your password reset code", f"Your OTP is: {code}")
+    return {"msg": "OTP sent to email"}
 
 
 
