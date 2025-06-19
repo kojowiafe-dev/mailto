@@ -36,8 +36,8 @@ async def create_user(request: schemas.UserCreate, session: database.SessionLoca
     session.refresh(user)
 
     # Create verification token and send email
-    token = token_access.create_reset_token(user.email)
-    await send_verification_email(user.email, token)
+    # token = token_access.create_reset_token(user.email)
+    # await send_verification_email(user.email, token)
 
 
     return user
