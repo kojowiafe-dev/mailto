@@ -66,24 +66,6 @@ const App = () => {
         EVENTUS
       </motion.h1>
 
-      {/* <motion.h1
-        style={{
-          y,
-          fontSize: window.innerWidth < 800 ? '80px' : '180px',
-          writingMode: window.innerWidth < 800 ? 'vertical-rl' : 'horizontal-tb',
-          textOrientation: 'mixed',
-          position: 'fixed',
-          top: '50%',
-          right: '50%',
-          transform: 'translate(-50%, -50%)',
-          pointerEvents: 'none',
-          zIndex: 0,
-        }}
-        className="sticky top-20 text-gray-400/15 font-bold text-[180px] select-none pointer-events-none z-0"
-      >
-        EVENTUS
-      </motion.h1> */}
-
       <CustomRoutes />
 
       <Footer />
