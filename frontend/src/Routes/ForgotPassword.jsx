@@ -42,14 +42,14 @@ const ForgotPassword = () => {
           } else {
             try {
               handleSubmit();
-              toast.success('Registration successful', {
+              toast.success('OTP sent to email', {
                 style: {
                   background: '#000',
                   color: '#fff',
                   transition: 'all 0.3s ease-in-out',
                 },
               });
-              navigate('/login');
+              navigate('/verify-email');
               setEmail('');
             } catch (error) {
               if (error.response) {
@@ -57,14 +57,14 @@ const ForgotPassword = () => {
                 const detail = error.response.data.detail;
 
                 if (status === 400 && detail.includes('Email')) {
-                  toast.error('Email already registered!', {
+                  toast.error('Email not found!', {
                     style: {
                       background: '#000',
                       color: '#fff',
                     },
                   });
                 } else {
-                  toast.error('Registration failed😥', {
+                  toast.error('OTP not sent😥', {
                     style: {
                       background: '#000',
                       color: '#fff',

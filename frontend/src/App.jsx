@@ -31,11 +31,11 @@ function CustomRoutes() {
       element: <Login />,
     },
     {
-      path: 'verify-email',
+      path: '/verify-email',
       element: <VerifyCode />,
     },
     {
-      path: 'admin',
+      path: '/admin',
       element: <Admin />,
     },
     {
