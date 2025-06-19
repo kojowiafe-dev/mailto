@@ -7,6 +7,9 @@ from datetime import datetime, timedelta
 from . import mail
 from pydantic import EmailStr, BaseModel
 from utils import otp
+from utils.redis_client import r
+import random
+from datetime import timedelta
 
 
 router = APIRouter(
@@ -44,31 +47,20 @@ def login(request: schemas.UserLogin, session: Annotated[Session, Depends(get_se
 
 
 @router.post("/forgot-password")
-async def forgot_password(
-    request: schemas.ForgotPasswordRequest,
-    session: database.SessionLocal
-):
+async def forgot_password(request: schemas.ForgotPasswordRequest, session: database.SessionLocal):
     email = request.email
-
-    # Check if the email exists in the User table
     user = session.query(models.User).filter(models.User.email == email).first()
+    
     if not user:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Email not found")
+        raise HTTPException(status_code=404, detail="User not found")
     
-    code = otp.generate_otp()
-    expires_at = otp.get_expiry()
-
-    reset_entry = models.PasswordResetCode(
-        email = email,
-        code = code,
-        expires_at=expires_at
-    )
+    otp_code = otp.generate_otp()
     
-    session.add(reset_entry)
-    session.commit()
-
-    await mail.send_verification_email(email, "Your password reset code", f"Your OTP is: {code}")
-    return {"msg": "OTP sent to email"}
+    # Save OTP in Redis with 5-minute expiry
+    r.setex(f"otp:{email}", timedelta(minutes=5), otp_code)
+    
+    await mail.send_verification_email(email, "Reset your password", f"Your OTP is: {otp_code}")
+    return {"msg": "OTP sent to your email"}
 
 
 @router.post("/verify-reset-code")
