@@ -17,7 +17,6 @@ router = APIRouter(
 )
 
 async def send_verification_email(email: str, token: str, content: str):
-    # link = f"http://localhost:5173/verify-email?token={token}"
     message = EmailMessage()
     message["Subject"] = "Verify your email"
     message["From"] = "wiafejeremiah@gmail.com"

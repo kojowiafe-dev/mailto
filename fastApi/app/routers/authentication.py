@@ -1,13 +1,11 @@
 from typing import Annotated
 from fastapi import APIRouter, HTTPException, status, Depends
 # from fastapi.security import OAuth2PasswordRequestForm
-import database, models, hashing, schemas
+import database, models, hashing, schemas, token_access
 from database import get_session
 from sqlmodel import Session
 from datetime import timedelta
-import schemas.embedding_functions
-import token_access
-import mail
+from . import mail
 from pydantic import EmailStr
 
 
