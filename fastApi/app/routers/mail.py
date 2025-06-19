@@ -17,19 +17,19 @@ router = APIRouter(
 )
 
 
-def create_verification_token(email: str):
-    expire: datetime = datetime.utcnow() + timedelta(hours=24)
-    payload = {"sub": email, "exp": expire}
-    return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
+# def create_verification_token(email: str):
+#     expire: datetime = datetime.utcnow() + timedelta(hours=24)
+#     payload = {"sub": email, "exp": expire}
+#     return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
 
-async def send_verification_email(email: str, token: str):
-    link = f"http://localhost:5173/verify-email?token={token}"
+async def send_verification_email(email: str, token: str, content: str):
+    # link = f"http://localhost:5173/verify-email?token={token}"
     message = EmailMessage()
     message["Subject"] = "Verify your email"
     message["From"] = "wiafejeremiah@gmail.com"
     message["To"] = email
-    message.set_content(f"Click this link to verify your email: {link}")
+    message.set_content(content)
 
     try:
         await aiosmtplib.send(message, hostname="smtp.gmail.com", port=587, start_tls=True, username="wiafejeremiah@gmail.com", password="KingOfGlory1$")
