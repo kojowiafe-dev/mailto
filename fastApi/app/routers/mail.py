@@ -4,6 +4,7 @@ from fastapi import HTTPException, status, APIRouter, Depends
 from email.message import EmailMessage
 import aiosmtplib
 import database, models
+import smtplib
 
 
 SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
@@ -24,7 +25,10 @@ async def send_verification_email(email: str, token: str, content: str):
     message.set_content(content)
 
     try:
-        await aiosmtplib.send(message, hostname="smtp.gmail.com", port=587, start_tls=True, username="wiafejeremiah@gmail.com", password="KingOfGlory1$")
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            server.starttls()
+            server.login("wiafejeremiah@gmail.com", "zqga oluc lyyx tkdq")
+            server.send_message(message)
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail='Email not sent')
     
