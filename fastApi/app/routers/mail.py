@@ -16,13 +16,6 @@ router = APIRouter(
     tags=['Mail']
 )
 
-
-# def create_verification_token(email: str):
-#     expire: datetime = datetime.utcnow() + timedelta(hours=24)
-#     payload = {"sub": email, "exp": expire}
-#     return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
-
-
 async def send_verification_email(email: str, token: str, content: str):
     # link = f"http://localhost:5173/verify-email?token={token}"
     message = EmailMessage()
