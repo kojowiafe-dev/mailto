@@ -1,6 +1,5 @@
 from typing import Annotated
 from fastapi import APIRouter, HTTPException, status, Depends
-# from fastapi.security import OAuth2PasswordRequestForm
 import database, models, hashing, schemas, token_access
 from database import get_session
 from sqlmodel import Session
@@ -35,10 +34,7 @@ def login(request: schemas.UserLogin, session: Annotated[Session, Depends(get_se
     user = authenticate_user(session, request.username, request.password)
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='User not found')
-    # if not user.is_verified:
-    #     raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Please verify your email before logging in")
-
-    # generate a jwt token and return it
+    
     access_token_expires = timedelta(minutes=token_access.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = token_access.create_access_token(
         data={"sub": user.username},
@@ -68,8 +64,6 @@ async def forgot_password(
         expires_at=expires_at
     )
     
-    # token = token_access.create_reset_token(email)
-    # reset_link = f"http://192.168.73.92:5173/reset-password?token={token}"
     session.add(reset_entry)
     session.commit()
 
