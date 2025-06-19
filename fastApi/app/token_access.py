@@ -30,5 +30,17 @@ def verify_access_token(token: str, credentials_exception):
     if email is None:
         raise credentials_exception
     token_data = schemas.TokenData(email=email)
-    # except InvalidTokenError:
-    #     raise credentials_exception
+
+
+def create_reset_token(email: str):
+    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    to_encode = {"sub": email, "exp": expire}
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+
+def verify_reset_token(token: str):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return payload.get("sub")
+    except Exception:
+        return None

@@ -44,19 +44,3 @@ def login(request: schemas.UserLogin, session: Annotated[Session, Depends(get_se
         expires_delta=access_token_expires
     )
     return schemas.Token(access_token=access_token, token_type='bearer')
-
-
-
-# @router.post('/forgot-password', response_model=schemas.Message, status_code=status.HTTP_200_OK)
-# def forgot_password(request: schemas.ForgotPassword, session: Annotated[Session, Depends(get_session)]):
-#     user = get_user(session, request.email)
-#     if not user:
-#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='User not found')
-    
-#     # send an email to the user with a link to reset the password
-#     email = request.email
-#     subject = 'Reset your password'
-#     message = f'Click the link to reset your password: {request.reset_password_link}'
-#     send_email(email, subject, message)
-#     # print(email, subject, message)
-#     return schemas.Message(message='Email sent successfully')
