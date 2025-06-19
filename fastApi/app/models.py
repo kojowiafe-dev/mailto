@@ -1,4 +1,5 @@
 from sqlmodel import SQLModel, Field
+from typing import Optional
 from datetime import datetime
 
 ### This file contains the models for the application.
@@ -24,3 +25,10 @@ class User(SQLModel, table=True):
     is_verified: bool = Field(index=True, nullable=False, default=False)
     created_at: datetime = Field(default_factory=datetime.utcnow, nullable=False)
 
+
+class PasswordResetCode(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    email: str
+    code: str
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    expires_at: datetime
