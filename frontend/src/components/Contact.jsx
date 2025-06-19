@@ -130,6 +130,12 @@ const Contact = ({ backgroundColor }) => {
             width: auto !important;
             pointer-events: none;
           }
+          .Toastify__toast-body {
+            display: flex !important;
+            align-items: center !important;
+            white-space: nowrap !important;
+            gap: 0.5rem;
+          }
         `}</style>
     </div>
   );
