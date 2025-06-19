@@ -4,7 +4,7 @@ from fastapi import APIRouter, HTTPException, status, Depends
 import database, models, hashing, schemas, token_access
 from database import get_session
 from sqlmodel import Session
-from datetime import timedelta
+from datetime import datetime, timedelta
 from . import mail
 from pydantic import EmailStr, BaseModel
 from utils import otp
@@ -73,6 +73,22 @@ async def forgot_password(
 
     await mail.send_verification_email(email, "Your password reset code", f"Your OTP is: {code}")
     return {"msg": "OTP sent to email"}
+
+
+@router.post("/verify-reset-code")
+def verify_reset_code(data: schemas.VerifyResetCodeRequest, session: database.SessionLocal):
+    entry = (
+        session.query(models.PasswordResetCode)
+        .filter(models.PasswordResetCode.email == data.email, 
+                models.PasswordResetCode.code == data.code)
+        .order_by(models.PasswordResetCode.created_at.desc())
+        .first()
+    )
+
+    if not entry or entry.expires_at < datetime.utcnow():
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid or expired code")
+    
+    return {"msg": "Code verified"}
 
 
 
