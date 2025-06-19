@@ -6,7 +6,7 @@ from database import get_session
 from sqlmodel import Session
 from datetime import timedelta
 from . import mail
-from pydantic import EmailStr
+from pydantic import EmailStr, BaseModel
 
 
 router = APIRouter(
@@ -46,12 +46,20 @@ def login(request: schemas.UserLogin, session: Annotated[Session, Depends(get_se
     return schemas.Token(access_token=access_token, token_type='bearer')
 
 
-@router.post("/forgot-password")
-async def forgot_password(session: database.SessionLocal, email: EmailStr):
-    user = session.query(models.User).filter(models.User.email == email).first()
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
 
-    if not user:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+
+@router.post("/forgot-password")
+async def forgot_password(
+    request: ForgotPasswordRequest,
+    session: database.SessionLocal
+):
+    email = request.email
+    # user = session.query(models.User).filter(models.User.email == email).first()
+
+    if not email:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Email not found")
     
     token = token_access.create_reset_token(email)
     reset_link = f"http://192.168.73.92:5173/reset-password?token={token}"

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status
 import schemas, database, models, hashing, token_access
-from routers.mail import create_verification_token, send_verification_email
+from routers.mail import send_verification_email
 
 router = APIRouter(
     tags= ['Register'],
