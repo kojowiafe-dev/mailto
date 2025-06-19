@@ -10,6 +10,7 @@ from utils import otp
 from utils.redis_client import r
 import random
 from datetime import timedelta
+import secrets
 
 
 router = APIRouter(
@@ -64,20 +65,19 @@ async def forgot_password(request: schemas.ForgotPasswordRequest, session: datab
 
 
 @router.post("/verify-reset-code")
-async def verify_reset_code(data: schemas.VerifyResetCodeRequest, session: database.SessionLocal):
-    entry = (
-        session.query(models.PasswordResetCode)
-        .filter(models.PasswordResetCode.email == data.email, 
-                models.PasswordResetCode.code == data.code)
-        .order_by(models.PasswordResetCode.created_at.desc())
-        .first()
-    )
-
-    if not entry or entry.expires_at < datetime.utcnow():
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid or expired code")
+async def verify_code(data: schemas.VerifyResetCodeRequest):
+    stored_otp = r.get(f"otp:{data.email}")
     
-    return {"msg": "Code verified"}
-
+    if not stored_otp or stored_otp != data.code:
+        raise HTTPException(status_code=400, detail="Invalid or expired OTP")
+    
+    # OTP is valid – delete it and issue short session token
+    r.delete(f"otp:{data.email}")
+    
+    session_token = secrets.token_urlsafe(16)  # shorter than 32 chars
+    r.setex(f"reset_token:{session_token}", timedelta(minutes=10), data.email)
+    
+    return {"reset_token": session_token}
 
 
 @router.post("/reset-password")
