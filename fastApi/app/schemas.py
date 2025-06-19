@@ -1,5 +1,6 @@
 from datetime import datetime
 from sqlmodel import SQLModel, Field
+from pydantic import EmailStr
 
 
 
@@ -56,4 +57,19 @@ class TokenData(SQLModel):
 
 class ResetPasswordSchema(SQLModel):
     token: str
+    new_password: str
+
+
+class ForgotPasswordRequest(SQLModel):
+    email: EmailStr
+
+
+class VerifyResetCodeRequest(SQLModel):
+    email: EmailStr
+    code: str
+
+
+class ResetPasswordRequest(SQLModel):
+    email: EmailStr
+    code: str
     new_password: str
