@@ -104,7 +104,7 @@ const ForgotPassword = () => {
         </button>
         <Link
           to="/login"
-          className="button-color flex gap-2 items-center justify-center hover:gap-3 transition-all duration-300 ease-in-out hover:scale-105 group self-center"
+          className="button-color flex gap-2 items-center justify-center hover:gap-3 transition-all duration-300 ease-in-out hover:scale-105 group self-center pl-6"
         >
           Go to Login
           <FaSignOutAlt className="opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-in-out" />
