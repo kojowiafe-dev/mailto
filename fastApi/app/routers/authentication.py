@@ -54,7 +54,9 @@ async def forgot_password(
 ):
     email = request.email
 
-    if not email:
+    # Check if the email exists in the User table
+    user = session.query(models.User).filter(models.User.email == email).first()
+    if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Email not found")
     
     code = otp.generate_otp()
