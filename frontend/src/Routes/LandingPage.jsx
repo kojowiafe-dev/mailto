@@ -19,7 +19,7 @@ const LandingPage = () => {
       if (contactSection && latest >= contactSection.offsetTop - 100) {
         setBackgroundColor('bg-gray-100');
       } else if (featuresSection && latest >= featuresSection.offsetTop - 100) {
-        setBackgroundColor('bg-black');
+        setBackgroundColor('background');
       } else {
         setBackgroundColor('bg-gray-100');
       }
@@ -31,7 +31,7 @@ const LandingPage = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <div
-        className={`flex-1 text-center p-4 py-12 scroll-smooth overflow-hidden transition-colors duration-300 ${backgroundColor}`}
+        className={`flex-1 text-center p-4 py-12 scroll-smooth overflow-hidden transition-colors duration-300 ${backgroundColor === 'background' ? 'background' : backgroundColor}`}
       >
         <Hero />
         <div id="features">

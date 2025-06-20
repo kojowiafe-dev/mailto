@@ -1,132 +1,162 @@
 @import 'tailwindcss';
 
-
 @font-face {
-    font-family: 'Poppins';
-    src: url('./myFonts/Poppins-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
+  font-family: 'Poppins';
+  src: url('./myFonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Poppins';
-    src: url('./myFonts/Poppins-Medium.ttf') format('truetype');
-    font-weight: 500;
-    font-style: normal;
+  font-family: 'Poppins';
+  src: url('./myFonts/Poppins-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Poppins';
-    src: url('./myFonts/Poppins-SemiBold.ttf') format('truetype');
-    font-weight: 600;
-    font-style: normal;
+  font-family: 'Poppins';
+  src: url('./myFonts/Poppins-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Poppins';
-    src: url('./myFonts/Poppins-Bold.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
+  font-family: 'Poppins';
+  src: url('./myFonts/Poppins-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
+.background {
+  background: #050e1f;
+  background-image:
+    radial-gradient(
+      circle at 25% 15%,
+      rgba(255, 255, 255, 0.03) 0%,
+      rgba(255, 255, 255, 0.2) 5%,
+      transparent 5%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(255, 255, 255, 0.03) 0%,
+      rgba(255, 255, 255, 0.2) 5%,
+      transparent 5%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 65% 60%,
+      rgba(255, 255, 255, 0.03) 0%,
+      rgba(255, 255, 255, 0.2) 5%,
+      transparent 5%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 75% 20%,
+      rgba(255, 255, 255, 0.03) 0%,
+      rgba(255, 255, 255, 0.2) 5%,
+      transparent 5%,
+      transparent 100%
+    );
+}
 
 @keyframes slide-in {
-    from {
-        /* transform: translateX(100%); */
-        /* opacity: 0; */
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
+  from {
+    /* transform: translateX(100%); */
+    /* opacity: 0; */
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .animate-slide-in {
-    animation: slide-in 0.4s ease-out forwards;
+  animation: slide-in 0.4s ease-out forwards;
 }
 
-
 @keyframes animate {
-    40%, 60% {
-        left: calc(100% + 4px);
-    }
-    100% {
-        left: 0%;
-    }
+  40%,
+  60% {
+    left: calc(100% + 4px);
+  }
+  100% {
+    left: 0%;
+  }
 }
 
 @media (max-width: 768px) {
-    .textName {
-        -webkit-box-reflect: below -47px linear-gradient(transparent, rgba(255, 255, 255, 0.4));
-    }
+  .textName {
+    -webkit-box-reflect: below -47px linear-gradient(transparent, rgba(255, 255, 255, 0.4));
+  }
 }
 @media (max-width: 640px) {
-    .textName {
-        -webkit-box-reflect: below -50px linear-gradient(transparent, rgba(255, 255, 255, 0.4));
-    }
+  .textName {
+    -webkit-box-reflect: below -50px linear-gradient(transparent, rgba(255, 255, 255, 0.4));
+  }
 }
 
-
 @theme {
-    --button-color: #1e90ff;
-    --deepblue-500: #023047;
-    --amber-500: #fb8500;
-    --alabaster-500: #e0e1dd;
-    /* --textColor: #763626; */
-    --textColor: #2e2e2e;
-    --background-color: #f5f7fa;
+  --button-color: #1e90ff;
+  --deepblue-500: #023047;
+  --amber-500: #fb8500;
+  --alabaster-500: #e0e1dd;
+  /* --textColor: #763626; */
+  --textColor: #2e2e2e;
+  --background-color: #f5f7fa;
 }
 
 .button-color {
-    color: var(--button-color);
+  color: var(--button-color);
 }
 
 .dark {
-    background-color: var(--textColor);
+  background-color: var(--textColor);
 }
 
 .bg-button-color {
-    background-color: var(--button-color);
+  background-color: var(--button-color);
 }
 
 .nav-color {
-    background-color: var(--textColor);
+  background-color: var(--textColor);
 }
 
 .bg-color {
-    background-color: var(--background-color);
+  background-color: var(--background-color);
 }
 
 .text-btn-color {
-    color: var(--background-color);
+  color: var(--background-color);
 }
 
 .text-color {
-    color: var(--textColor);
+  color: var(--textColor);
 }
 
 .bg-deepblue {
-    background-color: var(--deepblue-500);
+  background-color: var(--deepblue-500);
 }
 
 .bg-amber {
-    background-color: var(--amber-500);
+  background-color: var(--amber-500);
 }
 
 .text-alabaster {
-    color: var(--alabaster-500);
+  color: var(--alabaster-500);
 }
 
 .text-amber {
-    color: var(--amber-500);
+  color: var(--amber-500);
 }
 
 @utility container {
-    padding: 20px;
-    max-width: 1280px;
-    margin: auto;
+  padding: 20px;
+  max-width: 1280px;
+  margin: auto;
 }
