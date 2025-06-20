@@ -2,7 +2,6 @@ from jose import JWTError, jwt
 from datetime import datetime, timedelta
 from fastapi import HTTPException, status, APIRouter, Depends
 from email.message import EmailMessage
-import aiosmtplib
 import database, models
 import smtplib
 
@@ -17,9 +16,9 @@ router = APIRouter(
     tags=['Mail']
 )
 
-async def send_verification_email(email: str, content: str):
+def send_verification_email(email: str, subject: str, content: str):
     message = EmailMessage()
-    message["Subject"] = "Verify your email"
+    message["Subject"] = subject
     message["From"] = "wiafejeremiah@gmail.com"
     message["To"] = email
     message.set_content(content)
@@ -27,10 +26,10 @@ async def send_verification_email(email: str, content: str):
     try:
         with smtplib.SMTP("smtp.gmail.com", 587) as server:
             server.starttls()
-            server.login("wiafejeremiah@gmail.com", "zqga oluc lyyx tkdq")
+            server.login("wiafejeremiah@gmail.com", "moid yxus tial suwd")
             server.send_message(message)
     except Exception as e:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail='Email not sent')
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f'Email not sent: {str(e)}')
     
 
 @router.get('/verify-email')
