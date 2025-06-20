@@ -63,6 +63,7 @@ body {
       transparent 5%,
       transparent 100%
     );
+  background-attachment: fixed;
 }
 
 @keyframes slide-in {
