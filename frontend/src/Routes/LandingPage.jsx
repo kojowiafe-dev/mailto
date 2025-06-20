@@ -4,7 +4,8 @@ import Features from '../components/Features';
 import Testimonials from '../components/Testimonials';
 import Pricing from '../components/Pricing';
 import Contact from '../components/Contact';
-import { motion, useScroll } from 'framer-motion';
+import { useScroll } from 'framer-motion';
+import video from '../assets/motion.mp4';
 
 const LandingPage = () => {
   const { scrollY } = useScroll();
@@ -29,19 +30,31 @@ const LandingPage = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <motion.div
+      <div
         className={`flex-1 text-center p-4 py-12 scroll-smooth overflow-hidden transition-colors duration-300 ${backgroundColor}`}
       >
         <Hero />
         <div id="features">
           <Features backgroundColor={backgroundColor} />
         </div>
+        <div className="absolute inset-0 overflow-hidden z-10">
+          <video
+            className=""
+            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: '0.8' }}
+            autoPlay
+            muted
+            loop
+          >
+            <source src={video} type="video/mp4" />
+          </video>
+          {/* <div className="absolute inset-0 bg-black/60"></div> */}
+        </div>
         <Testimonials />
         <Pricing />
         <div id="contact">
           <Contact backgroundColor={backgroundColor} />
         </div>
-      </motion.div>
+      </div>
       {/* <Footer /> */}
     </div>
   );
