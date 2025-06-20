@@ -7,6 +7,7 @@ import AOS from 'aos';
 import api from '../components/api';
 import { GoogleLogin } from '@react-oauth/google';
 import { FaEye, FaEyeSlash, FaHome, FaUserPlus } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -27,7 +28,10 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-white to-blue-200">
-      <form
+      <motion.form
+        initial={{ opacity: 0, y: 100 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ type: 'spring', stiffness: 100, damping: 10, delay: 0.5 }}
         onSubmit={async (e) => {
           e.preventDefault();
           if (!username || !email || !password) {
@@ -104,7 +108,7 @@ const Register = () => {
           }
         }}
         action=""
-        className="w-full max-w-md mx-auto bg-white rounded-3xl shadow-2xl p-10 flex flex-col items-center space-y-7 border border-blue-100"
+        className="w-full max-w-md mx-auto bg-white rounded-3xl shadow-2xl p-10 flex flex-col items-center space-y-7 border border-blue-100 z-20"
       >
         <div className="flex flex-col items-center mb-2">
           <div className="bg-blue-100 p-4 rounded-full mb-2 shadow">
@@ -195,7 +199,7 @@ const Register = () => {
           }
           bodyClassName={() => 'text-sm font-medium'}
         />
-      </form>
+      </motion.form>
     </div>
   );
 };
