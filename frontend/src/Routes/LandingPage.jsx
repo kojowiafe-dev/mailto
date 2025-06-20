@@ -40,7 +40,7 @@ const LandingPage = () => {
         <div className="absolute inset-0 overflow-hidden z-10">
           <video
             className=""
-            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: '0.8' }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: '0.9' }}
             autoPlay
             muted
             loop
