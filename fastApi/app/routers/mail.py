@@ -16,7 +16,7 @@ router = APIRouter(
     tags=['Mail']
 )
 
-def send_verification_email(email: str, subject: str, content: str):
+async def send_verification_email(email: str, subject: str, content: str):
     message = EmailMessage()
     message["Subject"] = subject
     message["From"] = "wiafejeremiah@gmail.com"
