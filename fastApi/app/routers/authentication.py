@@ -7,10 +7,8 @@ from datetime import datetime, timedelta
 from . import mail
 from pydantic import EmailStr, BaseModel
 from utils import otp
-from utils.redis_client import r
-import random
 from datetime import timedelta
-import secrets
+import logging
 
 
 router = APIRouter(
@@ -50,28 +48,60 @@ def login(request: schemas.UserLogin, session: Annotated[Session, Depends(get_se
 @router.post("/forgot-password")
 async def forgot_password(
     request: schemas.ForgotPasswordRequest,
-    session: database.SessionLocal
+    session: Session = Depends(get_session)
 ):
     email = request.email
 
-    # Check if the email exists in the User table
+    # Check if user exists
     user = session.query(models.User).filter(models.User.email == email).first()
     if not user:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Email not found")
-    
-    code = otp.generate_otp()
-    expires_at = otp.get_expiry()
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Email not found"
+        )
 
-    reset_entry = models.PasswordResetCode(
-        email = email,
-        code = code,
-        expires_at=expires_at
-    )
-    
-    session.add(reset_entry)
-    session.commit()
+    # Generate OTP and expiry
+    try:
+        code = otp.generate_otp()
+        expires_at = otp.get_expiry()
+    except Exception as e:
+        logging.error(f"Error generating OTP: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error generating OTP: {str(e)}"
+        )
 
-    await mail.send_verification_email(email, "Your password reset code", f"Your OTP is: {code}")
+    # Save OTP to DB
+    try:
+        reset_entry = models.PasswordResetCode(
+            email=email,
+            code=code,
+            expires_at=expires_at
+        )
+        session.add(reset_entry)
+        session.commit()
+    except Exception as e:
+        session.rollback()
+        logging.error(f"Database error: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Database error: {str(e)}"
+        )
+
+    # Send OTP via email
+    try:
+        await mail.send_verification_email(
+            email,
+            "Your password reset code",
+            f"Your OTP is: {code}"
+        )
+    except Exception as e:
+        logging.error(f"Failed to send email: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to send email: {str(e)}"
+        )
+
     return {"msg": "OTP sent to email"}
 
 
