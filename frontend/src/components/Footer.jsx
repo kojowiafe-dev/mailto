@@ -1,4 +1,4 @@
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa";
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
 
 export default function Footer() {
   return (
@@ -16,21 +16,73 @@ export default function Footer() {
         <div>
           <h2 className="text-xl font-semibold mb-4">Quick Links</h2>
           <ul className="space-y-2 text-gray-400">
-            <li><a href="#" className="hover:button-color">Home</a></li>
-            <li><a href="#" className="hover:button-color">Services</a></li>
-            <li><a href="#" className="hover:button-color">About</a></li>
-            <li><a href="#" className="hover:button-color">Contact</a></li>
+            <li>
+              <a href="#" className="hover:button-color">
+                Home
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:button-color">
+                Services
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:button-color">
+                About
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:button-color">
+                Contact
+              </a>
+            </li>
           </ul>
         </div>
 
         {/* Social Media */}
         <div>
           <h2 className="text-xl font-semibold mb-4">Follow Us</h2>
-          <div className="flex space-x-4 text-2xl">
-            <a href="#" className="button-color cursor-pointer hover:scale-125 transition duration-200"><FaFacebookF /></a>
-            <a href="#" className="button-color cursor-pointer hover:scale-125 transition duration-200"><FaTwitter /></a>
-            <a href="#" className="button-color cursor-pointer hover:scale-125 transition duration-200"><FaLinkedinIn /></a>
-            <a href="#" className="button-color cursor-pointer hover:scale-125 transition duration-200"><FaInstagram /></a>
+          <div className="inline-block p-2">
+            <marquee behavior="" direction="">
+              <ul className="flex space-x-4 text-2xl">
+                <li className="button-color cursor-pointer hover:scale-125 transition duration-200">
+                  <FaFacebookF />
+                </li>
+                <li className="button-color cursor-pointer hover:scale-125 transition duration-200">
+                  <FaTwitter />
+                </li>
+                <li className="button-color cursor-pointer hover:scale-125 transition duration-200">
+                  <FaLinkedinIn />
+                </li>
+                <li className="button-color cursor-pointer hover:scale-125 transition duration-200">
+                  <FaInstagram />
+                </li>
+              </ul>
+            </marquee>
+            {/* <a
+              href="#"
+              className="button-color cursor-pointer hover:scale-125 transition duration-200"
+            >
+              <FaFacebookF />
+            </a>
+            <a
+              href="#"
+              className="button-color cursor-pointer hover:scale-125 transition duration-200"
+            >
+              <FaTwitter />
+            </a>
+            <a
+              href="#"
+              className="button-color cursor-pointer hover:scale-125 transition duration-200"
+            >
+              <FaLinkedinIn />
+            </a>
+            <a
+              href="#"
+              className="button-color cursor-pointer hover:scale-125 transition duration-200"
+            >
+              <FaInstagram />
+            </a> */}
           </div>
         </div>
       </div>
