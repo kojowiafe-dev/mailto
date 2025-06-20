@@ -49,7 +49,7 @@ const LandingPage = () => {
           </video>
           {/* <div className="absolute inset-0 bg-black/60"></div> */}
         </div>
-        <Testimonials />
+        <Testimonials backgroundColor={backgroundColor} />
         <Pricing />
         <div id="contact">
           <Contact backgroundColor={backgroundColor} />

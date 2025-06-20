@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const Features = ({ backgroundColor }) => {
   // console.log('Features backgroundColor:', backgroundColor); // Debug log
 
-  const headerColor = backgroundColor === 'bg-gray-100' ? 'text-black' : 'text-white';
+  const headerColor = backgroundColor === 'bg-gray-100' ? 'text-black/50' : 'text-white';
   // console.log('headerColor:', headerColor); // Debug log
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const Features = ({ backgroundColor }) => {
     <div className="p-3 scroll-mt-24 relative z-0">
       <section id="features" className="mb-20 pt-10">
         <h3 data-aos="fade-left" className={`text-3xl font-bold ${headerColor} mb-6`}>
-          Features
+          What we do
         </h3>
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           <div data-aos="fade-up" className="bg-gray-200 p-6 rounded-2xl shadow">
