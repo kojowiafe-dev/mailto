@@ -9,7 +9,7 @@ import video from '../assets/motion.mp4';
 
 const LandingPage = () => {
   const { scrollY } = useScroll();
-  const [backgroundColor, setBackgroundColor] = useState('bg-gray-200');
+  const [backgroundColor, setBackgroundColor] = useState('bg-gray-100');
 
   useEffect(() => {
     const handleScroll = (latest) => {
@@ -17,11 +17,11 @@ const LandingPage = () => {
       const contactSection = document.getElementById('contact');
 
       if (contactSection && latest >= contactSection.offsetTop - 100) {
-        setBackgroundColor('bg-gray-200');
+        setBackgroundColor('bg-gray-100');
       } else if (featuresSection && latest >= featuresSection.offsetTop - 100) {
         setBackgroundColor('bg-black');
       } else {
-        setBackgroundColor('bg-gray-200');
+        setBackgroundColor('bg-gray-100');
       }
     };
 
