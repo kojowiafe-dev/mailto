@@ -48,7 +48,7 @@ def login(request: schemas.UserLogin, session: Annotated[Session, Depends(get_se
 @router.post("/forgot-password")
 async def forgot_password(
     request: schemas.ForgotPasswordRequest,
-    session: Session = Depends(get_session)
+    session: database.SessionLocal
 ):
     email = request.email
 
