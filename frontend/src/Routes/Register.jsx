@@ -8,6 +8,7 @@ import api from '../components/api';
 import { GoogleLogin } from '@react-oauth/google';
 import { FaEye, FaEyeSlash, FaHome, FaUserPlus } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import video from '../assets/motion.mp4';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -27,7 +28,20 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-white to-blue-200">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Video background */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        style={{ opacity: 0.7 }}
+        autoPlay
+        muted
+        loop
+      >
+        <source src={video} type="video/mp4" />
+      </video>
+      {/* Overlay for readability */}
+      {/* <div className="absolute inset-0 bg-white/60 backdrop-blur-sm z-10" /> */}
+      {/* Form content */}
       <motion.form
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
@@ -108,7 +122,7 @@ const Register = () => {
           }
         }}
         action=""
-        className="w-full max-w-md mx-auto bg-white rounded-3xl shadow-2xl p-10 flex flex-col items-center space-y-7 border border-blue-100 z-20"
+        className="w-full max-w-md mx-auto bg-white rounded-3xl shadow-2xl p-10 flex flex-col items-center space-y-7 border border-blue-100 z-20 relative"
       >
         <div className="flex flex-col items-center mb-2">
           <div className="bg-blue-100 p-4 rounded-full mb-2 shadow">
