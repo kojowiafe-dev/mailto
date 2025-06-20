@@ -48,54 +48,66 @@ def login(request: schemas.UserLogin, session: Annotated[Session, Depends(get_se
 
 
 @router.post("/forgot-password")
-async def forgot_password(request: schemas.ForgotPasswordRequest, session: database.SessionLocal):
+async def forgot_password(
+    request: schemas.ForgotPasswordRequest,
+    session: database.SessionLocal
+):
     email = request.email
+
+    # Check if the email exists in the User table
     user = session.query(models.User).filter(models.User.email == email).first()
-    
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Email not found")
     
-    otp_code = otp.generate_otp()
+    code = otp.generate_otp()
+    expires_at = otp.get_expiry()
+
+    reset_entry = models.PasswordResetCode(
+        email = email,
+        code = code,
+        expires_at=expires_at
+    )
     
-    # Save OTP in Redis with 5-minute expiry
-    r.setex(f"otp:{email}", timedelta(minutes=5), otp_code)
-    
-    await mail.send_verification_email(email, "Reset your password", f"Your OTP is: {otp_code}")
-    return {"msg": "OTP sent to your email"}
+    session.add(reset_entry)
+    session.commit()
+
+    await mail.send_verification_email(email, "Your password reset code", f"Your OTP is: {code}")
+    return {"msg": "OTP sent to email"}
 
 
 @router.post("/verify-reset-code")
-async def verify_code(data: schemas.VerifyResetCodeRequest):
-    stored_otp = r.get(f"otp:{data.email}")
+async def verify_reset_code(data: schemas.VerifyResetCodeRequest, session: database.SessionLocal):
+    entry = (
+        session.query(models.PasswordResetCode)
+        .filter(models.PasswordResetCode.email == data.email, 
+                models.PasswordResetCode.code == data.code)
+        .order_by(models.PasswordResetCode.created_at.desc())
+        .first()
+    )
+
+    if not entry or entry.expires_at < datetime.utcnow():
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid or expired code")
     
-    if not stored_otp or stored_otp != data.code:
-        raise HTTPException(status_code=400, detail="Invalid or expired OTP")
-    
-    # OTP is valid – delete it and issue short session token
-    r.delete(f"otp:{data.email}")
-    
-    session_token = secrets.token_urlsafe(16)  # shorter than 32 chars
-    r.setex(f"reset_token:{session_token}", timedelta(minutes=10), data.email)
-    
-    return {"reset_token": session_token}
+    return {"msg": "Code verified"}
 
 
 @router.post("/reset-password")
-async def reset_password(data: schemas.ResetPasswordTokenRequest, session: database.SessionLocal):
-    email = r.get(f"reset_token:{data.reset_token}")
+async def reset_password(session:database.SessionLocal, data: schemas.ResetPasswordRequest):
+    entry = (
+        session.query(models.PasswordResetCode)
+        .filter(models.PasswordResetCode.email == data.email,
+                models.PasswordResetCode.code == data.code)
+        .order_by(models.PasswordResetCode.created_at.desc())
+        .first()
+    )
+    if not entry or entry.expires_at < datetime.utcnow():
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invald or expired code")
     
-    if not email:
-        raise HTTPException(status_code=400, detail="Invalid or expired reset token")
-    
-    user = session.query(models.User).filter(models.User.email == email).first()
-    
+    user = session.query(models.User).filter(models.User.email == data.email).first()
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     
-    user.password = hashing.pwd_cxt.hash(data.new_password)
+    hashed_pw = hashing.pwd_cxt.hash(data.new_password)
+    user.password = hashed_pw
     session.commit()
-    
-    # Clean up token after use
-    r.delete(f"reset_token:{data.reset_token}")
-    
     return {"msg": "Password reset successful"}
