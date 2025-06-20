@@ -1,50 +1,50 @@
-import React, { useState, useEffect } from 'react'
-import Hero from '../components/Hero'
-import Features from '../components/Features'
-import Testimonials from '../components/Testimonials'
-import Pricing from '../components/Pricing'
-import Contact from '../components/Contact'
-import { motion, useScroll } from 'framer-motion'
+import React, { useState, useEffect } from 'react';
+import Hero from '../components/Hero';
+import Features from '../components/Features';
+import Testimonials from '../components/Testimonials';
+import Pricing from '../components/Pricing';
+import Contact from '../components/Contact';
+import { motion, useScroll } from 'framer-motion';
 
 const LandingPage = () => {
-  const { scrollY } = useScroll()
-  const [backgroundColor, setBackgroundColor] = useState('bg-transparent')
+  const { scrollY } = useScroll();
+  const [backgroundColor, setBackgroundColor] = useState('bg-gray-200');
 
   useEffect(() => {
     const handleScroll = (latest) => {
-      const featuresSection = document.getElementById('features')
-      const contactSection = document.getElementById('contact')
+      const featuresSection = document.getElementById('features');
+      const contactSection = document.getElementById('contact');
 
       if (contactSection && latest >= contactSection.offsetTop - 100) {
-        setBackgroundColor('bg-white')
+        setBackgroundColor('bg-gray-200');
       } else if (featuresSection && latest >= featuresSection.offsetTop - 100) {
-        setBackgroundColor('bg-black')
+        setBackgroundColor('bg-black');
       } else {
-        setBackgroundColor('bg-transparent')
+        setBackgroundColor('bg-gray-200');
       }
-    }
+    };
 
-    return scrollY.onChange(handleScroll)
-  }, [scrollY])
+    return scrollY.onChange(handleScroll);
+  }, [scrollY]);
 
   return (
     <div className="flex flex-col min-h-screen">
-      <motion.div 
+      <motion.div
         className={`flex-1 text-center p-4 py-12 scroll-smooth overflow-hidden transition-colors duration-300 ${backgroundColor}`}
       >
         <Hero />
-        <div id='features'>
+        <div id="features">
           <Features backgroundColor={backgroundColor} />
         </div>
         <Testimonials />
         <Pricing />
-        <div id='contact'>
+        <div id="contact">
           <Contact backgroundColor={backgroundColor} />
         </div>
       </motion.div>
       {/* <Footer /> */}
     </div>
-  )
-}
+  );
+};
 
-export default LandingPage
+export default LandingPage;

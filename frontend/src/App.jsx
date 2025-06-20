@@ -8,7 +8,7 @@ import NotFoundPage from './Routes/NotFoundPage';
 import Footer from './components/Footer';
 import VerifyCode from './Routes/VerifyCode';
 import UseWindowResize from './components/use-window-resize';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import ForgotPassword from './Routes/ForgotPassword';
 import Admin from './Admin/main';
 
@@ -47,10 +47,9 @@ function CustomRoutes() {
 }
 
 const App = () => {
-  // const { scrollY } = useScroll()
-  // const y = useTransform(scrollY, [0, 500], [0, 100])
-
   const windowSize = UseWindowResize();
+  const { scrollY } = useScroll();
+  const x = useTransform(scrollY, [0, 500], [0, 400]);
   return (
     <div className="min-h-screen flex flex-col background-color text-gray-950 overflow-visible">
       <Header />
@@ -58,8 +57,9 @@ const App = () => {
         initial={{ opacity: 0, x: 100 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ type: 'spring', stiffness: 100, damping: 10, delay: 0.7 }}
-        className="fixed z-0 pointer-events-none select-none font-bold text-gray-300/50"
+        className="fixed z-0 pointer-events-none select-none font-bold text-gray-400/70"
         style={{
+          x,
           top: windowSize.width < 800 ? '20%' : '60%',
           left: '0%',
           transform: 'translate(-50%, -50%)',
