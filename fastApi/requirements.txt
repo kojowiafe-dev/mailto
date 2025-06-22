@@ -6,12 +6,11 @@ bcrypt
 python-jose
 passlib
 gunicorn
-sqlmodel
-timescaledb
+sqlmodel>=0.0.22
+timescaledb==0.0.1
 requests
 python-decouple
 psycopg[binary]
 python-dotenv
 fastapi-mail
-fastapi-authlib
 jinja2
