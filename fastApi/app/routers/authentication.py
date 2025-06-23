@@ -107,18 +107,26 @@ async def forgot_password(
 
 @router.post("/verify-reset-code")
 async def verify_reset_code(data: schemas.VerifyResetCodeRequest, session: database.SessionLocal):
+    if not data.code.isdigit() or len(data.code) != 6:
+        raise HTTPException(status_code=400, detail="Code must be a 6-digit number")
+
     entry = (
         session.query(models.PasswordResetCode)
-        .filter(models.PasswordResetCode.email == data.email, 
+        .filter(models.PasswordResetCode.email == data.email,
                 models.PasswordResetCode.code == data.code)
         .order_by(models.PasswordResetCode.created_at.desc())
         .first()
     )
 
     if not entry or entry.expires_at < datetime.utcnow():
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid or expired code")
-    
-    return {"msg": "Code verified"}
+        raise HTTPException(status_code=400, detail="Invalid or expired code")
+
+    # Mark as verified
+    entry.verified = True
+    session.commit()
+
+    return {"msg": "Code verified successfully"}
+
 
 
 @router.post("/reset-password")
