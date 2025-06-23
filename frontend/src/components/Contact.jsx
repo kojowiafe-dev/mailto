@@ -20,7 +20,7 @@ const Contact = () => {
         initial={{ opacity: 0, y: 60 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ type: 'spring', stiffness: 100, damping: 14, delay: 0.2 }}
-        className="w-full max-w-lg mx-auto bg-white rounded-3xl shadow-2xl border border-blue-100 p-0 overflow-hidden"
+        className="w-full max-w-lg mx-auto bg-white rounded-3xl shadow-2xl border border-blue-100 p-0 overflow-hidden z-99"
       >
         {/* Blue accent bar */}
         <div className="h-2 bg-gradient-to-r from-blue-500 to-blue-700 w-full mb-0" />
