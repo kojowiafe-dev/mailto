@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { FaStar } from 'react-icons/fa';
 
 const Testimonials = ({ backgroundColor }) => {
   const headerColor = backgroundColor === 'bg-gray-100' ? 'text-black/50' : 'text-white';
   const carouselRef = useRef(null);
   const intervalRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [activeTestimonial, setActiveTestimonial] = useState(null);
 
   const testimonials = [
     {
@@ -15,6 +17,7 @@ const Testimonials = ({ backgroundColor }) => {
       name: 'Alex Johnson',
       position: 'CEO of TechWave',
       avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+      rating: 5,
     },
     {
       id: 2,
@@ -22,6 +25,7 @@ const Testimonials = ({ backgroundColor }) => {
       name: 'Maria Lopez',
       position: 'Founder of Bloom & Co.',
       avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
+      rating: 4,
     },
     {
       id: 3,
@@ -29,6 +33,7 @@ const Testimonials = ({ backgroundColor }) => {
       name: 'Samuel Green',
       position: 'Product Manager at Nova',
       avatar: 'https://randomuser.me/api/portraits/men/76.jpg',
+      rating: 5,
     },
     {
       id: 4,
@@ -36,6 +41,7 @@ const Testimonials = ({ backgroundColor }) => {
       name: 'Priya Singh',
       position: 'Marketing Lead at Zenith',
       avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
+      rating: 4,
     },
     {
       id: 5,
@@ -43,6 +49,7 @@ const Testimonials = ({ backgroundColor }) => {
       name: 'Liam Chen',
       position: 'Creative Director at PixelForge',
       avatar: 'https://randomuser.me/api/portraits/men/45.jpg',
+      rating: 5,
     },
   ];
 
@@ -61,18 +68,21 @@ const Testimonials = ({ backgroundColor }) => {
     const startScrolling = () => {
       intervalRef.current = setInterval(() => {
         if (!carousel || isHovered) return;
-
         carousel.scrollLeft += scrollAmount;
         if (carousel.scrollLeft >= carousel.scrollWidth / 2) {
           carousel.scrollLeft = 0;
         }
-      }, 16); // ~60 FPS
+      }, 16);
     };
 
     startScrolling();
-
     return () => clearInterval(intervalRef.current);
   }, [isHovered]);
+
+  const renderStars = (count) =>
+    Array.from({ length: 5 }, (_, i) => (
+      <FaStar key={i} className={i < count ? 'text-yellow-400' : 'text-gray-600'} />
+    ));
 
   return (
     <div className="p-4 relative">
@@ -102,11 +112,13 @@ const Testimonials = ({ backgroundColor }) => {
             {duplicatedTestimonials.map((data, idx) => (
               <div
                 key={idx}
-                className="min-w-[320px] max-w-xs bg-neutral-800 p-6 rounded-2xl shadow-md border border-neutral-700 flex-shrink-0 transition-transform duration-300 hover:scale-105"
+                onClick={() => setActiveTestimonial(data)}
+                className="min-w-[320px] max-w-xs bg-neutral-800 p-6 rounded-2xl shadow-md border border-neutral-700 flex-shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer"
                 style={{ opacity: 0.95 }}
               >
-                <p className="text-gray-300 italic text-lg mb-4">"{data.info}"</p>
-                <div className="flex items-center space-x-3 mt-4">
+                <p className="text-gray-300 italic text-lg mb-3 line-clamp-3">"{data.info}"</p>
+                <div className="flex space-x-1 mb-2">{renderStars(data.rating)}</div>
+                <div className="flex items-center space-x-3 mt-2">
                   <img
                     src={data.avatar}
                     alt={data.name}
@@ -121,6 +133,33 @@ const Testimonials = ({ backgroundColor }) => {
             ))}
           </div>
         </div>
+
+        {/* Modal */}
+        {activeTestimonial && (
+          <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+            <div className="bg-neutral-900 max-w-md w-full rounded-2xl p-6 relative text-white shadow-xl border border-gray-700">
+              <button
+                onClick={() => setActiveTestimonial(null)}
+                className="absolute top-3 right-3 text-gray-300 hover:text-red-400 text-2xl"
+              >
+                &times;
+              </button>
+              <div className="flex items-center mb-4 space-x-4">
+                <img
+                  src={activeTestimonial.avatar}
+                  alt={activeTestimonial.name}
+                  className="w-12 h-12 rounded-full border border-gray-500"
+                />
+                <div>
+                  <p className="font-bold text-lg">{activeTestimonial.name}</p>
+                  <p className="text-sm text-gray-400">{activeTestimonial.position}</p>
+                  <div className="flex mt-1">{renderStars(activeTestimonial.rating)}</div>
+                </div>
+              </div>
+              <p className="italic text-gray-300">"{activeTestimonial.info}"</p>
+            </div>
+          </div>
+        )}
       </section>
     </div>
   );
