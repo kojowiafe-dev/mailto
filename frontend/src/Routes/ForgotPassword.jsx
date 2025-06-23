@@ -54,7 +54,7 @@ const ForgotPassword = () => {
                 color: '#fff',
               },
             });
-            navigate('/verify-email');
+            navigate('/verify-code');
             setEmail('');
           } catch (error) {
             if (error.response) {
