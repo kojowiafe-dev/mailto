@@ -27,8 +27,11 @@ class User(SQLModel, table=True):
 
 
 class PasswordResetCode(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    email: str
-    code: str
+    __tablename__ = "password_reset_codes"
+
+    id: Optional[int] = Field(default=None, primary_key=True, index=True)
+    email: str = Field(nullable=False)
+    code: str = Field(nullable=False, max_length=6)
+    expires_at: datetime = Field(nullable=False)
     created_at: datetime = Field(default_factory=datetime.utcnow)
-    expires_at: datetime
+    verified: bool = Field(default=False)
