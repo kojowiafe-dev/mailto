@@ -1,10 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Testimonials = ({ backgroundColor }) => {
   const headerColor = backgroundColor === 'bg-gray-100' ? 'text-black/50' : 'text-white';
+  const carouselRef = useRef(null);
+  const intervalRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const Testimony = [
+  const testimonials = [
     {
       id: 1,
       info: 'Eventus completely transformed our business presence online. Highly recommended!',
@@ -37,65 +41,67 @@ const Testimonials = ({ backgroundColor }) => {
     },
   ];
 
-  const carouselRef = useRef(null);
+  const duplicatedTestimonials = [...testimonials, ...testimonials];
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
 
-  // Infinite auto-scroll effect
   useEffect(() => {
     const carousel = carouselRef.current;
-    let animationFrame;
-    let scrollAmount = 0.5; // speed
+    if (!carousel) return;
 
-    function scroll() {
-      if (carousel) {
+    const scrollAmount = 0.5;
+
+    const startScrolling = () => {
+      intervalRef.current = setInterval(() => {
+        if (!carousel || isHovered) return;
+
         carousel.scrollLeft += scrollAmount;
-        // Loop back to start for infinite effect
         if (carousel.scrollLeft >= carousel.scrollWidth / 2) {
           carousel.scrollLeft = 0;
         }
-      }
-      animationFrame = requestAnimationFrame(scroll);
-    }
-    animationFrame = requestAnimationFrame(scroll);
-    return () => cancelAnimationFrame(animationFrame);
-  }, []);
+      }, 16); // ~60 FPS
+    };
 
-  // Duplicate testimonials for seamless infinite scroll
-  const testimonialsToShow = [...Testimony, ...Testimony];
+    startScrolling();
+
+    return () => clearInterval(intervalRef.current);
+  }, [isHovered]);
 
   return (
-    <div className="p-3 relative">
+    <div className="p-4 relative">
       <section id="testimonials" className="mb-20">
         <h3 data-aos="fade-left" className={`text-3xl font-bold ${headerColor} mb-6`}>
           Testimonials
         </h3>
-        <div className="relative max-w-4xl mx-auto">
+        <div className="relative max-w-6xl mx-auto">
           {/* Blur edges */}
           <div
-            className="pointer-events-none absolute left-0 top-0 h-full w-16 z-20"
-            style={{ background: 'linear-gradient(to right, #18181b 70%, transparent)' }}
+            className="pointer-events-none absolute left-0 top-0 h-full w-24 z-20"
+            style={{ background: 'linear-gradient(to right, rgba(24,24,27,1), rgba(24,24,27,0))' }}
           />
           <div
-            className="pointer-events-none absolute right-0 top-0 h-full w-16 z-20"
-            style={{ background: 'linear-gradient(to left, #18181b 70%, transparent)' }}
+            className="pointer-events-none absolute right-0 top-0 h-full w-24 z-20"
+            style={{ background: 'linear-gradient(to left, rgba(24,24,27,1), rgba(24,24,27,0))' }}
           />
+
           {/* Carousel */}
           <div
             ref={carouselRef}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
             className="flex space-x-6 overflow-x-hidden scroll-smooth py-2"
             style={{ scrollbarWidth: 'none' }}
           >
-            {testimonialsToShow.map((data, idx) => (
+            {duplicatedTestimonials.map((data, idx) => (
               <div
                 key={idx}
-                className="min-w-[320px] max-w-xs nav-color p-6 rounded-2xl shadow border-1 button-color flex-shrink-0 transition-transform duration-300 hover:scale-105"
+                className="min-w-[320px] max-w-xs bg-neutral-800 p-6 rounded-2xl shadow-md border border-neutral-700 flex-shrink-0 transform transition-transform duration-300 hover:scale-105"
                 style={{ opacity: 0.95 }}
               >
                 <p className="text-gray-300 italic text-lg">"{data.info}"</p>
-                <p className="mt-4 font-bold button-color text-base">
+                <p className="mt-4 font-bold text-sm text-gray-200">
                   - {data.name}, {data.position}
                 </p>
               </div>
