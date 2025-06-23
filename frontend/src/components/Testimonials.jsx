@@ -10,6 +10,7 @@ const Testimonials = ({ backgroundColor }) => {
   const intervalRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(null);
+  const modalRef = useRef(null); // ref for modal content
 
   const testimonials = [
     {
@@ -80,6 +81,21 @@ const Testimonials = ({ backgroundColor }) => {
     return () => clearInterval(intervalRef.current);
   }, [isHovered]);
 
+  // Close modal when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setActiveTestimonial(null);
+      }
+    };
+
+    if (activeTestimonial) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [activeTestimonial]);
+
   const renderStars = (count) =>
     Array.from({ length: 5 }, (_, i) => (
       <FaStar key={i} className={i < count ? 'text-yellow-400' : 'text-gray-600'} />
@@ -139,6 +155,7 @@ const Testimonials = ({ backgroundColor }) => {
               className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
             >
               <motion.div
+                ref={modalRef}
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.8, opacity: 0 }}
