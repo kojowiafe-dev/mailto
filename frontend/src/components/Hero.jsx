@@ -27,7 +27,7 @@ const Hero = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="p-3 mt-10 overflow-hidden z-1000 relative">
+    <div className="p-3 mt-10 overflow-hidden z-10 relative">
       <section className="mb-10 relative">
         <motion.h2
           initial={{ opacity: 0, y: 100 }}

@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 const Header = () => {
   return (
-    <div className="sticky top-0 z-9999">
+    <div className="sticky top-0 z-999">
       <motion.header
         initial={{ opacity: 0, y: -100 }}
         animate={{ opacity: 1, y: 0 }}

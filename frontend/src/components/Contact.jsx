@@ -118,27 +118,8 @@ const Contact = () => {
           'bg-slate-800 text-white px-6 py-4 rounded-xl shadow-lg animate-slide-in'
         }
         bodyClassName={() => 'text-sm font-medium'}
-        className="toastContainer"
+        style={{ zIndex: 99999, position: 'fixed' }}
       />
-      <style>{`
-          .toastContainer {
-            top: 0 !important;
-            left: 50% !important;
-            right: auto !important;
-            transform: translateX(-50%) !important;
-            margin: 0 !important;
-            z-index: 9999 !important;
-            position: fixed !important;
-            width: auto !important;
-            pointer-events: none;
-          }
-          .Toastify__toast-body {
-            display: flex !important;
-            align-items: center !important;
-            white-space: nowrap !important;
-            gap: 0.5rem;
-          }
-        `}</style>
     </div>
   );
 };

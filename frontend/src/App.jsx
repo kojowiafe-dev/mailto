@@ -11,6 +11,7 @@ import UseWindowResize from './components/use-window-resize';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import ForgotPassword from './Routes/ForgotPassword';
 import Admin from './Admin/main';
+import { ToastContainer } from 'react-toastify';
 
 function CustomRoutes() {
   const element = useRoutes([
@@ -94,6 +95,7 @@ const App = () => {
       <CustomRoutes />
 
       <Footer />
+      <ToastContainer style={{ zIndex: 99999, position: 'fixed' }} />
     </div>
   );
 };
