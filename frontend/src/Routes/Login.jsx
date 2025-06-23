@@ -150,18 +150,18 @@ const Login = () => {
             <FaHome />
           </Link>
         </div>
-        <ToastContainer
-          position="top-right"
-          transition={Bounce}
-          autoClose={1200}
-          theme="light"
-          toastClassName={() =>
-            'bg-slate-800 text-white px-6 py-4 rounded-xl shadow-lg animate-slide-in'
-          }
-          bodyClassName={() => 'text-sm font-medium'}
-          style={{ zIndex: 2147483647, position: 'fixed' }}
-        />
       </motion.form>
+      <ToastContainer
+        position="top-right"
+        transition={Bounce}
+        autoClose={1200}
+        theme="light"
+        toastClassName={() =>
+          'bg-slate-800 text-white px-6 py-4 rounded-xl shadow-lg animate-slide-in'
+        }
+        bodyClassName={() => 'text-sm font-medium'}
+        style={{ zIndex: 2147483647, position: 'fixed' }}
+      />
     </div>
   );
 };
