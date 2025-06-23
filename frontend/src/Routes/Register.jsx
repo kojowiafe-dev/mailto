@@ -178,6 +178,7 @@ const Register = () => {
           : null}
         <button
           type="submit"
+          disabled={loading}
           className="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold py-3 px-4 rounded-xl my-2 cursor-pointer transition duration-200 shadow-md hover:from-blue-600 hover:to-blue-800 hover:scale-105 active:scale-95"
         >
           {loading ? (
