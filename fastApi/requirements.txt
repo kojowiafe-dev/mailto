@@ -11,6 +11,6 @@ timescaledb==0.0.1
 requests
 python-decouple
 psycopg[binary]
-python-dotenv
+python-dotenv       
 fastapi-mail
 jinja2
