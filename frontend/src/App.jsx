@@ -32,7 +32,7 @@ function CustomRoutes() {
       element: <Login />,
     },
     {
-      path: '/verify-email',
+      path: '/verify-code',
       element: <VerifyCode />,
     },
     {
