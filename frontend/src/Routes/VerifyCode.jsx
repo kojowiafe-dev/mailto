@@ -10,6 +10,7 @@ import video from '../assets/motion.mp4';
 
 const VerifyCode = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
 
   useEffect(() => {
