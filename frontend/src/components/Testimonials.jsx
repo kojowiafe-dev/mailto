@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { FaStar } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Testimonials = ({ backgroundColor }) => {
   const headerColor = backgroundColor === 'bg-gray-100' ? 'text-black/50' : 'text-white';
@@ -91,15 +92,9 @@ const Testimonials = ({ backgroundColor }) => {
           Testimonials
         </h3>
         <div className="relative max-w-6xl mx-auto">
-          {/* Blur edges */}
-          <div
-            className="pointer-events-none absolute left-0 top-0 h-full w-24 z-20"
-            style={{ background: 'linear-gradient(to right, rgba(24,24,27,1), rgba(24,24,27,0))' }}
-          />
-          <div
-            className="pointer-events-none absolute right-0 top-0 h-full w-24 z-20"
-            style={{ background: 'linear-gradient(to left, rgba(24,24,27,1), rgba(24,24,27,0))' }}
-          />
+          {/* Transparent edge blur */}
+          <div className="pointer-events-none absolute left-0 top-0 h-full w-28 z-20 bg-gradient-to-r from-neutral-900 via-transparent to-transparent backdrop-blur-sm" />
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-28 z-20 bg-gradient-to-l from-neutral-900 via-transparent to-transparent backdrop-blur-sm" />
 
           {/* Carousel */}
           <div
@@ -135,31 +130,44 @@ const Testimonials = ({ backgroundColor }) => {
         </div>
 
         {/* Modal */}
-        {activeTestimonial && (
-          <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
-            <div className="bg-neutral-900 max-w-md w-full rounded-2xl p-6 relative text-white shadow-xl border border-gray-700">
-              <button
-                onClick={() => setActiveTestimonial(null)}
-                className="absolute top-3 right-3 text-gray-300 hover:text-red-400 text-2xl"
+        <AnimatePresence>
+          {activeTestimonial && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
+            >
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+                className="bg-neutral-900 max-w-md w-full rounded-2xl p-6 relative text-white shadow-xl border border-gray-700"
               >
-                &times;
-              </button>
-              <div className="flex items-center mb-4 space-x-4">
-                <img
-                  src={activeTestimonial.avatar}
-                  alt={activeTestimonial.name}
-                  className="w-12 h-12 rounded-full border border-gray-500"
-                />
-                <div>
-                  <p className="font-bold text-lg">{activeTestimonial.name}</p>
-                  <p className="text-sm text-gray-400">{activeTestimonial.position}</p>
-                  <div className="flex mt-1">{renderStars(activeTestimonial.rating)}</div>
+                <button
+                  onClick={() => setActiveTestimonial(null)}
+                  className="absolute top-3 right-3 text-gray-300 hover:text-red-400 text-2xl"
+                >
+                  &times;
+                </button>
+                <div className="flex items-center mb-4 space-x-4">
+                  <img
+                    src={activeTestimonial.avatar}
+                    alt={activeTestimonial.name}
+                    className="w-12 h-12 rounded-full border border-gray-500"
+                  />
+                  <div>
+                    <p className="font-bold text-lg">{activeTestimonial.name}</p>
+                    <p className="text-sm text-gray-400">{activeTestimonial.position}</p>
+                    <div className="flex mt-1">{renderStars(activeTestimonial.rating)}</div>
+                  </div>
                 </div>
-              </div>
-              <p className="italic text-gray-300">"{activeTestimonial.info}"</p>
-            </div>
-          </div>
-        )}
+                <p className="italic text-gray-300 leading-relaxed">"{activeTestimonial.info}"</p>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </section>
     </div>
   );
