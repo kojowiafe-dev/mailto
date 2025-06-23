@@ -65,20 +65,32 @@ const Testimonials = ({ backgroundColor }) => {
     const carousel = carouselRef.current;
     if (!carousel) return;
 
-    const scrollAmount = 0.5;
+    const scrollAmount = 2.0;
+
+    // Clear any existing interval before starting a new one
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
 
     const startScrolling = () => {
       intervalRef.current = setInterval(() => {
         if (!carousel || isHovered) return;
         carousel.scrollLeft += scrollAmount;
-        if (carousel.scrollLeft >= carousel.scrollWidth / 2) {
-          carousel.scrollLeft = 0;
+        // Calculate the width of one set of testimonials
+        const singleSetWidth = carousel.scrollWidth / 2;
+        if (carousel.scrollLeft >= singleSetWidth) {
+          // Reset to the equivalent position in the first set for seamless looping
+          carousel.scrollLeft -= singleSetWidth;
         }
       }, 16);
     };
 
     startScrolling();
-    return () => clearInterval(intervalRef.current);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
   }, [isHovered]);
 
   // Close modal when clicking outside
@@ -109,8 +121,8 @@ const Testimonials = ({ backgroundColor }) => {
         </h3>
         <div className="relative max-w-6xl mx-auto">
           {/* Transparent edge blur */}
-          <div className="pointer-events-none absolute left-0 top-0 h-full w-28 z-20 bg-gradient-to-r from-neutral-900 via-transparent to-transparent backdrop-blur-sm" />
-          <div className="pointer-events-none absolute right-0 top-0 h-full w-28 z-20 bg-gradient-to-l from-neutral-900 via-transparent to-transparent backdrop-blur-sm" />
+          <div className="pointer-events-none absolute left-0 top-0 h-full w-5 md:w-28 z-20 bg-gradient-to-r from-neutral-900 via-transparent to-transparent backdrop-blur-sm" />
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-5 md:w-28 z-20 bg-gradient-to-l from-neutral-900 via-transparent to-transparent backdrop-blur-sm" />
 
           {/* Carousel */}
           <div
