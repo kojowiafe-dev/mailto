@@ -53,7 +53,7 @@ const Register = () => {
               style: {
                 background: '#000',
                 color: '#fff',
-                transition: 'all 0.3s ease-in-out',
+                // transition: 'all 0.3s ease-in-out',
               },
             });
             return;
@@ -206,13 +206,13 @@ const Register = () => {
         <ToastContainer
           position="top-right"
           transition={Bounce}
-          autoClose={2000}
+          autoClose={1200}
           theme="light"
           toastClassName={() =>
             'bg-slate-800 text-white px-6 py-4 rounded-xl shadow-lg animate-slide-in'
           }
           bodyClassName={() => 'text-sm font-medium'}
-          style={{ zIndex: 99999, position: 'fixed' }}
+          style={{ zIndex: 2147483647, position: 'fixed' }}
         />
       </motion.form>
     </div>
