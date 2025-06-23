@@ -69,13 +69,21 @@ const Login = () => {
             });
           } catch (error) {
             console.log(error);
-
-            toast.error(error.message || 'Login failed', {
-              style: {
-                background: '#000',
-                color: '#fff',
-              },
-            });
+            if (error.response && error.response.data && error.response.data.detail) {
+              toast.error(error.response.data.detail, {
+                style: {
+                  background: '#000',
+                  color: '#fff',
+                },
+              });
+            } else {
+              toast.error(error.message || 'Login failed', {
+                style: {
+                  background: '#000',
+                  color: '#fff',
+                },
+              });
+            }
           }
         }}
         action=""
