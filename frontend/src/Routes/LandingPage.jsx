@@ -37,7 +37,7 @@ const LandingPage = () => {
         <div id="features">
           <Features backgroundColor={backgroundColor} />
         </div>
-        <div className="absolute inset-0 overflow-hidden z-10">
+        <div className="absolute inset-0 overflow-hidden z-1">
           <video
             className=""
             style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: '0.9' }}

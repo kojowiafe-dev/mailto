@@ -120,6 +120,7 @@ const ForgotPassword = () => {
           'bg-slate-800 text-white px-6 py-4 rounded-xl shadow-lg animate-slide-in'
         }
         bodyClassName={() => 'text-sm font-medium'}
+        style={{ zIndex: 99999, position: 'fixed' }}
       />
     </div>
   );
