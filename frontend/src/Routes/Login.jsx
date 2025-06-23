@@ -141,9 +141,9 @@ const Login = () => {
               console.log('Login Failed');
             }}
           />
-          <a href="/forgot-password" className="text-blue-500 text-sm underline my-2">
+          <Link to="/forgot-password" className="text-blue-500 text-sm underline my-2">
             Forgot Password?
-          </a>
+          </Link>
           <h4 className="text-gray-500 text-sm">
             Don't have an account?{' '}
             <Link to="/register" className="underline text-blue-600 font-semibold">
