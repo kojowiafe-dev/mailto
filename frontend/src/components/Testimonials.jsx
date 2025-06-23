@@ -14,30 +14,35 @@ const Testimonials = ({ backgroundColor }) => {
       info: 'Eventus completely transformed our business presence online. Highly recommended!',
       name: 'Alex Johnson',
       position: 'CEO of TechWave',
+      avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
     },
     {
       id: 2,
       info: "Our customers love the fresh look and feel. It's been a game changer for us.",
       name: 'Maria Lopez',
       position: 'Founder of Bloom & Co.',
+      avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
     },
     {
       id: 3,
       info: 'The support team is fantastic and the platform is super intuitive.',
       name: 'Samuel Green',
       position: 'Product Manager at Nova',
+      avatar: 'https://randomuser.me/api/portraits/men/76.jpg',
     },
     {
       id: 4,
       info: 'We saw a 40% increase in engagement after switching to Eventus.',
       name: 'Priya Singh',
       position: 'Marketing Lead at Zenith',
+      avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
     },
     {
       id: 5,
       info: 'Sleek, modern, and effective. Our brand has never looked better.',
       name: 'Liam Chen',
       position: 'Creative Director at PixelForge',
+      avatar: 'https://randomuser.me/api/portraits/men/45.jpg',
     },
   ];
 
@@ -97,13 +102,21 @@ const Testimonials = ({ backgroundColor }) => {
             {duplicatedTestimonials.map((data, idx) => (
               <div
                 key={idx}
-                className="min-w-[320px] max-w-xs bg-neutral-800 p-6 rounded-2xl shadow-md border border-neutral-700 flex-shrink-0 transform transition-transform duration-300 hover:scale-105"
+                className="min-w-[320px] max-w-xs bg-neutral-800 p-6 rounded-2xl shadow-md border border-neutral-700 flex-shrink-0 transition-transform duration-300 hover:scale-105"
                 style={{ opacity: 0.95 }}
               >
-                <p className="text-gray-300 italic text-lg">"{data.info}"</p>
-                <p className="mt-4 font-bold text-sm text-gray-200">
-                  - {data.name}, {data.position}
-                </p>
+                <p className="text-gray-300 italic text-lg mb-4">"{data.info}"</p>
+                <div className="flex items-center space-x-3 mt-4">
+                  <img
+                    src={data.avatar}
+                    alt={data.name}
+                    className="w-10 h-10 rounded-full object-cover border border-gray-500"
+                  />
+                  <div>
+                    <p className="text-sm font-bold text-gray-100">{data.name}</p>
+                    <p className="text-xs text-gray-400">{data.position}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
