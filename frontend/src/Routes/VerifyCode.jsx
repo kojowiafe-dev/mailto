@@ -1,25 +1,138 @@
 import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/ReactToastify.css';
+import AOS from 'aos';
 import api from '../components/api';
+import { FaSignOutAlt, FaUser } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import video from '../assets/motion.mp4';
 
 const VerifyCode = () => {
-  const [message, setMessage] = useState('Verifying...');
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
 
   useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const token = queryParams.get('token');
-
-    if (token) {
-      api
-        .get(`/mail/verify-email?token=${token}`)
-        .then((res) => setMessage(res.data.message))
-        .catch((err) => setMessage(err.response?.data?.detail || 'Verification failed'));
-    } else {
-      setMessage('No token provided');
-    }
+    AOS.init({ duration: 1000 });
   }, []);
+
   return (
-    <div>
-      <h2>{message}</h2>
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Video background */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        style={{ opacity: 0.7 }}
+        autoPlay
+        muted
+        loop
+      >
+        <source src={video} type="video/mp4" />
+      </video>
+      {/* Form content */}
+      <motion.form
+        initial={{ opacity: 0, y: 100 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ type: 'spring', stiffness: 100, damping: 10, delay: 0.5 }}
+        onSubmit={async (e) => {
+          e.preventDefault();
+          if (!email) {
+            toast.error('Input your email', {
+              style: {
+                background: '#000',
+                color: '#fff',
+              },
+            });
+            return;
+          }
+          try {
+            await api.post('/auth/forgot-password', { email });
+            toast.success('OTP sent to email', {
+              style: {
+                background: '#000',
+                color: '#fff',
+              },
+            });
+            navigate('/verify-email');
+            setEmail('');
+          } catch (error) {
+            if (error.response) {
+              const status = error.response.status;
+              const detail = error.response.data.detail;
+              if (status === 400 && detail.includes('Email')) {
+                toast.error('Email not found!', {
+                  style: {
+                    background: '#000',
+                    color: '#fff',
+                  },
+                });
+              } else {
+                toast.error('OTP not sent😥', {
+                  style: {
+                    background: '#000',
+                    color: '#fff',
+                  },
+                });
+              }
+            } else {
+              toast.error('Something went wrong', {
+                style: {
+                  background: '#000',
+                  color: '#fff',
+                },
+              });
+            }
+          }
+        }}
+        action=""
+        className="w-full max-w-md mx-auto bg-white rounded-3xl shadow-2xl p-10 flex flex-col items-center space-y-7 border border-blue-100 z-20 relative"
+      >
+        <div className="flex flex-col items-center mb-2">
+          <div className="bg-blue-100 p-4 rounded-full mb-2 shadow">
+            <FaUser className="text-blue-500 text-3xl" />
+          </div>
+          <h2 className="text-3xl font-extrabold text-blue-700 mb-1">Forgot Password</h2>
+          <p className="text-gray-500 text-base">Enter your email to receive a reset code</p>
+        </div>
+        <input
+          type="email"
+          placeholder="Email"
+          className="border border-blue-200 w-full p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition bg-blue-50 text-gray-900 placeholder-gray-400"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <button
+          type="submit"
+          className="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold py-3 px-4 rounded-xl my-2 cursor-pointer transition duration-200 shadow-md hover:from-blue-600 hover:to-blue-800 hover:scale-105 active:scale-95"
+        >
+          Send Code
+        </button>
+        <div className="w-full flex flex-col items-center gap-2">
+          <h4 className="text-gray-500 text-sm">
+            Remembered your password?{' '}
+            <Link to="/login" className="underline text-blue-600 font-semibold">
+              Login
+            </Link>
+          </h4>
+          <Link
+            to="/"
+            className="text-blue-500 flex gap-2 items-center justify-center text-sm font-medium hover:underline"
+          >
+            Back to Home
+            <FaSignOutAlt />
+          </Link>
+        </div>
+      </motion.form>
+      <ToastContainer
+        position="top-right"
+        transition={Bounce}
+        autoClose={1200}
+        theme="dark"
+        toastClassName={() =>
+          'bg-slate-800 text-white px-6 py-4 rounded-xl shadow-lg animate-slide-in'
+        }
+        bodyClassName={() => 'text-sm font-medium'}
+        style={{ zIndex: 2147483647, position: 'fixed' }}
+      />
     </div>
   );
 };
