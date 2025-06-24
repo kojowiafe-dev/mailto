@@ -70,6 +70,7 @@ const ResetPassword = () => {
       toast.success('Password reset successful ✅', toastStyle);
       localStorage.removeItem('reset_email');
       localStorage.removeItem('reset_code');
+      localStorage.removeItem('reset_verified');
       navigate('/login');
     } catch (error) {
       const detail = error?.response?.data?.detail || 'Something went wrong';
