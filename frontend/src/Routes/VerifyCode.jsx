@@ -11,6 +11,7 @@ import video from '../assets/motion.mp4';
 const VerifyCode = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
 
   useEffect(() => {
@@ -37,7 +38,7 @@ const VerifyCode = () => {
         onSubmit={async (e) => {
           e.preventDefault();
           setLoading(true);
-          if (!code) {
+          if (!email || !code) {
             toast.error('Enter the code', {
               style: {
                 background: '#000',
@@ -48,7 +49,7 @@ const VerifyCode = () => {
             return;
           }
           try {
-            await api.post('/auth/verify-reset-code', { code });
+            await api.post('/auth/verify-reset-code', { email, code });
             toast.success('Code verified', {
               style: {
                 background: '#000',
@@ -70,7 +71,7 @@ const VerifyCode = () => {
                 });
                 setLoading(false);
               } else {
-                toast.error('OTP not sent😥', {
+                toast.error(`${detail}😥`, {
                   style: {
                     background: '#000',
                     color: '#fff',
@@ -101,6 +102,13 @@ const VerifyCode = () => {
             Enter the 6-digit code you received in your email
           </p>
         </div>
+        <input
+          type="email"
+          placeholder="Email"
+          className="border border-blue-200 w-full p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition bg-blue-50 text-gray-900 placeholder-gray-400"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
         <input
           type="text"
           placeholder="6-digit code"
