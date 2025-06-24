@@ -134,7 +134,8 @@ async def reset_password(session:database.SessionLocal, data: schemas.ResetPassw
     entry = (
         session.query(models.PasswordResetCode)
         .filter(models.PasswordResetCode.email == data.email,
-                models.PasswordResetCode.code == data.code)
+                models.PasswordResetCode.code == data.code,
+                models.PasswordResetCode.verified == True)
         .order_by(models.PasswordResetCode.created_at.desc())
         .first()
     )
