@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import AOS from 'aos';
+import { motion } from 'framer-motion';
 
 const Pricing = () => {
   useEffect(() => {
@@ -12,7 +13,12 @@ const Pricing = () => {
         <h3 data-aos="fade-left" className="text-3xl font-bold text-btn-color mb-6">
           Pricing
         </h3>
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <motion.div
+          className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto"
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ type: 'spring', stiffness: 100, damping: 10, delay: 0.3 }}
+        >
           <div
             // data-aos="fade-up"
             className="bg-gray-200 p-6 min-w-[320px] max-w-xs flex-shrink-0 rounded-2xl shadow transition-transform duration-300 hover:scale-105 cursor-pointer z-20"
@@ -49,7 +55,7 @@ const Pricing = () => {
               <li>Dedicated support</li>
             </ul>
           </div>
-        </div>
+        </motion.div>
       </section>
     </div>
   );
