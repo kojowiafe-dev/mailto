@@ -1,15 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AOS from 'aos';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import UseWindowResize from './use-window-resize';
 import TextTransition, { presets } from 'react-text-transition';
-import video from '../assets/motion.mp4';
 
 const Hero = () => {
   const [prefix] = useState('to');
   const [wordIndex, setWordIndex] = useState(0);
-  const heroRef = useRef(null);
 
   const words = ['optimise processes', 'drive innovation', 'deliver data-driven insights'];
 
@@ -28,30 +26,9 @@ const Hero = () => {
   // const windowSize = UseWindowResize();
   const navigate = useNavigate();
 
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  });
-
-  const rotateX = useTransform(scrollYProgress, [0, 1], [0, -90]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.8, 0.7]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.6, 0]);
-
   return (
-    <div className="p-3 overflow-hidden z-10" ref={heroRef}>
-      <div className="absolute inset-0 overflow-hidden z-1">
-        <video
-          className=""
-          style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: '0.9' }}
-          autoPlay
-          muted
-          loop
-        >
-          <source src={video} type="video/mp4" />
-        </video>
-        {/* <div className="absolute inset-0 bg-black/60"></div> */}
-      </div>
-      <motion.section className="mb-10 relative z-10">
+    <div className="p-3 mt-10 overflow-hidden z-10 relative">
+      <section className="mb-10 relative">
         <motion.h2
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
@@ -91,7 +68,7 @@ const Hero = () => {
         >
           Book Us Now
         </motion.button>
-      </motion.section>
+      </section>
     </div>
   );
 };
