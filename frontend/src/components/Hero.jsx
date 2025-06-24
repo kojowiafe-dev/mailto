@@ -4,6 +4,7 @@ import AOS from 'aos';
 import { motion } from 'framer-motion';
 import UseWindowResize from './use-window-resize';
 import TextTransition, { presets } from 'react-text-transition';
+// import video from '../assets/motion.mp4';
 
 const Hero = () => {
   const [prefix] = useState('to');
