@@ -4,7 +4,7 @@ import AOS from 'aos';
 import { motion } from 'framer-motion';
 import UseWindowResize from './use-window-resize';
 import TextTransition, { presets } from 'react-text-transition';
-// import video from '../assets/motion.mp4';
+import video from '../assets/motion.mp4';
 
 const Hero = () => {
   const [prefix] = useState('to');
@@ -28,19 +28,31 @@ const Hero = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="p-3 mt-10 overflow-hidden z-10 relative">
-      <section className="mb-10 relative">
-        <motion.h2
+    <div className="w-full h-full pt-10 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden bg-cover">
+        <video
+          className="z-0"
+          style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: '0.9' }}
+          autoPlay
+          muted
+          loop
+        >
+          <source src={video} type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black/40"></div>
+      </div>
+      <section className="mt-20 z-99">
+        <h2
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: 'spring', stiffness: 100, damping: 10, delay: 0.5 }}
-          className="text-4xl md:text-6xl font-bold text-color mb-4"
+          className="text-4xl md:text-6xl font-bold text-color mb-4 z-99"
         >
           Stand out with{' '}
           <span className="button-color">
             <a href="/index">eventus</a>
           </span>
-        </motion.h2>
+        </h2>
 
         <motion.div
           initial={{ opacity: 0, y: -100 }}

@@ -1,15 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Hero from '../components/Hero';
 import Features from '../components/Features';
 import Testimonials from '../components/Testimonials';
 import Pricing from '../components/Pricing';
 import Contact from '../components/Contact';
-import { useScroll } from 'framer-motion';
-import video from '../assets/motion.mp4';
+import { useScroll, motion, useTransform } from 'framer-motion';
+// import video from '../assets/motion.mp4';
 
 const LandingPage = () => {
   const { scrollY } = useScroll();
   const [backgroundColor, setBackgroundColor] = useState('bg-gray-100');
+  const ref = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  });
+
+  // const yContent = useTransform(scrollYProgress, [0, 1], ['0%', '-10%']);
 
   useEffect(() => {
     const handleScroll = (latest) => {
@@ -31,20 +39,8 @@ const LandingPage = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <div
-        className={`flex-1 text-center p-4 py-12 scroll-smooth overflow-hidden transition-colors duration-300 ${backgroundColor === 'background' ? 'background' : backgroundColor}`}
+        className={`flex-1 text-center scroll-smooth overflow-hidden transition-colors duration-300 ${backgroundColor === 'background' ? 'background' : backgroundColor}`}
       >
-        <div className="absolute inset-0 overflow-hidden z-1">
-          <video
-            className=""
-            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: '0.9' }}
-            autoPlay
-            muted
-            loop
-          >
-            <source src={video} type="video/mp4" />
-          </video>
-          {/* <div className="absolute inset-0 bg-black/60"></div> */}
-        </div>
         <Hero />
         <div id="features">
           <Features backgroundColor={backgroundColor} />
