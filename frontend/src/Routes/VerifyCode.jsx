@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/ReactToastify.css';
@@ -7,12 +7,13 @@ import api from '../components/api';
 import { FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import video from '../assets/motion.mp4';
+import { ResetContext } from '../context/ResetPasswordContext';
 
 const VerifyCode = () => {
+  const { email, setCode, setIsVerified } = useContext(ResetContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState('');
-  const [code, setCode] = useState('');
+  const [inputCode, setInputCode] = useState('');
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
@@ -38,7 +39,7 @@ const VerifyCode = () => {
         onSubmit={async (e) => {
           e.preventDefault();
           setLoading(true);
-          if (!email || !code) {
+          if (!inputCode) {
             toast.error('Enter the code', {
               style: {
                 background: '#000',
@@ -49,7 +50,9 @@ const VerifyCode = () => {
             return;
           }
           try {
-            await api.post('/auth/verify-reset-code', { email, code });
+            await api.post('/auth/verify-reset-code', { email, code: inputCode });
+            setCode(inputCode);
+            setIsVerified(true);
             toast.success('Code verified', {
               style: {
                 background: '#000',
@@ -106,8 +109,10 @@ const VerifyCode = () => {
           type="email"
           placeholder="Email"
           className="border border-blue-200 w-full p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition bg-blue-50 text-gray-900 placeholder-gray-400"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          maxLength={6}
+          value={inputCode}
+          onChange={(e) => setInputCode(e.target.value)}
+          required
         />
         <input
           type="text"

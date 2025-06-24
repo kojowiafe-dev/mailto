@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/ReactToastify.css';
@@ -7,10 +7,12 @@ import api from '../components/api';
 import { FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import video from '../assets/motion.mp4';
+import { ResetContext } from '../context/ResetPasswordContext';
 
 const ForgotPassword = () => {
+  const { setEmail } = useContext(ResetContext);
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
+  const [inputEmail, setInputEmail] = useState('');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -37,7 +39,7 @@ const ForgotPassword = () => {
         onSubmit={async (e) => {
           e.preventDefault();
           setLoading(true);
-          if (!email) {
+          if (!inputEmail) {
             toast.error('Input your email', {
               style: {
                 background: '#000',
@@ -47,7 +49,8 @@ const ForgotPassword = () => {
             return;
           }
           try {
-            await api.post('/auth/forgot-password', { email });
+            await api.post('/auth/forgot-password', { email: inputEmail });
+            setEmail(inputEmail);
             toast.success('OTP sent to email', {
               style: {
                 background: '#000',
@@ -102,8 +105,8 @@ const ForgotPassword = () => {
           type="email"
           placeholder="Email"
           className="border border-blue-200 w-full p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition bg-blue-50 text-gray-900 placeholder-gray-400"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={inputEmail}
+          onChange={(e) => setInputEmail(e.target.value)}
         />
         <button
           type="submit"
