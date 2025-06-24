@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/ReactToastify.css';
 import AOS from 'aos';
 import api from '../components/api';
-import { FaSignOutAlt, FaUser } from 'react-icons/fa';
+import { FaSignOutAlt, FaUser, FaCode } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import video from '../assets/motion.mp4';
 import { ResetContext } from '../context/ResetPasswordContext';
@@ -87,7 +87,7 @@ const VerifyCode = () => {
       >
         <div className="flex flex-col items-center mb-2">
           <div className="bg-blue-100 p-4 rounded-full mb-2 shadow">
-            <FaUser className="text-blue-500 text-3xl" />
+            <FaCode className="text-blue-500 text-3xl" />
           </div>
           <h2 className="text-3xl font-extrabold text-blue-700 mb-1">Verify Code</h2>
           <p className="text-gray-500 text-base text-center">
