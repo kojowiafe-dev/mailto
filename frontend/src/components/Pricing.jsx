@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import AOS from 'aos';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 
 const Pricing = () => {
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
+
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
     <div className="p-3">
@@ -13,13 +16,17 @@ const Pricing = () => {
         <h3 data-aos="fade-left" className="text-3xl font-bold text-btn-color mb-6">
           Pricing
         </h3>
-        <motion.div
+        <div
           className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto"
-          initial={{ opacity: 0, y: 100 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ type: 'spring', stiffness: 100, damping: 10, delay: 0.3 }}
+          // initial={{ opacity: 0, y: 100 }}
+          // animate={{ opacity: 1, y: 0 }}
+          // transition={{ type: 'spring', stiffness: 100, damping: 10, delay: 0.3 }}
         >
-          <div
+          <motion.div
+            ref={ref}
+            initial={{ opacity: 0, y: 100 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ type: 'spring', stiffness: 100, damping: 10, delay: 0.3 }}
             // data-aos="fade-up"
             className="bg-gray-200 p-6 min-w-[320px] max-w-xs flex-shrink-0 rounded-2xl shadow transition-transform duration-300 hover:scale-105 cursor-pointer z-20"
           >
@@ -30,7 +37,7 @@ const Pricing = () => {
               <li>1 revision</li>
               <li>Email Support</li>
             </ul>
-          </div>
+          </motion.div>
           <div
             // data-aos="fade-right"
             className="nav-color p-6 border-1 button-color min-w-[320px] max-w-xs flex-shrink-0 rounded-2xl shadow transition-transform duration-300 hover:scale-105 cursor-pointer z-20"
@@ -55,7 +62,7 @@ const Pricing = () => {
               <li>Dedicated support</li>
             </ul>
           </div>
-        </motion.div>
+        </div>
       </section>
     </div>
   );
