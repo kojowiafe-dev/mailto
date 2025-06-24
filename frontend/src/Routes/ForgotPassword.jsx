@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { Bounce, ToastContainer } from 'react-toastify';
 import 'react-toastify/ReactToastify.css';
 import AOS from 'aos';
 import api from '../components/api';
@@ -8,6 +8,7 @@ import { FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import video from '../assets/motion.mp4';
 import { ResetContext } from '../context/ResetPasswordContext';
+import { notifySuccess, notifyError } from '../utils/toastHelpers';
 
 const ForgotPassword = () => {
   const { setEmail } = useContext(ResetContext);
@@ -18,6 +19,42 @@ const ForgotPassword = () => {
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (!inputEmail) {
+      notifyError('Input your email');
+      setLoading(false);
+      return;
+    }
+
+    try {
+      await api.post('/auth/forgot-password', { email: inputEmail });
+
+      setEmail(inputEmail);
+      notifySuccess('OTP sent to email');
+
+      // ✅ This is the correct redirect
+      navigate('/verify-code');
+    } catch (error) {
+      if (error.response) {
+        const status = error.response.status;
+        const detail = error.response.data.detail;
+
+        if (status === 404 && detail.includes('Email')) {
+          notifyError('Email not found!');
+        } else {
+          notifyError('OTP not sent 😥');
+        }
+      } else {
+        notifyError('Something went wrong');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -31,67 +68,13 @@ const ForgotPassword = () => {
       >
         <source src={video} type="video/mp4" />
       </video>
+
       {/* Form content */}
       <motion.form
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ type: 'spring', stiffness: 100, damping: 10, delay: 0.5 }}
-        onSubmit={async (e) => {
-          e.preventDefault();
-          setLoading(true);
-          if (!inputEmail) {
-            toast.error('Input your email', {
-              style: {
-                background: '#000',
-                color: '#fff',
-              },
-            });
-            return;
-          }
-          try {
-            await api.post('/auth/forgot-password', { email: inputEmail });
-            setEmail(inputEmail);
-            toast.success('OTP sent to email', {
-              style: {
-                background: '#000',
-                color: '#fff',
-              },
-            });
-            navigate('/verify-code');
-            setEmail('');
-          } catch (error) {
-            if (error.response) {
-              const status = error.response.status;
-              const detail = error.response.data.detail;
-              if (status === 400 && detail.includes('Email')) {
-                toast.error('Email not found!', {
-                  style: {
-                    background: '#000',
-                    color: '#fff',
-                  },
-                });
-                setLoading(false);
-              } else {
-                toast.error('OTP not sent😥', {
-                  style: {
-                    background: '#000',
-                    color: '#fff',
-                  },
-                });
-                setLoading(false);
-              }
-            } else {
-              toast.error('Something went wrong', {
-                style: {
-                  background: '#000',
-                  color: '#fff',
-                },
-              });
-              setLoading(false);
-            }
-          }
-        }}
-        action=""
+        onSubmit={handleSubmit}
         className="w-full max-w-md mx-auto bg-white rounded-3xl shadow-2xl p-10 flex flex-col items-center space-y-7 border border-blue-100 z-20 relative"
       >
         <div className="flex flex-col items-center mb-2">
@@ -101,6 +84,7 @@ const ForgotPassword = () => {
           <h2 className="text-3xl font-extrabold text-blue-700 mb-1">Forgot Password</h2>
           <p className="text-gray-500 text-base">Enter your email to receive a reset code</p>
         </div>
+
         <input
           type="email"
           placeholder="Email"
@@ -108,6 +92,7 @@ const ForgotPassword = () => {
           value={inputEmail}
           onChange={(e) => setInputEmail(e.target.value)}
         />
+
         <button
           type="submit"
           disabled={loading}
@@ -141,6 +126,7 @@ const ForgotPassword = () => {
             'Send Code'
           )}
         </button>
+
         <div className="w-full flex flex-col items-center gap-2">
           <h4 className="text-gray-500 text-sm">
             Remembered your password?{' '}
@@ -157,6 +143,7 @@ const ForgotPassword = () => {
           </Link>
         </div>
       </motion.form>
+
       <ToastContainer
         position="top-right"
         transition={Bounce}

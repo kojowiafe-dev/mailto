@@ -10,7 +10,7 @@ import video from '../assets/motion.mp4';
 import { ResetContext } from '../context/ResetPasswordContext';
 
 const ResetPassword = () => {
-  const { email, code, isVerified } = useContext(ResetContext);
+  const { email, setEmail, code, setCode, isVerified } = useContext(ResetContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [newPassword, setNewPassword] = useState('');
@@ -18,11 +18,69 @@ const ResetPassword = () => {
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
+
+    // Load from localStorage if context lost
+    if (!email || !code) {
+      const storedEmail = localStorage.getItem('reset_email');
+      const storedCode = localStorage.getItem('reset_code');
+      if (storedEmail && storedCode) {
+        setEmail?.(storedEmail);
+        setCode?.(storedCode);
+      } else {
+        toast.error('Reset session expired. Please try again.', toastStyle);
+        navigate('/forgot-password');
+      }
+    }
   }, []);
+
+  const toastStyle = {
+    style: { background: '#000', color: '#fff' },
+  };
+
+  const handleReset = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (!isVerified) {
+      toast.error('Please verify the code first.', toastStyle);
+      setLoading(false);
+      return;
+    }
+
+    if (!newPassword || !confirmPassword) {
+      toast.error('Both password fields are required.', toastStyle);
+      setLoading(false);
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      toast.error('Passwords do not match.', toastStyle);
+      setLoading(false);
+      return;
+    }
+
+    try {
+      await api.post('/auth/reset-password', {
+        email,
+        code,
+        new_password: newPassword,
+        confirm_password: confirmPassword,
+      });
+
+      toast.success('Password reset successful ✅', toastStyle);
+      localStorage.removeItem('reset_email');
+      localStorage.removeItem('reset_code');
+      navigate('/login');
+    } catch (error) {
+      const detail = error?.response?.data?.detail || 'Something went wrong';
+      toast.error(`${detail}`, toastStyle);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Video background */}
       <video
         className="absolute inset-0 w-full h-full object-cover z-0"
         style={{ opacity: 0.7 }}
@@ -32,79 +90,12 @@ const ResetPassword = () => {
       >
         <source src={video} type="video/mp4" />
       </video>
-      {/* Form content */}
+
       <motion.form
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ type: 'spring', stiffness: 100, damping: 10, delay: 0.5 }}
-        onSubmit={async (e) => {
-          e.preventDefault();
-          setLoading(true);
-          if (!isVerified) {
-            toast.error('Verify the code first', {
-              style: {
-                background: '#000',
-                color: '#fff',
-              },
-            });
-            setLoading(false);
-            return;
-          }
-          try {
-            await api.post('/auth/reset-password', {
-              email,
-              code,
-              new_password: newPassword,
-              confirm_password: confirmPassword,
-            });
-            toast.success('Password reset successfully', {
-              style: {
-                background: '#000',
-                color: '#fff',
-              },
-            });
-            navigate('/login');
-          } catch (error) {
-            if (error.response) {
-              const status = error.response.status;
-              const detail = error.response.data.detail;
-              if (status === 400 && detail.includes('code')) {
-                toast.error('Invalid or expired code!', {
-                  style: {
-                    background: '#000',
-                    color: '#fff',
-                  },
-                });
-                setLoading(false);
-              } else if (status === 400 && detail.includes('user')) {
-                toast.error('User not found!', {
-                  style: {
-                    background: '#000',
-                    color: '#fff',
-                  },
-                });
-                setLoading(false);
-              } else {
-                toast.error(`${detail}😥`, {
-                  style: {
-                    background: '#000',
-                    color: '#fff',
-                  },
-                });
-                setLoading(false);
-              }
-            } else {
-              toast.error('Something went wrong', {
-                style: {
-                  background: '#000',
-                  color: '#fff',
-                },
-              });
-              setLoading(false);
-            }
-          }
-        }}
-        action=""
+        onSubmit={handleReset}
         className="w-full max-w-md mx-auto bg-white rounded-3xl shadow-2xl p-10 flex flex-col items-center space-y-7 border border-blue-100 z-20 relative"
       >
         <div className="flex flex-col items-center mb-2">
@@ -114,6 +105,7 @@ const ResetPassword = () => {
           <h2 className="text-3xl font-extrabold text-blue-700 mb-1">Reset Password</h2>
           <p className="text-gray-500 text-base text-center">Enter your new password</p>
         </div>
+
         <input
           type="password"
           placeholder="New Password"
@@ -122,13 +114,16 @@ const ResetPassword = () => {
           onChange={(e) => setNewPassword(e.target.value)}
           required
         />
+
         <input
           type="password"
           placeholder="Confirm Password"
           className="border border-blue-200 w-full p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition bg-blue-50 text-gray-900 placeholder-gray-400"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
+          required
         />
+
         <button
           type="submit"
           disabled={loading}
@@ -162,6 +157,7 @@ const ResetPassword = () => {
             'Reset Password'
           )}
         </button>
+
         <div className="w-full flex flex-col items-center gap-2">
           <h4 className="text-gray-500 text-sm">
             Remembered your password?{' '}
@@ -178,6 +174,7 @@ const ResetPassword = () => {
           </Link>
         </div>
       </motion.form>
+
       <ToastContainer
         position="top-right"
         transition={Bounce}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/ReactToastify.css';
 import AOS from 'aos';
 import api from '../components/api';
@@ -8,6 +8,7 @@ import { FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import video from '../assets/motion.mp4';
 import { ResetContext } from '../context/ResetPasswordContext';
+import { notifyError, notifySuccess } from '../utils/toastHelpers';
 
 const VerifyCode = () => {
   const { email, setCode, setIsVerified } = useContext(ResetContext);
@@ -17,11 +18,55 @@ const VerifyCode = () => {
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
-  }, []);
+
+    // Protect route: if email is not set, redirect to forgot-password
+    if (!email) {
+      notifyError("Email missing. Start from 'Forgot Password'");
+      navigate('/forgot-password');
+    }
+  }, [email, navigate]);
+
+  const handleVerify = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (!inputCode) {
+      notifyError('Enter the code');
+      setLoading(false);
+      return;
+    }
+
+    try {
+      console.log('Verifying with:', { email, code: inputCode });
+
+      await api.post('/auth/verify-reset-code', { email, code: inputCode });
+      setCode(inputCode);
+      setIsVerified(true);
+      localStorage.setItem('reset_email', email);
+      localStorage.setItem('reset_code', inputCode);
+
+      notifySuccess('Code verified');
+      navigate('/reset-password');
+      setCode('');
+    } catch (error) {
+      if (error.response) {
+        const { status, detail } = error.response;
+        if (status === 400 && detail.includes('code')) {
+          notifyError('Invalid or expired code!');
+        } else {
+          notifyError(`${detail} 😥`);
+        }
+      } else {
+        notifyError('Something went wrong');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Video background */}
+      {/* Background Video */}
       <video
         className="absolute inset-0 w-full h-full object-cover z-0"
         style={{ opacity: 0.7 }}
@@ -31,69 +76,13 @@ const VerifyCode = () => {
       >
         <source src={video} type="video/mp4" />
       </video>
-      {/* Form content */}
+
+      {/* Form */}
       <motion.form
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ type: 'spring', stiffness: 100, damping: 10, delay: 0.5 }}
-        onSubmit={async (e) => {
-          e.preventDefault();
-          setLoading(true);
-          if (!inputCode) {
-            toast.error('Enter the code', {
-              style: {
-                background: '#000',
-                color: '#fff',
-              },
-            });
-            setLoading(false);
-            return;
-          }
-          try {
-            await api.post('/auth/verify-reset-code', { email, code: inputCode });
-            setCode(inputCode);
-            setIsVerified(true);
-            toast.success('Code verified', {
-              style: {
-                background: '#000',
-                color: '#fff',
-              },
-            });
-            navigate('/reset-password');
-            setCode('');
-          } catch (error) {
-            if (error.response) {
-              const status = error.response.status;
-              const detail = error.response.data.detail;
-              if (status === 400 && detail.includes('code')) {
-                toast.error('Invalid or expired code!', {
-                  style: {
-                    background: '#000',
-                    color: '#fff',
-                  },
-                });
-                setLoading(false);
-              } else {
-                toast.error(`${detail}😥`, {
-                  style: {
-                    background: '#000',
-                    color: '#fff',
-                  },
-                });
-                setLoading(false);
-              }
-            } else {
-              toast.error('Something went wrong', {
-                style: {
-                  background: '#000',
-                  color: '#fff',
-                },
-              });
-              setLoading(false);
-            }
-          }
-        }}
-        action=""
+        onSubmit={handleVerify}
         className="w-full max-w-md mx-auto bg-white rounded-3xl shadow-2xl p-10 flex flex-col items-center space-y-7 border border-blue-100 z-20 relative"
       >
         <div className="flex flex-col items-center mb-2">
@@ -105,22 +94,15 @@ const VerifyCode = () => {
             Enter the 6-digit code you received in your email
           </p>
         </div>
-        <input
-          type="email"
-          placeholder="Email"
-          className="border border-blue-200 w-full p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition bg-blue-50 text-gray-900 placeholder-gray-400"
-          maxLength={6}
-          value={inputCode}
-          onChange={(e) => setInputCode(e.target.value)}
-          required
-        />
+
         <input
           type="text"
           placeholder="6-digit code"
           className="border border-blue-200 w-full p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition bg-blue-50 text-gray-900 placeholder-gray-400"
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
+          value={inputCode}
+          onChange={(e) => setInputCode(e.target.value)}
         />
+
         <button
           type="submit"
           disabled={loading}
@@ -154,6 +136,7 @@ const VerifyCode = () => {
             'Verify Code'
           )}
         </button>
+
         <div className="w-full flex flex-col items-center gap-2">
           <h4 className="text-gray-500 text-sm">
             Remembered your password?{' '}
@@ -170,9 +153,10 @@ const VerifyCode = () => {
           </Link>
         </div>
       </motion.form>
+
       <ToastContainer
         position="top-right"
-        transition={Bounce}
+        transition="Bounce"
         autoClose={1200}
         theme="dark"
         toastClassName={() =>
