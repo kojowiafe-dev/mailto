@@ -5,7 +5,6 @@ import Testimonials from '../components/Testimonials';
 import Pricing from '../components/Pricing';
 import Contact from '../components/Contact';
 import { useScroll } from 'framer-motion';
-import video from '../assets/motion.mp4';
 
 const LandingPage = () => {
   const { scrollY } = useScroll();
@@ -37,18 +36,7 @@ const LandingPage = () => {
         <div id="features">
           <Features backgroundColor={backgroundColor} />
         </div>
-        <div className="absolute inset-0 overflow-hidden z-1">
-          <video
-            className=""
-            style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: '0.9' }}
-            autoPlay
-            muted
-            loop
-          >
-            <source src={video} type="video/mp4" />
-          </video>
-          {/* <div className="absolute inset-0 bg-black/60"></div> */}
-        </div>
+
         <Testimonials backgroundColor={backgroundColor} />
         <Pricing />
         <div id="contact">
