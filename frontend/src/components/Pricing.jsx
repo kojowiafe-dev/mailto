@@ -15,7 +15,7 @@ const Pricing = () => {
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           <div
             // data-aos="fade-up"
-            className="bg-gray-200 p-6 min-w-[320px] max-w-xs flex-shrink-0 rounded-2xl shadow transition-transform duration-300 hover:scale-105 cursor-pointer"
+            className="bg-gray-200 p-6 min-w-[320px] max-w-xs flex-shrink-0 rounded-2xl shadow transition-transform duration-300 hover:scale-105 cursor-pointer z-20"
           >
             <h4 className="text-color text-xl font-bold mb-2">Starter</h4>
             <p className="text-gray-600 text-2xl font-extrabold mb-4">$29/mo</p>
@@ -27,7 +27,7 @@ const Pricing = () => {
           </div>
           <div
             // data-aos="fade-right"
-            className="nav-color p-6 border-1 button-color min-w-[320px] max-w-xs flex-shrink-0 rounded-2xl shadow transition-transform duration-300 hover:scale-105 cursor-pointer"
+            className="nav-color p-6 border-1 button-color min-w-[320px] max-w-xs flex-shrink-0 rounded-2xl shadow transition-transform duration-300 hover:scale-105 cursor-pointer z-20"
           >
             <h4 className="text-gray-300 text-xl font-bold mb-2">Pro</h4>
             <p className="button-color text-2xl font-extrabold mb-4">$59/mo</p>
@@ -38,8 +38,8 @@ const Pricing = () => {
             </ul>
           </div>
           <div
-            data-aos="fade-right"
-            className="bg-gray-200 p-6 text-color min-w-[320px] max-w-xs flex-shrink-0 rounded-2xl shadow transition-transform duration-300 hover:scale-105 cursor-pointer"
+            // data-aos="fade-right"
+            className="bg-gray-200 p-6 text-color min-w-[320px] max-w-xs flex-shrink-0 rounded-2xl shadow transition-transform duration-300 hover:scale-105 cursor-pointer z-20"
           >
             <h4 className="text-color text-xl font-bold mb-2">Enterprise</h4>
             <p className="text-gray-600 text-2xl font-extrabold mb-4">Custom</p>
