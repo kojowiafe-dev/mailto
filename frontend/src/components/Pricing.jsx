@@ -37,7 +37,10 @@ const Pricing = () => {
               <li>Priority support</li>
             </ul>
           </div>
-          <div data-aos="fade-right" className="bg-gray-200 p-6 rounded-2xl shadow text-color">
+          <div
+            data-aos="fade-right"
+            className="bg-gray-200 p-6 text-color min-w-[320px] max-w-xs flex-shrink-0 rounded-2xl shadow transition-transform duration-300 hover:scale-105 cursor-pointer"
+          >
             <h4 className="text-color text-xl font-bold mb-2">Enterprise</h4>
             <p className="text-gray-600 text-2xl font-extrabold mb-4">Custom</p>
             <ul className="text-gray-800 space-y-2">
