@@ -12,6 +12,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import ForgotPassword from './Routes/ForgotPassword';
 import Admin from './Admin/main';
 import { ToastContainer } from 'react-toastify';
+import ResetPassword from './Routes/ResetPassword';
 
 function CustomRoutes() {
   const element = useRoutes([
@@ -34,6 +35,10 @@ function CustomRoutes() {
     {
       path: '/verify-code',
       element: <VerifyCode />,
+    },
+    {
+      path: '/reset-password',
+      element: <ResetPassword />,
     },
     {
       path: '/admin',
