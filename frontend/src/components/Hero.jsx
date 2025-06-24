@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AOS from 'aos';
 import { motion } from 'framer-motion';
-import UseWindowResize from './use-window-resize';
 import TextTransition, { presets } from 'react-text-transition';
 import video from '../assets/motion.mp4';
 
 const Hero = () => {
   const [prefix] = useState('to');
   const [wordIndex, setWordIndex] = useState(0);
-
   const words = ['optimise processes', 'drive innovation', 'deliver data-driven insights'];
 
   useEffect(() => {
@@ -21,52 +19,44 @@ const Hero = () => {
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
-    // AOS.refresh()
   }, []);
 
-  // const windowSize = UseWindowResize();
   const navigate = useNavigate();
 
   return (
-    <div className="w-full h-full pt-10 overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden bg-cover">
-        <video
-          className="z-0"
-          style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: '0.9' }}
-          autoPlay
-          muted
-          loop
-        >
+    <div className="relative w-full h-screen overflow-hidden">
+      {/* Video Background */}
+      <div className="absolute inset-0 z-0">
+        <video className="w-full h-full object-cover" autoPlay muted loop>
           <source src={video} type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/40" />
       </div>
-      <section className="mt-20 z-99">
-        <h2
+
+      {/* Foreground Content */}
+      <section className="relative z-10 flex flex-col items-center justify-center text-center h-full px-4">
+        <motion.h2
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: 'spring', stiffness: 100, damping: 10, delay: 0.5 }}
-          className="text-4xl md:text-6xl font-bold text-color mb-4 z-99"
+          className="text-4xl md:text-6xl font-bold text-white mb-4"
         >
           Stand out with{' '}
-          <span className="button-color">
+          <span className="text-[#61dafb]">
             <a href="/index">eventus</a>
           </span>
-        </h2>
+        </motion.h2>
 
         <motion.div
           initial={{ opacity: 0, y: -100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: 'spring', stiffness: 100, damping: 10, delay: 0.6 }}
-          className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8 text-wrap"
+          className="text-lg md:text-xl text-white max-w-2xl mx-auto mb-8"
         >
-          {/* Elevate your business with vibrant, bold branding that leaves a lasting impression. */}
           Transform your business with our cutting-edge AI/ML solutions, designed {prefix}{' '}
-          <div className="m-3 flex justify-center items-center">
+          <div className="m-3 flex justify-center items-center" aria-live="polite">
             <TextTransition springConfig={presets.wobbly} inline className="text-3xl font-bold">
-              <span aria-live="polite" className="text-xl button-color">
-                {words[wordIndex]}
-              </span>
+              <span className="text-xl text-[#61dafb]">{words[wordIndex]}</span>
             </TextTransition>
           </div>
           for a smarter, more efficient future.
@@ -77,7 +67,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: 'spring', stiffness: 100, damping: 10, delay: 1.2 }}
           onClick={() => navigate('/register')}
-          className="m-10 bg-button-color text-btn-color text-lg font-bold py-3 px-6 rounded-2xl shadow-md hover:transition duration-200 border-gray-600 border-0 cursor-pointer"
+          className="mt-6 bg-[#61dafb] text-black text-lg font-bold py-3 px-6 rounded-2xl shadow-md hover:bg-white hover:text-black transition duration-300"
         >
           Book Us Now
         </motion.button>
