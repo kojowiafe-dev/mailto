@@ -1,6 +1,6 @@
 from datetime import datetime
 from sqlmodel import SQLModel, Field
-from pydantic import EmailStr
+from pydantic import EmailStr, BaseModel
 
 
 
@@ -69,7 +69,7 @@ class VerifyResetCodeRequest(SQLModel):
     code: str
 
 
-class ResetPasswordRequest(SQLModel):
+class ResetPasswordRequest(BaseModel):
     email: EmailStr
     code: str
     new_password: str
