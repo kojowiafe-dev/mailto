@@ -4,7 +4,7 @@ import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/ReactToastify.css';
 import AOS from 'aos';
 import api from '../components/api';
-import { FaSignOutAlt, FaUser } from 'react-icons/fa';
+import { FaSignOutAlt, FaUser, FaEye, FaEyeSlash, FaLock } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import video from '../assets/motion.mp4';
 import { ResetContext } from '../context/ResetPasswordContext';
@@ -15,11 +15,16 @@ const ResetPassword = () => {
   const [loading, setLoading] = useState(false);
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const toastStyle = {
+    style: { background: '#000', color: '#fff' },
+  };
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
 
-    // Load from localStorage if context lost
     if (!email || !code) {
       const storedEmail = localStorage.getItem('reset_email');
       const storedCode = localStorage.getItem('reset_code');
@@ -32,10 +37,6 @@ const ResetPassword = () => {
       }
     }
   }, []);
-
-  const toastStyle = {
-    style: { background: '#000', color: '#fff' },
-  };
 
   const handleReset = async (e) => {
     e.preventDefault();
@@ -82,6 +83,7 @@ const ResetPassword = () => {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Video */}
       <video
         className="absolute inset-0 w-full h-full object-cover z-0"
         style={{ opacity: 0.7 }}
@@ -92,6 +94,7 @@ const ResetPassword = () => {
         <source src={video} type="video/mp4" />
       </video>
 
+      {/* Form */}
       <motion.form
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
@@ -101,30 +104,51 @@ const ResetPassword = () => {
       >
         <div className="flex flex-col items-center mb-2">
           <div className="bg-blue-100 p-4 rounded-full mb-2 shadow">
-            <FaUser className="text-blue-500 text-3xl" />
+            <FaLock className="text-blue-500 text-3xl" />
           </div>
           <h2 className="text-3xl font-extrabold text-blue-700 mb-1">Reset Password</h2>
           <p className="text-gray-500 text-base text-center">Enter your new password</p>
         </div>
 
-        <input
-          type="password"
-          placeholder="New Password"
-          className="border border-blue-200 w-full p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition bg-blue-50 text-gray-900 placeholder-gray-400"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          required
-        />
+        {/* New Password */}
+        <div className="relative w-full">
+          <input
+            type={showNewPassword ? 'text' : 'password'}
+            placeholder="New Password"
+            className="border border-blue-200 w-full p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition bg-blue-50 text-gray-900 placeholder-gray-400"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            required
+          />
+          <button
+            type="button"
+            onClick={() => setShowNewPassword(!showNewPassword)}
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-400 hover:text-blue-600"
+          >
+            {showNewPassword ? <FaEye /> : <FaEyeSlash />}
+          </button>
+        </div>
 
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          className="border border-blue-200 w-full p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition bg-blue-50 text-gray-900 placeholder-gray-400"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
+        {/* Confirm Password */}
+        <div className="relative w-full">
+          <input
+            type={showConfirmPassword ? 'text' : 'password'}
+            placeholder="Confirm Password"
+            className="border border-blue-200 w-full p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition bg-blue-50 text-gray-900 placeholder-gray-400"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+          <button
+            type="button"
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-400 hover:text-blue-600"
+          >
+            {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+          </button>
+        </div>
 
+        {/* Submit */}
         <button
           type="submit"
           disabled={loading}
@@ -159,6 +183,7 @@ const ResetPassword = () => {
           )}
         </button>
 
+        {/* Footer Links */}
         <div className="w-full flex flex-col items-center gap-2">
           <h4 className="text-gray-500 text-sm">
             Remembered your password?{' '}
@@ -176,10 +201,11 @@ const ResetPassword = () => {
         </div>
       </motion.form>
 
+      {/* Toast */}
       <ToastContainer
         position="top-right"
         transition={Bounce}
-        autoClose={1200}
+        autoClose={1500}
         theme="dark"
         toastClassName={() =>
           'bg-slate-800 text-white px-6 py-4 rounded-xl shadow-lg animate-slide-in'
