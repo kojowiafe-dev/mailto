@@ -33,7 +33,7 @@ const ResetPassword = () => {
         setCode?.(storedCode);
       } else {
         toast.error('Reset session expired. Please try again.', toastStyle);
-        navigate('/forgot-password');
+        setTimeout(() => navigate('/forgot-password'), 1200);
       }
     }
   }, []);
@@ -72,7 +72,7 @@ const ResetPassword = () => {
       localStorage.removeItem('reset_email');
       localStorage.removeItem('reset_code');
       localStorage.removeItem('reset_verified');
-      navigate('/login');
+      setTimeout(() => navigate('/login'), 1200);
     } catch (error) {
       const detail = error?.response?.data?.detail || 'Something went wrong';
       toast.error(`${detail}`, toastStyle);
