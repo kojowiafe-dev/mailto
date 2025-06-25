@@ -36,8 +36,7 @@ const ForgotPassword = () => {
       setEmail(inputEmail);
       notifySuccess('OTP sent to email');
 
-      // ✅ This is the correct redirect
-      navigate('/verify-code');
+      setTimeout(() => navigate('/verify-code'), 1200);
     } catch (error) {
       if (error.response) {
         const status = error.response.status;

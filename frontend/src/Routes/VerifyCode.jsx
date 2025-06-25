@@ -22,7 +22,8 @@ const VerifyCode = () => {
     // Protect route: if email is not set, redirect to forgot-password
     if (!email) {
       notifyError("Email missing. Start from 'Forgot Password'");
-      navigate('/forgot-password');
+      setTimeout(() => navigate('/forgot-password'))
+      // navigate('/forgot-password');
     }
   }, [email, navigate]);
 
@@ -46,7 +47,7 @@ const VerifyCode = () => {
       localStorage.setItem('reset_code', inputCode);
 
       notifySuccess('Code verified');
-      navigate('/reset-password');
+      setTimeout(() => navigate('/reset-password'), 1200);
       setCode('');
     } catch (error) {
       if (error.response) {
