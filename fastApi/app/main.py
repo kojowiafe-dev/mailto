@@ -10,10 +10,6 @@ app = FastAPI()
 
 
 origins = [
-    "http://10.11.24.7:8000",
-    "http://10.11.24.7:8000/register",
-    "http://10.11.24.7:8000/login",
-    "http://10.11.24.7:8000/index",
     "http://localhost:5173",
     "http://localhost:5173/register",
     "http://localhost:5173/login",
