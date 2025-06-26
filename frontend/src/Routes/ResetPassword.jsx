@@ -1,13 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Bounce, ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/ReactToastify.css';
+// import { Bounce, ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/ReactToastify.css';
 import AOS from 'aos';
 import api from '../components/api';
 import { FaSignOutAlt, FaUser, FaEye, FaEyeSlash, FaLock } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import video from '../assets/motion.mp4';
 import { ResetContext } from '../context/ResetPasswordContext';
+import { Toaster, toast } from 'sonner';
 
 const ResetPassword = () => {
   const { email, setEmail, code, setCode, isVerified } = useContext(ResetContext);
@@ -83,6 +84,7 @@ const ResetPassword = () => {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <Toaster position="top-center" richColors />
       {/* Background Video */}
       <video
         className="absolute inset-0 w-full h-full object-cover z-0"
@@ -200,19 +202,6 @@ const ResetPassword = () => {
           </Link>
         </div>
       </motion.form>
-
-      {/* Toast */}
-      <ToastContainer
-        position="top-right"
-        transition={Bounce}
-        autoClose={1500}
-        theme="dark"
-        toastClassName={() =>
-          'bg-slate-800 text-white px-6 py-4 rounded-xl shadow-lg animate-slide-in'
-        }
-        bodyClassName={() => 'text-sm font-medium'}
-        style={{ zIndex: 2147483647, position: 'fixed' }}
-      />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Bounce, Slide, Zoom, ToastContainer, toast } from 'react-toastify';
+import { Bounce, Slide, Zoom } from 'react-toastify';
 import 'react-toastify/ReactToastify.css';
 import AOS from 'aos';
 import api from '../components/api';
@@ -8,6 +8,8 @@ import { GoogleLogin } from '@react-oauth/google';
 import { FaEye, FaEyeSlash, FaHome, FaUser } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import video from '../assets/motion.mp4';
+import { Toaster } from 'sonner';
+import { notifyError, notifySuccess } from '../utils/toastHelpers';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -41,13 +43,7 @@ const Login = () => {
           e.preventDefault();
           setLoading(true);
           if (!username || !password) {
-            toast.error('Please fill out all the required fields', {
-              style: {
-                background: '#000',
-                color: '#fff',
-                transition: 'all 0.3s ease-in-out',
-              },
-            });
+            notifyError('Please fill out all the required fields');
             setLoading(false);
             return;
           }
@@ -64,7 +60,7 @@ const Login = () => {
 
             console.log(response);
 
-            toast.success(response.message || 'Login successfully!', {
+            notifySuccess(response.message || 'Login successfully!', {
               style: {
                 background: '#000',
               },
@@ -73,14 +69,14 @@ const Login = () => {
           } catch (error) {
             console.log(error);
             if (error.response && error.response.data && error.response.data.detail) {
-              toast.error(error.response.data.detail, {
+              notifyError(error.response.data.detail, {
                 style: {
                   background: '#000',
                   color: '#fff',
                 },
               });
             } else {
-              toast.error(error.message || 'Login failed', {
+              notifyError(error.message || 'Login failed', {
                 style: {
                   background: '#000',
                   color: '#fff',
@@ -191,17 +187,7 @@ const Login = () => {
           </Link>
         </div>
       </motion.form>
-      <ToastContainer
-        position="top-right"
-        transition={Bounce}
-        autoClose={1200}
-        theme="light"
-        toastClassName={() =>
-          'bg-slate-800 text-white px-6 py-4 rounded-xl shadow-lg animate-slide-in'
-        }
-        bodyClassName={() => 'text-sm font-medium'}
-        style={{ zIndex: 2147483647, position: 'fixed' }}
-      />
+      <Toaster position="top-center" richColors />
     </div>
   );
 };

@@ -11,7 +11,7 @@ import UseWindowResize from './components/use-window-resize';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import ForgotPassword from './Routes/ForgotPassword';
 import Admin from './Admin/main';
-import { ToastContainer } from 'react-toastify';
+import { Toaster } from 'sonner';
 import ResetPassword from './Routes/ResetPassword';
 
 function CustomRoutes() {
@@ -77,6 +77,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen flex flex-col background-color text-gray-950 overflow-visible">
+      <Toaster position="top-center" richColors />
       <Header />
       <motion.h1
         initial={{ opacity: 0, x: 100 }}
@@ -100,7 +101,6 @@ const App = () => {
       <CustomRoutes />
 
       <Footer />
-      <ToastContainer style={{ zIndex: 99999, position: 'fixed' }} />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Bounce, Slide, Zoom, ToastContainer, toast } from 'react-toastify';
+import { Bounce, Slide, Zoom } from 'react-toastify';
 import 'react-toastify/ReactToastify.css';
 import { useForm } from 'react-hook-form';
 import AOS from 'aos';
@@ -9,6 +9,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { FaEye, FaEyeSlash, FaHome, FaUserPlus } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import video from '../assets/motion.mp4';
+import { Toaster } from 'sonner';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ const Register = () => {
       >
         <source src={video} type="video/mp4" />
       </video>
+      <Toaster position="top-center" richColors />
       {/* Overlay for readability */}
       {/* <div className="absolute inset-0 bg-white/60 backdrop-blur-sm z-10" /> */}
       {/* Form content */}
@@ -240,17 +242,6 @@ const Register = () => {
           </Link>
         </div>
       </motion.form>
-      <ToastContainer
-        position="top-right"
-        transition={Bounce}
-        autoClose={1200}
-        theme="light"
-        toastClassName={() =>
-          'bg-slate-800 text-white px-6 py-4 rounded-xl shadow-lg animate-slide-in'
-        }
-        bodyClassName={() => 'text-sm font-medium'}
-        style={{ zIndex: 2147483647, position: 'fixed' }}
-      />
     </div>
   );
 };

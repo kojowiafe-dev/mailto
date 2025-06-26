@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
 import video from '../assets/motion.mp4';
 import { ResetContext } from '../context/ResetPasswordContext';
 import { notifySuccess, notifyError } from '../utils/toastHelpers';
+import { Toaster } from 'sonner';
 
 const ForgotPassword = () => {
   const { setEmail } = useContext(ResetContext);
@@ -57,6 +58,7 @@ const ForgotPassword = () => {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <Toaster position="top-center" richColors />
       {/* Video background */}
       <video
         className="absolute inset-0 w-full h-full object-cover z-0"
@@ -142,18 +144,6 @@ const ForgotPassword = () => {
           </Link>
         </div>
       </motion.form>
-
-      <ToastContainer
-        position="top-right"
-        transition={Bounce}
-        autoClose={1200}
-        theme="dark"
-        toastClassName={() =>
-          'bg-slate-800 text-white px-6 py-4 rounded-xl shadow-lg animate-slide-in'
-        }
-        bodyClassName={() => 'text-sm font-medium'}
-        style={{ zIndex: 2147483647, position: 'fixed' }}
-      />
     </div>
   );
 };
