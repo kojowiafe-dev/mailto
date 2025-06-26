@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AOS from 'aos';
+import 'aos/dist/aos.css';
 import { motion } from 'framer-motion';
 import TextTransition, { presets } from 'react-text-transition';
 import video from '../assets/motion.mp4';
@@ -30,7 +31,7 @@ const Hero = () => {
         <video className="w-full h-full object-cover opacity-0.9" autoPlay muted loop>
           <source src={video} type="video/mp4" />
         </video>
-        {/* <div className="absolute inset-0 bg-black/20" /> */}
+        <div className="absolute inset-0 bg-black/10" />
       </div>
 
       {/* Foreground Content */}
@@ -62,15 +63,17 @@ const Hero = () => {
           for a smarter, more efficient future.
         </motion.div>
 
-        <motion.button
+        <motion.div
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: 'spring', stiffness: 100, damping: 10, delay: 0.8 }}
           onClick={() => navigate('/register')}
-          className="mt-6 bg-blue-400 cursor-pointer text-black text-lg font-bold py-3 px-6 rounded-2xl shadow-md hover:bg-white hover:text-blue-400 hover:scale-105 transition duration-300"
+          className="rounded-2xl"
         >
-          Book Us Now
-        </motion.button>
+          <button className="bg-blue-400 cursor-pointer text-black text-lg font-bold py-3 px-6 rounded-2xl shadow-md hover:bg-white hover:text-blue-400 hover:scale-105 hover:border hover:border-blue-400 transition">
+            Book Us Now
+          </button>
+        </motion.div>
       </section>
     </div>
   );
