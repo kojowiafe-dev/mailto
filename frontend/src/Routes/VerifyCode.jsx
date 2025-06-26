@@ -9,6 +9,12 @@ import { motion } from 'framer-motion';
 import video from '../assets/motion.mp4';
 import { ResetContext } from '../context/ResetPasswordContext';
 import { notifyError, notifySuccess } from '../utils/toastHelpers';
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from '../components/ui/input-otp';
 
 const VerifyCode = () => {
   const { email, setCode, setIsVerified } = useContext(ResetContext);
@@ -22,7 +28,7 @@ const VerifyCode = () => {
     // Protect route: if email is not set, redirect to forgot-password
     if (!email) {
       notifyError("Email missing. Start from 'Forgot Password'");
-      setTimeout(() => navigate('/forgot-password'))
+      setTimeout(() => navigate('/forgot-password'));
       // navigate('/forgot-password');
     }
   }, [email, navigate]);
@@ -96,13 +102,30 @@ const VerifyCode = () => {
           </p>
         </div>
 
-        <input
+        {/* <input
           type="text"
           placeholder="6-digit code"
           className="border border-blue-200 w-full p-3 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none transition bg-blue-50 text-gray-900 placeholder-gray-400"
           value={inputCode}
           onChange={(e) => setInputCode(e.target.value)}
-        />
+        /> */}
+
+        <InputOTP maxLength={6} value={inputCode} onChange={setInputCode}>
+          <InputOTPGroup>
+            <InputOTPSlot index={0} />
+            <InputOTPSlot index={1} />
+          </InputOTPGroup>
+          <InputOTPSeparator />
+          <InputOTPGroup>
+            <InputOTPSlot index={2} />
+            <InputOTPSlot index={3} />
+          </InputOTPGroup>
+          <InputOTPSeparator />
+          <InputOTPGroup>
+            <InputOTPSlot index={4} />
+            <InputOTPSlot index={5} />
+          </InputOTPGroup>
+        </InputOTP>
 
         <button
           type="submit"
