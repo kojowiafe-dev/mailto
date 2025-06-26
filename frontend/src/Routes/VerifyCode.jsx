@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/ReactToastify.css';
+import { Toaster } from 'sonner';
 import AOS from 'aos';
 import api from '../components/api';
 import { FaSignOutAlt, FaUser, FaCode } from 'react-icons/fa';
@@ -73,6 +72,7 @@ const VerifyCode = () => {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <Toaster position="top-center" richColors />
       {/* Background Video */}
       <video
         className="absolute inset-0 w-full h-full object-cover z-0"
@@ -177,18 +177,6 @@ const VerifyCode = () => {
           </Link>
         </div>
       </motion.form>
-
-      <ToastContainer
-        position="top-right"
-        transition="Bounce"
-        autoClose={1200}
-        theme="dark"
-        toastClassName={() =>
-          'bg-slate-800 text-white px-6 py-4 rounded-xl shadow-lg animate-slide-in'
-        }
-        bodyClassName={() => 'text-sm font-medium'}
-        style={{ zIndex: 2147483647, position: 'fixed' }}
-      />
     </div>
   );
 };

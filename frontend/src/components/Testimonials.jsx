@@ -121,8 +121,8 @@ const Testimonials = ({ backgroundColor }) => {
         </h3>
         <div className="relative max-w-6xl mx-auto">
           {/* Transparent edge blur */}
-          <div className="pointer-events-none absolute left-0 top-0 h-full w-5 md:w-28 z-20 bg-gradient-to-r from-neutral-900 via-transparent to-transparent backdrop-blur-sm" />
-          <div className="pointer-events-none absolute right-0 top-0 h-full w-5 md:w-28 z-20 bg-gradient-to-l from-neutral-900 via-transparent to-transparent backdrop-blur-sm" />
+          <div className="pointer-events-none absolute left-0 top-0 h-full w-5 md:w-28 z-20 bg-gradient-to-r from-neutral-900 via-transparent to-transparent" />
+          <div className="pointer-events-none absolute right-0 top-0 h-full w-5 md:w-28 z-20 bg-gradient-to-l from-neutral-900 via-transparent to-transparent" />
 
           {/* Carousel */}
           <div
