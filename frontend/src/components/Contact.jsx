@@ -22,7 +22,7 @@ import { notifyError, notifySuccess } from '../utils/toastHelpers';
 import { Toaster } from 'sonner';
 
 const Contact = ({ backgroundColor }) => {
-  const bgColor = backgroundColor === 'bg-gray-100' ? 'bg-black' : 'bg-white';
+  const bgColor = backgroundColor === 'bg-gray-100' ? 'background' : 'bg-white';
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
