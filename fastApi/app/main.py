@@ -24,14 +24,6 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers, you can specify a list of allowed headers here
 )
 
-
-# @app.exception_handler(Exception)
-# async def validation_exception_handler(request, exc):
-#     return JSONResponse(
-#         status_code=500,
-#         content={"message": "Internal Server Error", "details": str(exc)},
-#     )
-
 app.include_router(user.router)
 app.include_router(message.router)
 app.include_router(authentication.router)
