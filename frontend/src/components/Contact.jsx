@@ -23,6 +23,8 @@ import { Toaster } from 'sonner';
 
 const Contact = ({ backgroundColor }) => {
   const bgColor = backgroundColor === 'bg-gray-100' ? 'background' : 'bg-white';
+  const signUpColor = backgroundColor === 'bg-gray-100' ? 'text-white' : 'text-black';
+  const textColor = backgroundColor === 'bg-gray-100' ? 'text-white/80' : 'text-black/80';
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -63,14 +65,14 @@ const Contact = ({ backgroundColor }) => {
       >
         <Card className={`w-full max-w-sm z-20 ${bgColor}`}>
           <CardHeader>
-            <CardTitle className="font-extrabold text-blue-700">Message Us</CardTitle>
-            <CardDescription>
+            <CardTitle className={`font-extrabold ${signUpColor}`}>Message Us</CardTitle>
+            <CardDescription className={`${textColor}`}>
               We'd love to hear from you! Fill out the form below and our team will get back to you
               soon.
             </CardDescription>
             <CardAction>
               <Link to="/register">
-                <Button variant="link" className="hover:text-blue-700 cursor-pointer">
+                <Button variant="link" className={`${signUpColor} cursor-pointer`}>
                   Sign Up
                 </Button>
               </Link>
@@ -84,7 +86,7 @@ const Contact = ({ backgroundColor }) => {
                   <Input
                     id="name"
                     type="text"
-                    placeholder="Kwame"
+                    placeholder="Kojo"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     required
