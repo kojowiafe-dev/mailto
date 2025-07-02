@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Button } from '../components/ui/button';
-import { motion } from 'framer-motion';
-import Lottie from 'lottie-react';
-// import demoAnimation from '../assets/lottie/ai-demo.json';
+import { motion, useInView } from 'framer-motion';
+// import Lottie from 'lottie-react';
 import { Users, ThumbsUp, TrendingUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import CountUp from 'react-countup';
 
 export default function AIDemoAndTestimonials() {
   const navigate = useNavigate();
+
+  const usersRef = useRef(null);
+  const thumbsRef = useRef(null);
+  const growthRef = useRef(null);
+
+  const usersInView = useInView(usersRef, { once: false, amount: 0.5 });
+  const thumbsInView = useInView(thumbsRef, { once: false, amount: 0.5 });
+  const growthInView = useInView(growthRef, { once: false, amount: 0.5 });
+
   return (
     <section className="bg-gray-950 text-white py-24 px-6 md:px-20 space-y-32">
       {/* AI Agent Demo Section */}
@@ -69,9 +78,12 @@ export default function AIDemoAndTestimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className="bg-gray-900 rounded-xl p-6 shadow-md"
+            ref={usersRef}
           >
             <Users className="text-indigo-500 w-8 h-8 mx-auto" />
-            <p className="text-3xl font-semibold mt-4">+12,000</p>
+            <p className="text-3xl font-semibold mt-4">
+              {usersInView && <CountUp end={12000} duration={3} separator="," prefix="+" />}
+            </p>
             <p className="text-gray-400 mt-2">Users reached via automation</p>
           </motion.div>
 
@@ -80,9 +92,12 @@ export default function AIDemoAndTestimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
             className="bg-gray-900 rounded-xl p-6 shadow-md"
+            ref={thumbsRef}
           >
             <ThumbsUp className="text-green-400 w-8 h-8 mx-auto" />
-            <p className="text-3xl font-semibold mt-4">96%</p>
+            <p className="text-3xl font-semibold mt-4">
+              {thumbsInView && <CountUp end={96} duration={2} suffix="%" />}
+            </p>
             <p className="text-gray-400 mt-2">Customer satisfaction rate</p>
           </motion.div>
 
@@ -91,9 +106,12 @@ export default function AIDemoAndTestimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
             className="bg-gray-900 rounded-xl p-6 shadow-md"
+            ref={growthRef}
           >
             <TrendingUp className="text-blue-400 w-8 h-8 mx-auto" />
-            <p className="text-3xl font-semibold mt-4">+43%</p>
+            <p className="text-3xl font-semibold mt-4">
+              {growthInView && <CountUp end={43} duration={2} suffix="%" prefix="+" />}
+            </p>
             <p className="text-gray-400 mt-2">Efficiency increase across clients</p>
           </motion.div>
         </div>
