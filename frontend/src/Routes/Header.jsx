@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '../components/ui/button';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -8,18 +8,46 @@ const Header = () => {
       <header className="absolute top-0 left-0 w-full z-20 px-6 md:px-20 py-4 flex justify-between items-center bg-transparent backdrop-blur-sm">
         <h1 className="text-2xl font-bold text-white">Eventus</h1>
         <nav className="hidden md:flex space-x-8 text-sm text-white/90">
-          <Link to="/features" className="hover:text-white transition">
+          <NavLink
+            to="/features"
+            className={({ isActive }) =>
+              isActive
+                ? 'text-indigo-400 font-bold border-b-2 border-indigo-400 pb-1'
+                : 'hover:text-white transition'
+            }
+          >
             Solutions
-          </Link>
-          <Link to="/industries" className="hover:text-white transition">
+          </NavLink>
+          <NavLink
+            to="/industries"
+            className={({ isActive }) =>
+              isActive
+                ? 'text-indigo-400 font-bold border-b-2 border-indigo-400 pb-1'
+                : 'hover:text-white transition'
+            }
+          >
             Industries
-          </Link>
-          <Link to="/demo" className="hover:text-white transition">
+          </NavLink>
+          <NavLink
+            to="/demo"
+            className={({ isActive }) =>
+              isActive
+                ? 'text-indigo-400 font-bold border-b-2 border-indigo-400 pb-1'
+                : 'hover:text-white transition'
+            }
+          >
             Demo
-          </Link>
-          <Link to="/contact" className="hover:text-white transition">
+          </NavLink>
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              isActive
+                ? 'text-indigo-400 font-bold border-b-2 border-indigo-400 pb-1'
+                : 'hover:text-white transition'
+            }
+          >
             Contact
-          </Link>
+          </NavLink>
         </nav>
         <Button size="sm" className="text-sm font-medium">
           Get Started
