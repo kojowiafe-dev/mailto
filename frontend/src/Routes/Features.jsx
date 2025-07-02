@@ -38,7 +38,7 @@ export default function Features() {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold"
+          className="text-4xl md:text-5xl font-bold text-white"
         >
           Why Choose <span className="text-indigo-500">Eventus</span>?
         </motion.h2>
@@ -47,7 +47,7 @@ export default function Features() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="mt-6 text-lg text-gray-300 max-w-3xl mx-auto"
+          className="mt-6 text-lg text-white max-w-3xl mx-auto"
         >
           We combine AI innovation, intuitive software design, and data-driven strategies to deliver
           breakthrough outcomes across industries.
@@ -64,7 +64,7 @@ export default function Features() {
               <Card className="bg-gray-900 hover:bg-gray-800 transition-colors duration-300 shadow-lg rounded-2xl p-6 text-left">
                 <CardHeader className="flex items-center gap-3">
                   {React.createElement(icon, { className: 'w-10 h-10 text-indigo-500' })}
-                  <CardTitle className="text-xl font-semibold">{title}</CardTitle>
+                  <CardTitle className="text-xl font-semibold text-white">{title}</CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm text-gray-400 pt-2">{description}</CardContent>
               </Card>

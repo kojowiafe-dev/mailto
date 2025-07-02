@@ -32,7 +32,7 @@ export default function HeroSection() {
 
       <Spotlight className="absolute inset-0 z-0" />
 
-      <div className="relative z-10 flex flex-col md:flex-row items-center justify-between px-6 md:px-20 h-full pt-24">
+      <div className="relative z-10 flex flex-col md:flex-row items-center justify-between px-6 md:px-20 h-full pt-16">
         {/* Left Content */}
         <div className="max-w-2xl space-y-6 text-center md:text-left">
           <motion.h1
