@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
 import { motion } from "framer-motion";
 import { Phone, MessageCircle, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
@@ -13,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/ui/card"
+import { Input } from "../components/ui/input"
 import { Label } from "../components/ui/label"
 
 export default function ContactPage() {
