@@ -8,6 +8,7 @@ import Demo from './Routes/Demo';
 // import { motion, useScroll, useTransform } from 'framer-motion';
 import { Toaster } from 'sonner';
 import Footer from './Routes/Footer';
+import Contact from './Routes/Contact';
 
 function CustomRoutes() {
   const element = useRoutes([
@@ -30,6 +31,10 @@ function CustomRoutes() {
     {
       path: '/footer',
       element: <Footer />,
+    },
+    {
+      path: '/contact',
+      element: <Contact />,
     },
   ]);
   return element;
