@@ -55,7 +55,7 @@ export default function IndustriesSection() {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold"
+          className="text-4xl md:text-5xl font-bold text-white"
         >
           Solutions Built for <span className="text-blue-500">Your Industry</span>
         </motion.h2>
@@ -64,7 +64,7 @@ export default function IndustriesSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="mt-6 text-lg text-gray-300 max-w-3xl mx-auto"
+            className="mt-6 text-lg text-white max-w-3xl mx-auto"
         >
           Eventus delivers tailored, AI-powered solutions for sectors where performance, precision,
           and personalization matter.
@@ -81,7 +81,7 @@ export default function IndustriesSection() {
               <Card className="bg-gray-900 hover:bg-gray-800 transition-colors duration-300 shadow-md rounded-2xl p-6 text-left">
                 <CardHeader className="flex items-center gap-3">
                   {React.createElement(icon, { className: 'w-8 h-8 text-blue-500' })}
-                  <CardTitle className="text-xl font-semibold">{title}</CardTitle>
+                  <CardTitle className="text-xl font-semibold text-white">{title}</CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm text-gray-400 pt-2">{description}</CardContent>
               </Card>
