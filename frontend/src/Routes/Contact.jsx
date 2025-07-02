@@ -132,14 +132,14 @@ export default function ContactPage() {
             //   </Button>
             // </form>
             
-            <Card className="w-full max-w-sm">
+            <Card className="w-full max-w-sm bg-gray-900 text-white">
               <CardHeader>
-                <CardTitle>Login to your account</CardTitle>
+                <CardTitle>Contact Us</CardTitle>
                 <CardDescription>
-                  Enter your email below to login to your account
+                  Enter your email below to contact us
                 </CardDescription>
                 <CardAction>
-                  <Button variant="link">Sign Up</Button>
+                  <Button variant="link" className="text-white" navigate="/">Back to Home</Button>
                 </CardAction>
               </CardHeader>
               <CardContent>
@@ -171,10 +171,10 @@ export default function ContactPage() {
               </CardContent>
               <CardFooter className="flex-col gap-2">
                 <Button type="submit" className="w-full">
-                  Login
+                  Send Message
                 </Button>
                 <Button variant="outline" className="w-full">
-                  Login with Google
+                  Back to Home
                 </Button>
               </CardFooter>
             </Card>
