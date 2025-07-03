@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { Button } from "../components/ui/button";
-import { Textarea } from "../components/ui/textarea";
-import { motion } from "framer-motion";
-import { Phone, MessageCircle, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import { useState } from 'react';
+import { Button } from '../components/ui/button';
+import { Textarea } from '../components/ui/textarea';
+import { motion } from 'framer-motion';
+import { Phone, MessageCircle, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 import {
   Card,
   CardAction,
@@ -11,12 +11,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../components/ui/card"
-import { Input } from "../components/ui/input"
-import { Label } from "../components/ui/label"
+} from '../components/ui/card';
+import { Input } from '../components/ui/input';
+import { Label } from '../components/ui/label';
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
@@ -25,7 +25,7 @@ export default function ContactPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted: ", form);
+    console.log('Submitted: ', form);
     setSubmitted(true);
   };
 
@@ -61,10 +61,18 @@ export default function ContactPage() {
           </div>
 
           <div className="flex gap-4 pt-6">
-            <a href="#" className="text-gray-400 hover:text-white"><Facebook className="w-6 h-6" /></a>
-            <a href="#" className="text-gray-400 hover:text-white"><Twitter className="w-6 h-6" /></a>
-            <a href="#" className="text-gray-400 hover:text-white"><Linkedin className="w-6 h-6" /></a>
-            <a href="#" className="text-gray-400 hover:text-white"><Instagram className="w-6 h-6" /></a>
+            <a href="#" className="text-gray-400 hover:text-white">
+              <Facebook className="w-6 h-6" />
+            </a>
+            <a href="#" className="text-gray-400 hover:text-white">
+              <Twitter className="w-6 h-6" />
+            </a>
+            <a href="#" className="text-gray-400 hover:text-white">
+              <Linkedin className="w-6 h-6" />
+            </a>
+            <a href="#" className="text-gray-400 hover:text-white">
+              <Instagram className="w-6 h-6" />
+            </a>
           </div>
         </div>
 
@@ -131,15 +139,15 @@ export default function ContactPage() {
             //     Send Message
             //   </Button>
             // </form>
-            
+
             <Card className="w-full max-w-sm bg-gray-900 text-white">
               <CardHeader>
                 <CardTitle>Contact Us</CardTitle>
-                <CardDescription>
-                  Enter your email below to contact us
-                </CardDescription>
+                <CardDescription>Enter your email below to contact us</CardDescription>
                 <CardAction>
-                  <Button variant="link" className="text-white" navigate="/">Back to Home</Button>
+                  <Button variant="link" className="text-white" navigate="/">
+                    Back to Home
+                  </Button>
                 </CardAction>
               </CardHeader>
               <CardContent>
@@ -147,38 +155,35 @@ export default function ContactPage() {
                   <div className="flex flex-col gap-6">
                     <div className="grid gap-2">
                       <Label htmlFor="email">Email</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="m@example.com"
-                        required
-                      />
+                      <Input id="email" type="email" placeholder="m@example.com" required />
                     </div>
                     <div className="grid gap-2">
                       <div className="flex items-center">
-                        <Label htmlFor="password">Password</Label>
-                        <a
+                        <Label htmlFor="message">Message</Label>
+                        {/* <a
                           href="#"
                           className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                         >
                           Forgot your password?
-                        </a>
+                        </a> */}
                       </div>
-                      <Input id="password" type="password" required />
+                      <Textarea id="message" rows={4} required />
                     </div>
                   </div>
                 </form>
               </CardContent>
               <CardFooter className="flex-col gap-2">
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full border-1 border-white">
                   Send Message
                 </Button>
-                <Button variant="outline" className="w-full">
+                <Button
+                  variant="outline"
+                  className="w-full border-1 border-black bg-white text-black hover:bg-black hover:text-white hover:border-white"
+                >
                   Back to Home
                 </Button>
               </CardFooter>
             </Card>
-            
           )}
         </div>
       </div>
