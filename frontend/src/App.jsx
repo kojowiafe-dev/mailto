@@ -4,6 +4,7 @@ import LandingPage from './Routes/LandingPage';
 import Features from './Routes/Features';
 import Industries from './Routes/Industries';
 import Demo from './Routes/Demo';
+import GetStarted from './Routes/GetStarted';
 import { Spotlight } from './components/ui/spotlight';
 // import { SparklesCore } from './components/ui/spotlight';
 import { Toaster } from 'sonner';
@@ -28,6 +29,10 @@ function CustomRoutes() {
     {
       path: '/demo',
       element: <Demo />,
+    },
+    {
+      path: '/get-started',
+      element: <GetStarted />,
     },
     {
       path: '/footer',
