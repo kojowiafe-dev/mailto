@@ -1,8 +1,14 @@
 import React from 'react';
 import { Button } from '../components/ui/button';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate('/get-started');
+  };
+
   return (
     <div>
       <header className="absolute top-0 left-0 w-full z-20 px-6 md:px-20 py-4 flex justify-between items-center bg-transparent backdrop-blur-sm">
@@ -49,7 +55,7 @@ const Header = () => {
             Contact
           </NavLink>
         </nav>
-        <Button size="sm" className="text-sm font-medium">
+        <Button size="sm" className="text-sm font-medium" onClick={handleGetStarted}>
           Get Started
         </Button>
       </header>
