@@ -1,0 +1,38 @@
+Metadata-Version: 2.4
+Name: timescaledb
+Version: 0.0.1
+Summary: TimescaleDB is a Python Client based on SQLModel and SQLAlchemy for high-performance real-time analytics time-series data.
+Project-URL: Homepage, https://github.com/jmitchel3/timescaledb
+Project-URL: Repository, https://github.com/jmitchel3/timescaledb
+Author-email: Justin Mitchel <justin@codingforentrepreneurs.com>
+License: MIT
+Keywords: Analytics,SQLAlchemy,SQLModel,Time-Series,TimescaleDB
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Requires-Python: >=3.10
+Requires-Dist: sqlalchemy>=2.0.38
+Requires-Dist: sqlmodel>=0.0.22
+Description-Content-Type: text/markdown
+
+# TimescaleDB for Python
+
+Python Client for TimescaleDB -- an open-source time-series database built on PostgreSQL. This package is based on SQLModel and SQLAlchemy and designed to be used with FastAPI, Flask, and more.
+
+Looking for Django? [Check out django-timescaledb](https://github.com/jamessewell/django-timescaledb)
+
+## Installation
+
+```bash
+pip install timescaledb
+```
+
+### More coming soon
