@@ -5,6 +5,7 @@ import Features from './Routes/Features';
 import Industries from './Routes/Industries';
 import Demo from './Routes/Demo';
 import GetStarted from './Routes/GetStarted';
+import AIMailCompose from './Routes/AIMailCompose';
 import { Spotlight } from './components/ui/spotlight';
 // import { SparklesCore } from './components/ui/spotlight';
 import { Toaster } from 'sonner';
@@ -33,6 +34,10 @@ function CustomRoutes() {
     {
       path: '/get-started',
       element: <GetStarted />,
+    },
+    {
+      path: '/ai-mail-compose',
+      element: <AIMailCompose />,
     },
     {
       path: '/footer',
