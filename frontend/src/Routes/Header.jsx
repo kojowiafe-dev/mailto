@@ -55,7 +55,7 @@ const Header = () => {
             Contact
           </NavLink>
         </nav>
-        <Button size="sm" className="text-sm font-medium" onClick={handleGetStarted}>
+        <Button size="sm" className="text-sm font-medium cursor-pointer" onClick={handleGetStarted}>
           Get Started
         </Button>
       </header>
