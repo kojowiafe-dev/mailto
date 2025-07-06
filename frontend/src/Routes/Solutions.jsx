@@ -31,7 +31,7 @@ const features = [
   },
 ];
 
-export default function Features() {
+export default function Solutions() {
   return (
     <section className="w-full h-full">
       <div className="bg-red-950 text-white py-24 px-6 md:px-20">

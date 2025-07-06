@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRoutes } from 'react-router-dom';
 import LandingPage from './Routes/LandingPage';
-import Features from './Routes/Features';
+import Solutions from './Routes/Solutions';
 import Industries from './Routes/Industries';
 import Demo from './Routes/Demo';
 import GetStarted from './Routes/GetStarted';
@@ -20,8 +20,8 @@ function CustomRoutes() {
       element: <LandingPage />,
     },
     {
-      path: '/features',
-      element: <Features />,
+      path: '/solutions',
+      element: <Solutions />,
     },
     {
       path: '/industries',
@@ -54,7 +54,7 @@ function CustomRoutes() {
 const App = () => {
   return (
     // <div className="min-h-screen flex flex-col background-color text-gray-950 overflow-visible">
-    <div className='relative h-screen w-full bg-black text-white'>
+    <div className="relative h-screen w-full bg-black text-white">
       <Toaster position="top-center" richColors />
       <Spotlight className="absolute inset-0 z-0" />
       <Header />
