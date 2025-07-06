@@ -29,6 +29,8 @@ const Login = () => {
         setError(res.data?.message || 'Invalid credentials');
       }
     } catch (err) {
+      console.log(err);
+
       setError('Login failed.');
     } finally {
       setLoading(false);
