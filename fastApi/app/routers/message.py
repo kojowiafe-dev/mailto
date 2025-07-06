@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status
 import models, database, schemas
-from sqlmodel import select
+from sqlmodel import select, Session
 
 
 
@@ -11,13 +11,13 @@ router = APIRouter(
 
 
 @router.get("/", response_model=list[models.Message], status_code=status.HTTP_200_OK)
-async def get_messages(session: database.SessionLocal):
+async def get_messages(session: Session):
     messages = session.exec(select(models.Message)).all()
     return messages
 
 
 @router.post("/", response_model=schemas.MessageResponse, status_code=status.HTTP_201_CREATED)
-async def create_message(request: schemas.MessageCreate, session: database.SessionLocal):
+async def create_message(request: schemas.MessageCreate, session: Session):
     message = models.Message.model_validate(request)
     session.add(message)
     session.commit()
@@ -26,7 +26,7 @@ async def create_message(request: schemas.MessageCreate, session: database.Sessi
 
 
 @router.get("/{message_id}", response_model=schemas.MessageResponse, status_code=status.HTTP_200_OK)
-async def get_message(message_id: int, session: database.SessionLocal):
+async def get_message(message_id: int, session: Session):
     message = session.get(models.Message, message_id)
     if not message:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Message not found")
@@ -34,7 +34,7 @@ async def get_message(message_id: int, session: database.SessionLocal):
 
 
 @router.patch("/{message_id}", response_model=schemas.MessageResponse, status_code=status.HTTP_200_OK)
-async def update_message(message_id: int, request: schemas.MessageCreate, session: database.SessionLocal):
+async def update_message(message_id: int, request: schemas.MessageCreate, session: Session):
     message = session.get(models.Message, message_id)
     if not message:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Message not found")
@@ -48,7 +48,7 @@ async def update_message(message_id: int, request: schemas.MessageCreate, sessio
 
 
 @router.delete("/message/{message_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_message(message_id: int, session: database.SessionLocal):
+async def delete_message(message_id: int, session: Session):
     message = session.get(models.Message, message_id)
     if not message:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Message not found")

@@ -3,7 +3,7 @@ from fastapi import FastAPI, status, Depends, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import database, models, schemas, hashing
-from routers import user, message, authentication, register, mail
+from routers import user, message, authentication, register, mail, get_started
 # from fastapi.security import OAuth2PasswordBearer
 
 app = FastAPI()
@@ -29,6 +29,7 @@ app.include_router(message.router)
 app.include_router(authentication.router)
 app.include_router(register.router)
 app.include_router(mail.router)
+app.include_router(get_started.router)
 
 
 @app.on_event("startup")

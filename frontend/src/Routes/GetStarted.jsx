@@ -62,10 +62,25 @@ const GetStarted = () => {
     if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setCurrentStep(4);
+    try {
+      const response = await fetch('http://localhost:8000/get-started', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+      // Optionally handle response data
+      setCurrentStep(4);
+    } catch (error) {
+      // Optionally show error to user
+      console.error('Submission error:', error);
+    }
   };
 
   return (
