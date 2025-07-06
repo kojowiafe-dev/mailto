@@ -11,6 +11,7 @@ class Message(SQLModel, table=True):
     created_at: datetime = Field(default_factory=datetime.utcnow, nullable=False)
 
 
+
 class User(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     username: str = Field(index=True, unique=True, nullable=False)
@@ -18,6 +19,27 @@ class User(SQLModel, table=True):
     password: str = Field(nullable=False)
     is_verified: bool = Field(index=True, nullable=False, default=False)
     created_at: datetime = Field(default_factory=datetime.utcnow, nullable=False)
+    get_started_submissions: list["GetStartedSubmission"] = Relationship(back_populates="user")
+
+
+# Hybrid: GetStartedSubmission links to user optionally
+class GetStartedSubmission(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    companyName: str
+    fullName: str
+    email: str
+    phone: Optional[str] = None
+    industry: str
+    companySize: str
+    projectType: Optional[str] = None
+    budget: Optional[str] = None
+    timeline: Optional[str] = None
+    description: Optional[str] = None
+    features: str  # store as comma-separated string
+    agreeToTerms: bool
+    created_at: datetime = Field(default_factory=datetime.utcnow, nullable=False)
+    user_id: Optional[int] = Field(default=None, foreign_key="user.id")
+    user: Optional[User] = Relationship(back_populates="get_started_submissions")
 
 
 class PasswordResetCode(SQLModel, table=True):

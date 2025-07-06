@@ -8,13 +8,29 @@ import GetStarted from './Routes/GetStarted';
 import AIMailCompose from './Routes/AIMailCompose';
 import { Spotlight } from './components/ui/spotlight';
 // import { SparklesCore } from './components/ui/spotlight';
+import SaveProgressPrompt from './Routes/SaveProgressPrompt';
 import { Toaster } from 'sonner';
 import Footer from './Routes/Footer';
 import Contact from './Routes/Contact';
 import Header from './Routes/Header';
+import Login from './Routes/Login';
+import Register from './Routes/Register';
+import Profile from './Routes/Profile';
 
 function CustomRoutes() {
   const element = useRoutes([
+    {
+      path: '/login',
+      element: <Login />,
+    },
+    {
+      path: '/register',
+      element: <Register />,
+    },
+    {
+      path: '/profile',
+      element: <Profile />,
+    },
     {
       path: '/',
       element: <LandingPage />,
@@ -46,6 +62,14 @@ function CustomRoutes() {
     {
       path: '/contact',
       element: <Contact />,
+    },
+    {
+      path: '/save-progress-prompt',
+      element: <SaveProgressPrompt />,
+    },
+    {
+      path: '/profile',
+      element: <Profile />,
     },
   ]);
   return element;
