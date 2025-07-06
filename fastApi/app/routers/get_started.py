@@ -1,13 +1,47 @@
-from fastapi import APIRouter, HTTPException, status, Request
-from pydantic import BaseModel, EmailStr
-from typing import List, Optional
-import schemas, database
+
+from fastapi import APIRouter, HTTPException, status, Depends
+from typing import Optional
+import schemas, database, models
+from sqlmodel import Session, select
+from sqlalchemy import desc
 
 router = APIRouter()
 
 
+
 @router.post("/get-started", status_code=status.HTTP_201_CREATED)
-async def submit_get_started(request: schemas.GetStartedForm, session: database.SessionLocal = None):
-    # Here you can add logic to save to DB, send email, etc.
-    # For now, just return the received data
-    return {"message": "Form received successfully", "data": request.dict()}
+async def submit_get_started(request: schemas.GetStartedForm, session: Session = Depends(database.get_session), user_id: Optional[int] = None):
+    features_str = ",".join(request.features) if request.features else ""
+    submission = models.GetStartedSubmission(
+        companyName=request.companyName,
+        fullName=request.fullName,
+        email=request.email,
+        phone=request.phone,
+        industry=request.industry,
+        companySize=request.companySize,
+        projectType=request.projectType,
+        budget=request.budget,
+        timeline=request.timeline,
+        description=request.description,
+        features=features_str,
+        agreeToTerms=request.agreeToTerms,
+        user_id=user_id
+    )
+    session.add(submission)
+    session.commit()
+    session.refresh(submission)
+    return {"message": "Form received successfully", "submission_id": submission.id}
+
+@router.post("/get-started/link-to-user", status_code=status.HTTP_200_OK)
+async def link_submission_to_user(email: str, user_id: int, session: Session = Depends(database.get_session)):
+    statement = select(models.GetStartedSubmission).where(
+        models.GetStartedSubmission.email == email,
+        models.GetStartedSubmission.user_id == None
+    ).order_by(desc(models.GetStartedSubmission.created_at))
+    submission = session.exec(statement).first()
+    if not submission:
+        raise HTTPException(status_code=404, detail="No submission found to link.")
+    submission.user_id = user_id
+    session.add(submission)
+    session.commit()
+    return {"message": "Submission linked to user", "submission_id": submission.id}

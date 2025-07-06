@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SaveProgressPrompt from './SaveProgressPrompt';
 import { motion } from 'framer-motion';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -19,6 +20,8 @@ import api from '../components/api';
 
 const GetStarted = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [showSavePrompt, setShowSavePrompt] = useState(false);
+  const [submissionId, setSubmissionId] = useState(null);
   const [formData, setFormData] = useState({
     companyName: '',
     fullName: '',
@@ -66,19 +69,13 @@ const GetStarted = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/get-started', {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to submit form');
+      const response = await api.post('/get-started', formData);
+      if (response.data && response.data.submission_id) {
+        setSubmissionId(response.data.submission_id);
+        setShowSavePrompt(true);
       }
-      // Optionally handle response data
       setCurrentStep(4);
     } catch (error) {
-      // Optionally show error to user
       console.error('Submission error:', error);
     }
   };
@@ -399,6 +396,7 @@ const GetStarted = () => {
           </Card>
         </motion.div>
       </div>
+      {showSavePrompt && <SaveProgressPrompt email={formData.email} submissionId={submissionId} />}
     </div>
   );
 };
