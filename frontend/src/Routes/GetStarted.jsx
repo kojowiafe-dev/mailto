@@ -15,6 +15,7 @@ import { Textarea } from '../components/ui/textarea';
 import { Checkbox } from '../components/ui/checkbox';
 import { Badge } from '../components/ui/badge';
 import { ArrowRight, CheckCircle, Sparkles, Zap, Shield, Users } from 'lucide-react';
+import api from '../components/api';
 
 const GetStarted = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -65,8 +66,7 @@ const GetStarted = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/get-started', {
-        method: 'POST',
+      const response = await api.post('/get-started', {
         headers: {
           'Content-Type': 'application/json',
         },
