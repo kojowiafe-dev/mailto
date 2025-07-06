@@ -1,6 +1,7 @@
 from datetime import datetime
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel, Field    
 from pydantic import EmailStr, BaseModel
+from typing import List, Optional
 
 
 
@@ -73,3 +74,18 @@ class ResetPasswordRequest(BaseModel):
     email: EmailStr
     code: str
     new_password: str
+    
+
+class GetStartedForm(BaseModel):
+    companyName: str
+    fullName: str
+    email: EmailStr
+    phone: Optional[str] = None
+    industry: str
+    companySize: str
+    projectType: Optional[str] = None
+    budget: Optional[str] = None
+    timeline: Optional[str] = None
+    description: Optional[str] = None
+    features: List[str] = []
+    agreeToTerms: bool
