@@ -383,39 +383,7 @@ const GetStarted = () => {
             </CardContent>
           </Card>
         </motion.div>
-
-        {/* Benefits Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="mt-16 text-center"
-        >
-          <h2 className="text-2xl font-bold text-white mb-8">Why Choose Eventus?</h2>
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-purple-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Zap className="w-8 h-8 text-purple-400" />
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2">Lightning Fast</h3>
-              <p className="text-gray-300">Get your AI solutions up and running in record time</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-purple-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="w-8 h-8 text-purple-400" />
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2">Enterprise Security</h3>
-              <p className="text-gray-300">Bank-grade security for your most sensitive data</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-purple-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="w-8 h-8 text-purple-400" />
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2">Expert Support</h3>
-              <p className="text-gray-300">24/7 support from our team of AI specialists</p>
-            </div>
-          </div>
-        </motion.div>
+        
       </div>
     </div>
   );

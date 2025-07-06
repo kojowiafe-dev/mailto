@@ -55,7 +55,7 @@ export default function AIDemoAndTestimonials() {
           transition={{ delay: 0.6 }}
           className="mt-8"
         >
-          <Button size="lg" className="text-lg font-semibold" onClick={() => navigate('/demo')}>
+          <Button size="lg" className="text-lg font-semibold" onClick={() => navigate('/ai-mail-compose')}>
             Try a Live Demo
           </Button>
         </motion.div>
