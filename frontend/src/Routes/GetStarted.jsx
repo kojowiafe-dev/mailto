@@ -215,7 +215,7 @@ const GetStarted = () => {
                           <SelectTrigger className="bg-white/10 border-white/20 text-white">
                             <SelectValue placeholder="Select your industry" />
                           </SelectTrigger>
-                          <SelectContent className="bg-gray-800 border-gray-700">
+                          <SelectContent className="bg-gray-800 border-gray-700 text-white">
                             <SelectItem value="technology">Technology</SelectItem>
                             <SelectItem value="healthcare">Healthcare</SelectItem>
                             <SelectItem value="finance">Finance</SelectItem>
@@ -235,7 +235,7 @@ const GetStarted = () => {
                           <SelectTrigger className="bg-white/10 border-white/20 text-white">
                             <SelectValue placeholder="Select company size" />
                           </SelectTrigger>
-                          <SelectContent className="bg-gray-800 border-gray-700">
+                          <SelectContent className="bg-gray-800 border-gray-700 text-white">
                             <SelectItem value="1-10">1-10 employees</SelectItem>
                             <SelectItem value="11-50">11-50 employees</SelectItem>
                             <SelectItem value="51-200">51-200 employees</SelectItem>
@@ -383,7 +383,6 @@ const GetStarted = () => {
             </CardContent>
           </Card>
         </motion.div>
-        
       </div>
     </div>
   );
