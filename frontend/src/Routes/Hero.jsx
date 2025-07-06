@@ -44,7 +44,12 @@ const Hero = () => {
             <Button size="lg" className="text-lg font-semibold" onClick={handleGetStarted}>
               Get Started
             </Button>
-            <Button variant="ghost" size="lg" className="text-lg">
+            <Button
+              variant="ghost"
+              size="lg"
+              className="text-lg"
+              onClick={() => navigate('/features')}
+            >
               Explore Solutions
             </Button>
           </motion.div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '../components/ui/button';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -12,10 +12,12 @@ const Header = () => {
   return (
     <div>
       <header className="absolute top-0 left-0 w-full z-20 px-6 md:px-20 py-4 flex justify-between items-center bg-transparent backdrop-blur-sm">
-        <h1 className="text-2xl font-bold text-white">Eventus</h1>
+        <Link className="text-2xl font-bold text-white hover:text-indigo-500" to="/">
+          Eventus
+        </Link>
         <nav className="hidden md:flex space-x-8 text-sm text-white/90">
           <NavLink
-            to="/features"
+            to="/solutions"
             className={({ isActive }) =>
               isActive
                 ? 'text-indigo-400 font-bold border-b-2 border-indigo-400 pb-1'
