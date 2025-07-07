@@ -84,6 +84,7 @@ const App = () => {
       <Header />
 
       <CustomRoutes />
+      <Footer />
     </div>
   );
 };
