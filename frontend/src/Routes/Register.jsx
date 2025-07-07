@@ -37,14 +37,13 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className="w-full h-screen overflow-hidden">
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 40 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 40 }}
         transition={{ duration: 0.5, type: 'spring' }}
         className="flex items-center justify-center w-full h-screen bg-gradient-to-br from-purple-900/90 via-pink-900/90 to-slate-900/90"
-        // style={{ overflow: 'hidden' }}
       >
         <Card className="w-full max-w-md shadow-2xl border-purple-500/40 border-4 bg-white/10 backdrop-blur-xl">
           <CardHeader className="text-center">
