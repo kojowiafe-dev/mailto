@@ -11,7 +11,10 @@ const Hero = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col overflow-auto">
+    <div
+      className="min-h-screen flex flex-col overflow-auto"
+      style={{ scrollbarWidth: 'thin', scrollbarColor: '#a0aec0 #f7fafc' }}
+    >
       <div className="relative z-10 flex flex-col md:flex-row items-center justify-between px-6 md:px-20 flex-1 pt-16 pb-20">
         {/* Left Content */}
         <div className="max-w-2xl space-y-6 text-center md:text-left">
@@ -19,6 +22,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            solutions
             className="text-4xl md:text-6xl font-extrabold leading-tight"
           >
             Build the <span className="text-indigo-500">Future</span> with <br />

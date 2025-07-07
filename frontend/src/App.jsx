@@ -78,7 +78,7 @@ function CustomRoutes() {
 const App = () => {
   return (
     // <div className="min-h-screen flex flex-col background-color text-gray-950 overflow-visible">
-    <div className="relative h-screen w-full bg-black text-white">
+    <div className="relative h-screen w-full bg-black text-white overflow-visible">
       <Toaster position="top-center" richColors />
       <Spotlight className="absolute inset-0 z-0" />
       <Header />
