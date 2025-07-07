@@ -149,21 +149,75 @@ const Hero = () => {
 
       {/* More Content Section */}
       <section className="bg-black text-white py-20 px-4 md:px-16">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div>
+        <motion.div
+          className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: { staggerChildren: 0.2 },
+            },
+          }}
+        >
+          <motion.div
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
             <h3 className="text-3xl font-bold mb-4 text-indigo-400">AI Use Cases</h3>
             <ul className="space-y-4 text-lg text-gray-200 list-disc list-inside">
-              <li>Automated Email & Workflow Management</li>
-              <li>Smart Data Extraction & Document Processing</li>
-              <li>Conversational AI for Customer Support</li>
-              <li>Predictive Analytics for Business Insights</li>
-              <li>Custom AI Integrations for Your Stack</li>
+              <motion.li
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                Automated Email & Workflow Management
+              </motion.li>
+              <motion.li
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                Smart Data Extraction & Document Processing
+              </motion.li>
+              <motion.li
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                Conversational AI for Customer Support
+              </motion.li>
+              <motion.li
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.5 }}
+              >
+                Predictive Analytics for Business Insights
+              </motion.li>
+              <motion.li
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.6 }}
+              >
+                Custom AI Integrations for Your Stack
+              </motion.li>
             </ul>
-          </div>
-          <div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
             <h3 className="text-3xl font-bold mb-4 text-pink-400">What Sets Us Apart?</h3>
             <div className="space-y-4">
-              <div className="flex items-start gap-3">
+              <motion.div
+                className="flex items-start gap-3"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
                 <span className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
                   1
                 </span>
@@ -171,8 +225,13 @@ const Hero = () => {
                   <span className="font-semibold">End-to-End Delivery:</span> From ideation to
                   deployment, we handle it all.
                 </div>
-              </div>
-              <div className="flex items-start gap-3">
+              </motion.div>
+              <motion.div
+                className="flex items-start gap-3"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+              >
                 <span className="w-8 h-8 bg-pink-600 rounded-full flex items-center justify-center text-white font-bold">
                   2
                 </span>
@@ -180,8 +239,13 @@ const Hero = () => {
                   <span className="font-semibold">Human-Centric Design:</span> Solutions built for
                   real users, not just technology.
                 </div>
-              </div>
-              <div className="flex items-start gap-3">
+              </motion.div>
+              <motion.div
+                className="flex items-start gap-3"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
                 <span className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
                   3
                 </span>
@@ -189,11 +253,16 @@ const Hero = () => {
                   <span className="font-semibold">Security & Privacy:</span> Enterprise-grade
                   protection for your data and users.
                 </div>
-              </div>
+              </motion.div>
             </div>
-          </div>
-        </div>
-        <div className="mt-16 max-w-4xl mx-auto text-center">
+          </motion.div>
+        </motion.div>
+        <motion.div
+          className="mt-16 max-w-4xl mx-auto text-center"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
           <h4 className="text-2xl font-semibold mb-2 text-gradient bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent">
             Ready to transform your business with AI?
           </h4>
@@ -208,7 +277,7 @@ const Hero = () => {
           >
             Get Started with Eventus
           </Button>
-        </div>
+        </motion.div>
       </section>
 
       {/* Sophisticated Footer */}
