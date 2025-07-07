@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-scroll';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   // Set background color based on route
   let bgColor = 'bg-transparent';
-  if (location.pathname === '/solutions') bgColor = 'bg-red-950/90';
+  if (location.pathname === '/solutions') bgColor = 'bg-black';
   else if (location.pathname === '/') bgColor = 'bg-black/60';
   else if (location.pathname === '/industries') bgColor = 'bg-blue-950/80';
   else if (location.pathname === '/demo') bgColor = 'bg-indigo-950/80';
@@ -21,11 +22,16 @@ const Header = () => {
       className={`sticky top-0 z-50 ${bgColor} backdrop-blur-md shadow-md transition-colors duration-300`}
     >
       <nav className="flex justify-between items-center px-6 md:px-20 py-4 bg-transparent text-white">
-        <div className="text-2xl font-bold text-indigo-500">Eventus</div>
+        <div
+          className="text-2xl font-bold text-white hover:text-indigo-500"
+          onClick={() => navigate('/')}
+        >
+          Eventus
+        </div>
         <ul className="hidden md:flex gap-8 text-sm font-medium">
           <li>
             <Link
-              to="hero"
+              onClick={() => navigate('/')}
               spy={true}
               smooth={true}
               offset={-80}
