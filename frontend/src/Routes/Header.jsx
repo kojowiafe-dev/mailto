@@ -1,6 +1,15 @@
 import React from 'react';
 import { Link } from 'react-scroll';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { FlipText } from '@/components/magicui/flip-text';
+
+// export function FlipTextDemo() {
+//   return (
+//     <FlipText className="text-4xl font-bold -tracking-widest text-black dark:text-white md:text-7xl md:leading-[5rem]">
+//       Flip Text
+//     </FlipText>
+//   );
+// }
 
 const Header = () => {
   const location = useLocation();
@@ -22,12 +31,12 @@ const Header = () => {
       className={`sticky top-0 z-50 ${bgColor} backdrop-blur-md shadow-md transition-colors duration-300`}
     >
       <nav className="flex justify-between items-center px-6 md:px-20 py-4 bg-transparent text-white">
-        <div
-          className="text-2xl font-bold text-white hover:text-indigo-500"
+        <FlipText
+          className="text-4xl text-white group-hover:text-indigo-500 font-bold -tracking-widest dark:text-white md:text-4xl md:leading-[5rem]"
           onClick={() => navigate('/')}
         >
           Eventus
-        </div>
+        </FlipText>
         <ul className="hidden md:flex gap-8 text-sm font-medium">
           <li>
             <Link
