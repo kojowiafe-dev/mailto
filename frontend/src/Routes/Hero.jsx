@@ -84,6 +84,7 @@ const Hero = () => {
               variant="ghost"
               size="lg"
               className="text-lg"
+              featsouresfeatsoures
               onClick={() => navigate('/solutions')}
             >
               Explore Solutions
