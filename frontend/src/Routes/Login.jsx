@@ -44,7 +44,7 @@ const Login = () => {
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95, y: 40 }}
       transition={{ duration: 0.5, type: 'spring' }}
-      className="flex items-center justify-center min-h-screen"
+      className="flex items-center justify-center h-screen"
     >
       <Card className="w-full max-w-md shadow-2xl border-purple-500/40 border-4 bg-white/10 backdrop-blur-xl">
         <CardHeader className="text-center">
