@@ -55,7 +55,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 30, scale: 0.9 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ delay: 0.7, duration: 0.7, type: 'spring', bounce: 0.4 }}
-              className="text-blue-400"
+              className="bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text"
             >
               AI-Powered Automation Agents
             </motion.span>

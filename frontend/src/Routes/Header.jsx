@@ -10,7 +10,8 @@ const Header = () => {
   else if (location.pathname === '/') bgColor = 'bg-black/60';
   else if (location.pathname === '/industries') bgColor = 'bg-blue-950/80';
   else if (location.pathname === '/demo') bgColor = 'bg-indigo-950/80';
-  else if (location.pathname === '/get-started') bgColor = 'bg-green-950/80';
+  else if (location.pathname === '/get-started')
+    bgColor = 'bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900';
   else if (location.pathname === '/login' || location.pathname === '/register')
     bgColor = 'bg-gray-900/90';
   // Add more as needed
