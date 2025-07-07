@@ -112,7 +112,7 @@ export default function Solutions() {
             <p className="text-gray-400">Bank-grade security for your most sensitive data</p>
           </div>
           <div className="text-center">
-            <div className="w-16 h-16 bg-gray-900 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-gray-900 rounded-full flex items-center justify-center mx-auto mb-4 hover:scale-125 duration-300">
               <Users className="w-8 h-8 text-blue-600" />
             </div>
             <h3 className="text-lg font-semibold text-transparent bg-clip-text bg-white mb-2">
