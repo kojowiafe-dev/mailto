@@ -11,6 +11,7 @@ import {
   Shield,
   Users,
 } from 'lucide-react';
+import { WordRotate } from '@/components/magicui/word-rotate';
 
 const features = [
   {
@@ -61,8 +62,12 @@ export default function Solutions() {
           transition={{ delay: 0.2 }}
           className="mt-6 text-lg max-w-3xl mx-auto text-gray-300"
         >
-          We combine AI innovation, intuitive software design, and data-driven strategies to deliver
-          breakthrough outcomes across industries.
+          We combine
+          <WordRotate
+            className="text-2xl font-bold bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500 text-transparent"
+            words={['AI innovation', 'intuitive software design', 'data-driven strategies']}
+          />
+          and to deliver breakthrough outcomes across industries.
         </motion.p>
 
         <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
