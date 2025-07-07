@@ -8,7 +8,7 @@ import 'aos/dist/aos.css';
 import Footer from './Footer';
 import { MarqueeDemo } from './ReviewCard';
 import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
-
+import { Meteors } from '@/components/magicui/meteors';
 // export function InteractiveHoverButtonDemo() {
 //   return <InteractiveHoverButton>Hover Me</InteractiveHoverButton>;
 // }
@@ -31,6 +31,7 @@ const Hero = () => {
       id="hero"
       className="min-h-screen flex flex-col scrollbar-thin scrollbar-thumb-indigo-500 scrollbar-track-gray-200 overflow-y-auto pt-10"
     >
+      <Meteors number={30} />
       {/* Hero Header */}
       <div className="relative z-10 flex flex-col md:flex-row items-center justify-between px-6 md:px-20 flex-1 pb-20">
         <div className="max-w-2xl space-y-6 text-center md:text-left" data-aos="fade-right">
