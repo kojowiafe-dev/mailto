@@ -7,6 +7,12 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Footer from './Footer';
 import { MarqueeDemo } from './ReviewCard';
+import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
+
+// export function InteractiveHoverButtonDemo() {
+//   return <InteractiveHoverButton>Hover Me</InteractiveHoverButton>;
+// }
+
 // import aiAnimation from '@/assets/lottie/ai-agent.json'; // optional
 
 const Hero = () => {
@@ -78,18 +84,22 @@ const Hero = () => {
             transition={{ delay: 0.4 }}
             className="flex flex-col md:flex-row gap-4 justify-center md:justify-start"
           >
-            <Button size="lg" className="text-lg font-semibold" onClick={handleGetStarted}>
+            <InteractiveHoverButton
+              size="lg"
+              className="text-lg font-semibold text-black"
+              onClick={handleGetStarted}
+            >
               Get Started
-            </Button>
-            <Button
+            </InteractiveHoverButton>
+            <InteractiveHoverButton
               variant="ghost"
               size="lg"
-              className="text-lg"
+              className="text-lg text-black"
               featsouresfeatsoures
               onClick={() => navigate('/solutions')}
             >
               Explore Solutions
-            </Button>
+            </InteractiveHoverButton>
           </motion.div>
         </div>
 
