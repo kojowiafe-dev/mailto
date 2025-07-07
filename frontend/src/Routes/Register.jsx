@@ -29,6 +29,7 @@ const Register = () => {
         setError(res.data?.detail || 'Registration failed');
       }
     } catch (err) {
+      console.log(err);
       setError('Registration failed.');
     } finally {
       setLoading(false);
