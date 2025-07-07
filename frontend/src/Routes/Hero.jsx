@@ -305,6 +305,8 @@ const Hero = () => {
         </motion.div>
       </section>
 
+      {/* Sophisticated Footer */}
+      <Footer />
       {/* Scroll to top */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
