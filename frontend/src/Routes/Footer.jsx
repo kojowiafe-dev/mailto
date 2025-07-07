@@ -1,26 +1,27 @@
 import { Button } from '../components/ui/button';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail } from 'lucide-react';
+import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
 
 export default function Footer() {
   return (
     <>
       {/* Final Call to Action */}
-      <section className="w-full bg-gradient-to-br from-indigo-600 to-blue-800 text-white py-24 px-6 md:px-20 text-center">
+      <section className="w-full bg-white text-black py-24 px-6 md:px-20 text-center">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-4xl md:text-5xl font-bold mb-6"
         >
-          Let’s Build the <span className="text-white underline">Future</span> Together
+          Let’s Build the <span className="text-black underline">Future</span> Together
         </motion.h2>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-lg text-white/90 max-w-3xl mx-auto mb-8"
+          className="text-lg text-black/90 max-w-3xl mx-auto mb-8"
         >
           Whether you're a startup or an enterprise, our AI-powered solutions are ready to transform
           your workflows. Partner with Eventus today.
@@ -32,12 +33,12 @@ export default function Footer() {
           transition={{ delay: 0.4 }}
           className="flex justify-center gap-6"
         >
-          <Button size="lg" className="text-lg font-semibold">
+          <InteractiveHoverButton size="lg" className="text-lg font-semibold">
             Contact Us
-          </Button>
-          <Button variant="ghost" size="lg" className="text-lg text-white border-white border">
+          </InteractiveHoverButton>
+          <InteractiveHoverButton variant="ghost" size="lg" className="text-lg text-black bg-white">
             Explore More
-          </Button>
+          </InteractiveHoverButton>
         </motion.div>
       </section>
 

@@ -307,13 +307,13 @@ const Hero = () => {
             Contact us for a free consultation or try our onboarding to see how Eventus can help you
             automate, analyze, and accelerate your growth.
           </p>
-          <Button
+          <InteractiveHoverButton
             size="lg"
-            className="bg-indigo-600 hover:bg-indigo-700 text-lg font-semibold px-8 py-3"
+            className="bg-white text-black text-lg font-semibold px-8 py-3"
             onClick={handleGetStarted}
           >
             Get Started with Eventus
-          </Button>
+          </InteractiveHoverButton>
         </motion.div>
       </section>
 
