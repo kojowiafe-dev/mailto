@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Footer from './Footer';
+import { MarqueeDemo } from './ReviewCard';
 // import aiAnimation from '@/assets/lottie/ai-agent.json'; // optional
 
 const Hero = () => {
@@ -305,6 +306,8 @@ const Hero = () => {
           </Button>
         </motion.div>
       </section>
+
+      <MarqueeDemo />
 
       {/* Sophisticated Footer */}
       <Footer />
