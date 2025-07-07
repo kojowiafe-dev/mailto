@@ -1,67 +1,42 @@
 import React from 'react';
-import { Button } from '../components/ui/button';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link } from 'react-scroll';
 
 const Header = () => {
-  const navigate = useNavigate();
-
-  const handleGetStarted = () => {
-    navigate('/get-started');
-  };
-
   return (
-    <div>
-      <header className="absolute top-0 left-0 w-full z-20 px-6 md:px-20 py-4 flex justify-between items-center bg-transparent backdrop-blur-sm">
-        <Link className="text-2xl font-bold text-white hover:text-indigo-500" to="/">
-          Eventus
-        </Link>
-        <nav className="hidden md:flex space-x-8 text-sm text-white/90">
-          <NavLink
-            to="/solutions"
-            className={({ isActive }) =>
-              isActive
-                ? 'text-indigo-400 font-bold border-b-2 border-indigo-400 pb-1'
-                : 'hover:text-white transition'
-            }
-          >
-            Solutions
-          </NavLink>
-          <NavLink
-            to="/industries"
-            className={({ isActive }) =>
-              isActive
-                ? 'text-indigo-400 font-bold border-b-2 border-indigo-400 pb-1'
-                : 'hover:text-white transition'
-            }
-          >
-            Industries
-          </NavLink>
-          <NavLink
-            to="/demo"
-            className={({ isActive }) =>
-              isActive
-                ? 'text-indigo-400 font-bold border-b-2 border-indigo-400 pb-1'
-                : 'hover:text-white transition'
-            }
-          >
-            Demo
-          </NavLink>
-          <NavLink
-            to="/contact"
-            className={({ isActive }) =>
-              isActive
-                ? 'text-indigo-400 font-bold border-b-2 border-indigo-400 pb-1'
-                : 'hover:text-white transition'
-            }
-          >
-            Contact
-          </NavLink>
-        </nav>
-        <Button size="sm" className="text-sm font-medium cursor-pointer" onClick={handleGetStarted}>
-          Get Started
-        </Button>
-      </header>
-    </div>
+    <header className="sticky top-0 z-50 bg-black bg-opacity-80 backdrop-blur-md shadow-md">
+      <nav className="flex justify-between items-center px-6 md:px-20 py-4 text-white">
+        <div className="text-2xl font-bold text-indigo-500">Eventus</div>
+        <ul className="hidden md:flex gap-8 text-sm font-medium">
+          <li>
+            <Link
+              to="hero"
+              spy={true}
+              smooth={true}
+              offset={-80}
+              duration={500}
+              activeClass="text-indigo-400 border-b-2 border-indigo-400"
+              className="cursor-pointer transition-colors hover:text-indigo-300"
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="features"
+              spy={true}
+              smooth={true}
+              offset={-80}
+              duration={500}
+              activeClass="text-indigo-400 border-b-2 border-indigo-400"
+              className="cursor-pointer transition-colors hover:text-indigo-300"
+            >
+              Features
+            </Link>
+          </li>
+        </ul>
+        <div className="md:hidden">{/* Add mobile menu toggle here if needed */}</div>
+      </nav>
+    </header>
   );
 };
 
