@@ -37,7 +37,7 @@ const Register = () => {
   };
 
   return (
-    <AnimatePresence>
+    <div>
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 40 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -109,7 +109,7 @@ const Register = () => {
           </CardContent>
         </Card>
       </motion.div>
-    </AnimatePresence>
+    </div>
   );
 };
 
