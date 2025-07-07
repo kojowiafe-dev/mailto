@@ -22,10 +22,10 @@ const Hero = () => {
   return (
     <div
       id="hero"
-      className="min-h-screen flex flex-col scrollbar-thin scrollbar-thumb-indigo-500 scrollbar-track-gray-200 overflow-y-auto"
+      className="min-h-screen flex flex-col scrollbar-thin scrollbar-thumb-indigo-500 scrollbar-track-gray-200 overflow-y-auto pt-10"
     >
       {/* Hero Header */}
-      <div className="relative z-10 flex flex-col md:flex-row items-center justify-between px-6 md:px-20 flex-1 pt-24 pb-20">
+      <div className="relative z-10 flex flex-col md:flex-row items-center justify-between px-6 md:px-20 flex-1 pb-20">
         <div className="max-w-2xl space-y-6 text-center md:text-left" data-aos="fade-right">
           <motion.h1
             initial={{ opacity: 0, y: -50, scale: 0.95 }}

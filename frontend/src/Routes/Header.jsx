@@ -4,7 +4,7 @@ import { Link } from 'react-scroll';
 const Header = () => {
   return (
     <header className="sticky top-0 z-50 bg-transparent backdrop-blur-md shadow-md">
-      <nav className="flex justify-between items-center px-6 md:px-20 py-4 text-white">
+      <nav className="flex justify-between items-center px-6 md:px-20 py-4 bg-transparent text-white">
         <div className="text-2xl font-bold text-indigo-500">Eventus</div>
         <ul className="hidden md:flex gap-8 text-sm font-medium">
           <li>

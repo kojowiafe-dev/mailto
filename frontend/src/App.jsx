@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRoutes } from 'react-router-dom';
 import LandingPage from './Routes/LandingPage';
 import Solutions from './Routes/Solutions';
@@ -56,10 +56,6 @@ function CustomRoutes() {
       element: <AIMailCompose />,
     },
     {
-      path: '/footer',
-      element: <Footer />,
-    },
-    {
       path: '/contact',
       element: <Contact />,
     },
@@ -78,7 +74,7 @@ function CustomRoutes() {
 const App = () => {
   return (
     // <div className="min-h-screen flex flex-col background-color text-gray-950 overflow-visible">
-    <div className="relative h-screen w-full bg-black text-white overflow-visible">
+    <div className="relative h-screen w-full bg-black">
       <Toaster position="top-center" richColors />
       <Spotlight className="absolute inset-0 z-0" />
       <Header />
