@@ -38,69 +38,69 @@ const Login = () => {
   };
 
   return (
-    // <AnimatePresence>
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95, y: 40 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.95, y: 40 }}
-      transition={{ duration: 0.5, type: 'spring' }}
-      className="flex items-center justify-center h-screen"
-    >
-      <Card className="w-full max-w-md shadow-2xl border-purple-500/40 border-4 bg-white/10 backdrop-blur-xl">
-        <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-extrabold tracking-tight drop-shadow-lg text-white mb-2">
-            Welcome Back
-          </CardTitle>
-          <CardDescription className="text-gray-300 text-base">
-            Sign in to your account
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <Input
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={form.username}
-              onChange={handleChange}
-              className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:ring-purple-400"
-              required
-            />
-            <Input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={form.password}
-              onChange={handleChange}
-              className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:ring-pink-400"
-              required
-            />
-            <Button
-              type="submit"
-              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 shadow-xl hover:from-purple-700 hover:to-pink-700 text-lg font-bold px-7 py-3 rounded-xl border-2 border-white/10"
-              disabled={loading}
-            >
-              {loading ? 'Logging in...' : 'Log In'}
-            </Button>
-          </form>
-          <div className="mt-6 text-gray-300 text-base text-center">
-            Don't have an account?{' '}
-            <span
-              className="text-pink-300 font-semibold cursor-pointer hover:underline"
-              onClick={() => navigate('/register')}
-            >
-              Register
-            </span>
-          </div>
-          {error && (
-            <div className="text-red-400 mt-4 animate-pulse font-bold text-lg text-center">
-              {error}
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 40 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 40 }}
+        transition={{ duration: 0.5, type: 'spring' }}
+        className="flex items-center justify-center w-full h-full"
+      >
+        <Card className="w-full max-w-md shadow-2xl border-purple-500/40 border-4 bg-white/10 backdrop-blur-xl">
+          <CardHeader className="text-center">
+            <CardTitle className="text-3xl font-extrabold tracking-tight drop-shadow-lg text-white mb-2">
+              Welcome Back
+            </CardTitle>
+            <CardDescription className="text-gray-300 text-base">
+              Sign in to your account
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <Input
+                type="text"
+                name="username"
+                placeholder="Username"
+                value={form.username}
+                onChange={handleChange}
+                className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:ring-purple-400"
+                required
+              />
+              <Input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={form.password}
+                onChange={handleChange}
+                className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:ring-pink-400"
+                required
+              />
+              <Button
+                type="submit"
+                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 shadow-xl hover:from-purple-700 hover:to-pink-700 text-lg font-bold px-7 py-3 rounded-xl border-2 border-white/10"
+                disabled={loading}
+              >
+                {loading ? 'Logging in...' : 'Log In'}
+              </Button>
+            </form>
+            <div className="mt-6 text-gray-300 text-base text-center">
+              Don't have an account?{' '}
+              <span
+                className="text-pink-300 font-semibold cursor-pointer hover:underline"
+                onClick={() => navigate('/register')}
+              >
+                Register
+              </span>
             </div>
-          )}
-        </CardContent>
-      </Card>
-    </motion.div>
-    // </AnimatePresence>
+            {error && (
+              <div className="text-red-400 mt-4 animate-pulse font-bold text-lg text-center">
+                {error}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
