@@ -50,7 +50,7 @@ export default function Solutions() {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500"
+          className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-white"
         >
           Why Choose <span className="text-blue-600">Eventus</span>?
         </motion.h2>
@@ -94,7 +94,7 @@ export default function Solutions() {
           className="mt-20 grid md:grid-cols-3 gap-8 max-w-4xl mx-auto"
         >
           <div className="text-center">
-            <div className="w-16 h-16 bg-gray-900 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-gray-900 rounded-full flex items-center justify-center mx-auto mb-4 hover:scale-125 duration-300">
               <Zap className="w-8 h-8 text-blue-600" />
             </div>
             <h3 className="text-lg font-semibold text-transparent bg-clip-text bg-white mb-2">
