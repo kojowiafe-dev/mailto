@@ -122,6 +122,11 @@ const Login = () => {
               >
                 {loading ? 'Logging in...' : 'Log In'}
               </Button>
+              <ShimmerButton className="shadow-2xl w-full">
+                <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
+                  Log In
+                </span>
+              </ShimmerButton>
             </form>
           </CardContent>
           <CardFooter>
