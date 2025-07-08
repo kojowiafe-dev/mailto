@@ -2,10 +2,20 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/card';
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '../components/ui/card';
+import { Label } from '@/components/ui/label';
 import { AuthContext } from '../context/AuthContext';
 import api from '../components/api';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ShimmerButton } from '@/components/magicui/shimmer-button';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -38,66 +48,101 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full h-screen overflow-hidden">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 40 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 40 }}
         transition={{ duration: 0.5, type: 'spring' }}
-        className="flex items-center justify-center w-full h-screen"
+        className="flex items-center justify-center w-full"
       >
-        <Card className="w-full max-w-md shadow-2xl border-purple-500/40 border-4 bg-white/10 backdrop-blur-xl">
-          <CardHeader className="text-center">
-            <CardTitle className="text-3xl font-extrabold tracking-tight drop-shadow-lg text-white mb-2">
+        <Card className="w-full max-w-2xl h-150 flex justify-center shadow-2xl border-1 bg-black/90 backdrop-blur-xl">
+          <CardHeader className="text-center mb-8">
+            <CardTitle className="text-3xl font-extrabold tracking-tight drop-shadow-lg text-white">
               Welcome Back
             </CardTitle>
             <CardDescription className="text-gray-300 text-base">
-              Sign in to your account
+              Enter your email below to login to your account
             </CardDescription>
+            <CardAction>
+              <Button variant="link" className="text-base text-white">
+                Sign Up
+              </Button>
+            </CardAction>
           </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <Input
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={form.username}
-                onChange={handleChange}
-                className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:ring-purple-400"
-                required
-              />
-              <Input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={form.password}
-                onChange={handleChange}
-                className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:ring-pink-400"
-                required
-              />
+
+          <CardContent className="p-4">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-4 flex-col items-center justify-center"
+            >
+              <div className="flex flex-col gap-2">
+                <div className="grid gap-2">
+                  {/* <Label htmlFor="email" className="text-white">
+                    Email
+                  </Label> */}
+                  <Input
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    value={form.username}
+                    onChange={handleChange}
+                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:ring-purple-400 h-15"
+                    required
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <div className="flex items-center">
+                    {/* <Label htmlFor="password" className="text-gray-400">
+                      Password
+                    </Label> */}
+                    <a
+                      href="#"
+                      className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                    >
+                      Forgot your password?
+                    </a>
+                  </div>
+                  <Input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={form.password}
+                    onChange={handleChange}
+                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:ring-pink-400 h-15"
+                    required
+                  />
+                </div>
+              </div>
+
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 shadow-xl hover:from-purple-700 hover:to-pink-700 text-lg font-bold px-7 py-3 rounded-xl border-2 border-white/10"
+                className="w-full  shadow-xl text-lg font-bold px-7 py-3 rounded-xl border-2 border-white/10"
                 disabled={loading}
               >
                 {loading ? 'Logging in...' : 'Log In'}
               </Button>
             </form>
-            <div className="mt-6 text-gray-300 text-base text-center">
-              Don't have an account?{' '}
-              <span
-                className="text-pink-300 font-semibold cursor-pointer hover:underline"
-                onClick={() => navigate('/register')}
-              >
-                Register
-              </span>
-            </div>
-            {error && (
-              <div className="text-red-400 mt-4 animate-pulse font-bold text-lg text-center">
-                {error}
-              </div>
-            )}
           </CardContent>
+          <CardFooter>
+            <Button variant="outline" className="w-full">
+              Login with Google
+            </Button>
+          </CardFooter>
+          <div className="text-gray-300 text-base text-center">
+            Don't have an account?{' '}
+            <span
+              className="text-pink-300 font-semibold cursor-pointer hover:underline"
+              onClick={() => navigate('/register')}
+            >
+              Register
+            </span>
+          </div>
+          {error && (
+            <div className="text-red-400 mt-4 animate-pulse font-bold text-lg text-center">
+              {error}
+            </div>
+          )}
         </Card>
       </motion.div>
     </div>

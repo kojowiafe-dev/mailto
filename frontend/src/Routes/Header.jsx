@@ -24,7 +24,7 @@ const Header = () => {
   else if (location.pathname === '/get-started')
     bgColor = 'bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900';
   else if (location.pathname === '/login' || location.pathname === '/register')
-    bgColor = 'bg-gray-900/90';
+    bgColor = 'bg-black';
   // Add more as needed
 
   let buttonText = 'login';
@@ -33,10 +33,10 @@ const Header = () => {
   let textNavigate = '/login';
   if (buttonText === 'Register') textNavigate = '/register';
   return (
-    <header
+    <div
       className={`sticky top-0 z-50 ${bgColor} backdrop-blur-md shadow-md transition-colors duration-300`}
     >
-      <nav className="flex justify-between items-center px-6 md:px-20 py-4 bg-transparent text-white">
+      <header className="flex justify-between items-center px-6 md:px-20 py-4 bg-transparent text-white">
         <FlipText
           className="text-4xl text-white group-hover:text-indigo-500 font-bold -tracking-widest dark:text-white md:text-4xl md:leading-[5rem]"
           onClick={() => navigate('/')}
@@ -78,8 +78,8 @@ const Header = () => {
           {buttonText}
         </InteractiveHoverButton>
         <div className="md:hidden">{/* Add mobile menu toggle here if needed */}</div>
-      </nav>
-    </header>
+      </header>
+    </div>
   );
 };
 
