@@ -2,8 +2,7 @@
 from fastapi import APIRouter, HTTPException, status, Depends
 from typing import Optional
 import schemas, database, models
-from sqlmodel import Session, select
-from sqlalchemy import desc
+from sqlmodel import Session, select, desc
 
 router = APIRouter()
 
