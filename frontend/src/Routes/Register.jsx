@@ -61,11 +61,15 @@ const Register = () => {
               Create an account
             </CardTitle>
             <CardDescription className="text-gray-300 text-base">
-              Enter your email below to login to your account
+              Sign up to access your account and start using our services.
             </CardDescription>
             <CardAction>
-              <Button variant="link" className="text-base text-white">
-                Sign Up
+              <Button
+                variant="link"
+                className="text-base text-white"
+                onClick={() => navigate('/login')}
+              >
+                Login In
               </Button>
             </CardAction>
           </CardHeader>
@@ -91,17 +95,17 @@ const Register = () => {
                   />
                 </div>
                 <div className="grid gap-2">
-                  <div className="flex items-center">
-                    {/* <Label htmlFor="password" className="text-gray-400">
-                      Password
-                    </Label> */}
-                    <a
-                      href="#"
-                      className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                    >
-                      Forgot your password?
-                    </a>
-                  </div>
+                  <Input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={form.email}
+                    onChange={handleChange}
+                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:ring-pink-400 h-15"
+                    required
+                  />
+                </div>
+                <div className="grid gap-2">
                   <Input
                     type="password"
                     name="password"
@@ -120,7 +124,7 @@ const Register = () => {
                   className="shadow-xl col-span-1 font-bold border-2 border-white/10"
                   disabled={loading}
                 >
-                  {loading ? 'Logging in...' : 'Log In'}
+                  {loading ? 'Registering...' : 'Register'}
                 </InteractiveHoverButton>
                 <InteractiveHoverButton variant="outline" className="col-span-2">
                   SIgn Up with Google
@@ -135,12 +139,12 @@ const Register = () => {
           </CardContent>
           <CardFooter></CardFooter>
           <div className="text-gray-300 text-base text-center">
-            Don't have an account?{' '}
+            Already have an account?{' '}
             <span
               className="text-pink-300 font-semibold cursor-pointer hover:underline"
               onClick={() => navigate('/login')}
             >
-              Register
+              Login
             </span>
           </div>
           {error && (
