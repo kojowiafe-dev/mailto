@@ -17,7 +17,7 @@ const Header = () => {
   const navigate = useNavigate();
   // Set background color based on route
   let bgColor = 'bg-transparent';
-  if (location.pathname === '/solutions') bgColor = 'bg-black';
+  if (location.pathname === '/solutions') bgColor = 'bg-transparent';
   else if (location.pathname === '/') bgColor = 'bg-black/60';
   else if (location.pathname === '/industries') bgColor = 'bg-blue-950/80';
   else if (location.pathname === '/demo') bgColor = 'bg-indigo-950/80';

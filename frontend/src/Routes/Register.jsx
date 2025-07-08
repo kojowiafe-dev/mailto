@@ -58,7 +58,7 @@ const Register = () => {
       >
         <Card className="w-full max-w-2xl h-150 flex justify-center shadow-2xl border-1 bg-black/90 backdrop-blur-xl">
           <CardHeader className="text-center mb-8">
-            <CardTitle className="text-3xl font-extrabold tracking-tight drop-shadow-lg text-white">
+            <CardTitle className="text-3xl font-extrabold tracking-tight drop-shadow-lg bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text">
               Create an account
             </CardTitle>
             <CardDescription className="text-gray-300 text-base">
