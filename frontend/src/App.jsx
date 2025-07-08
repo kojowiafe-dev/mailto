@@ -17,6 +17,8 @@ import Login from './Routes/Login';
 import Register from './Routes/Register';
 import Profile from './Routes/Profile';
 import ForgotPassword from './Routes/ForgotPassword';
+import ResetPassword from './Routes/ResetPassword';
+import VerifyResetCode from './Routes/VerifyResetCode';
 
 function CustomRoutes() {
   const element = useRoutes([
@@ -71,6 +73,14 @@ function CustomRoutes() {
     {
       path: '/forgot-password',
       element: <ForgotPassword />,
+    },
+    {
+      path: '/reset-password',
+      element: <ResetPassword />,
+    },
+    {
+      path: '/verify-reset-code',
+      element: <VerifyResetCode />,
     },
   ]);
   return element;

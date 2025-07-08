@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -17,33 +17,69 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShimmerButton } from '@/components/magicui/shimmer-button';
 import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
 import { Meteors } from '@/components/magicui/meteors';
+import { useForm } from 'react-hook-form';
+import { notifyError, notifySuccess } from '../utils/toastHelpers';
 
 const Register = () => {
+  const {
+    register,
+    formState: { errors },
+  } = useForm();
+
   const navigate = useNavigate();
-  const { setUser } = useContext(AuthContext);
-  const [form, setForm] = useState({ username: '', email: '', password: '' });
+  // const { setUser } = useContext(AuthContext);
+  // const [form, setForm] = useState({ username: '', email: '', password: '' });
+  const [username, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  // const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    try {
-      const res = await api.post('/register', form);
-      if (res.data && res.data.user) {
-        setUser(res.data.user);
-        navigate('/profile');
-      } else {
-        setError(res.data?.detail || 'Registration failed');
-      }
-    } catch (err) {
-      console.log(err);
-      setError('Registration failed.');
-    } finally {
+    if (!username || !email || !password) {
+      notifyError('Please fill out all the required fields');
       setLoading(false);
+      return;
+    }
+    if (password.length > 0 && password.length < 8) {
+      notifyError('Password too short');
+      setLoading(false);
+      return;
+    } else {
+      try {
+        const response = await api.post('/register', { username, email, password });
+        notifySuccess('Registration successful');
+        navigate('/login');
+        setUserName('');
+        setEmail('');
+        setPassword('');
+        console.log(response.data);
+      } catch (error) {
+        if (error.response) {
+          const status = error.response.status;
+          const detail = error.response.data.detail;
+
+          if (status === 400 && detail.includes('Username')) {
+            notifyError('User already exists! Login😊');
+            setLoading(false);
+            return;
+          } else if (status === 400 && detail.includes('Email')) {
+            notifySuccess('Email already registered!');
+          } else {
+            notifyError('Registration failed😥');
+          }
+        } else {
+          console.log('Unknown error: ', error);
+          notifyError('Something went wrong');
+        }
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -67,10 +103,10 @@ const Register = () => {
             <CardAction>
               <Button
                 variant="link"
-                className="text-base text-white"
+                className="text-base text-white hover:bg-gradient-to-r from-purple-600 to-pink-500 hover:text-transparent bg-clip-text cursor-pointer"
                 onClick={() => navigate('/login')}
               >
-                Login In
+                Login
               </Button>
             </CardAction>
           </CardHeader>
@@ -86,38 +122,44 @@ const Register = () => {
                     Email
                   </Label> */}
                   <Input
+                    {...register('username', { required: true, minLength: 0 })}
                     type="text"
                     name="username"
                     placeholder="Username"
-                    value={form.username}
-                    onChange={handleChange}
+                    value={username}
+                    onChange={(e) => setUserName(e.target.value)}
                     className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:ring-purple-400 h-15"
                     required
                   />
                 </div>
                 <div className="grid gap-2">
                   <Input
+                    {...register('email', { required: true })}
                     type="email"
                     name="email"
                     placeholder="Email"
-                    value={form.email}
-                    onChange={handleChange}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:ring-pink-400 h-15"
                     required
                   />
                 </div>
                 <div className="grid gap-2">
                   <Input
+                    {...register('password', { required: true, minLength: 8 })}
                     type="password"
                     name="password"
                     placeholder="Password"
-                    value={form.password}
-                    onChange={handleChange}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:ring-pink-400 h-15"
                     required
                   />
                 </div>
               </div>
+              {errors.password && errors.password.type === 'minLength'
+                ? notifyError('Password too short')
+                : null}
 
               <div className="grid grid-cols-3 gap-2">
                 <InteractiveHoverButton

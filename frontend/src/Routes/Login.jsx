@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import {
@@ -18,32 +18,49 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShimmerButton } from '@/components/magicui/shimmer-button';
 import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
 import { Meteors } from '@/components/magicui/meteors';
+import { notifyError, notifySuccess } from '../utils/toastHelpers';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setUser } = useContext(AuthContext);
-  const [form, setForm] = useState({ username: '', password: '' });
+  // const { setUser } = useContext(AuthContext);
+  // const [form, setForm] = useState({ username: '', password: '' });
+  const [username, setUserName] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  // const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+    if (!username || !password) {
+      notifyError('Please fill out all the required fields');
+      setLoading(false);
+      return;
+    }
     try {
-      const res = await api.post('/login', form);
-      if (res.data && res.data.user) {
-        setUser(res.data.user);
-        navigate('/profile');
-      } else {
-        setError(res.data?.message || 'Invalid credentials');
-      }
-    } catch (err) {
-      console.log(err);
+      const response = await api.post(
+        '/auth/login',
+        { username, password },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
-      setError('Login failed.');
+      console.log(response);
+
+      notifySuccess(response.message || 'Login successfully!');
+    } catch (error) {
+      console.log(error);
+      if (error.response && error.response.data && error.response.data.detail) {
+        notifyError(error.response.data.detail);
+      } else {
+        notifyError(error.message || 'Login failed');
+      }
     } finally {
       setLoading(false);
     }
@@ -60,7 +77,7 @@ const Login = () => {
       >
         <Card className="w-full max-w-2xl h-150 flex justify-center shadow-2xl border-1 bg-black/90 backdrop-blur-xl">
           <CardHeader className="text-center mb-8">
-            <CardTitle className="text-3xl font-extrabold tracking-tight drop-shadow-lg text-white">
+            <CardTitle className="text-3xl font-extrabold tracking-tight drop-shadow-lg bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text">
               Welcome Back
             </CardTitle>
             <CardDescription className="text-gray-300 text-base">
@@ -69,7 +86,7 @@ const Login = () => {
             <CardAction>
               <Button
                 variant="link"
-                className="text-base text-white"
+                className="text-base text-white hover:bg-gradient-to-r from-purple-600 to-pink-500 hover:text-transparent bg-clip-text cursor-pointer"
                 onClick={() => navigate('/register')}
               >
                 Sign Up
@@ -91,30 +108,27 @@ const Login = () => {
                     type="text"
                     name="username"
                     placeholder="Username"
-                    value={form.username}
-                    onChange={handleChange}
+                    value={username}
+                    onChange={(e) => setUserName(e.target.value)}
                     className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:ring-purple-400 h-15"
                     required
                   />
                 </div>
                 <div className="grid gap-2 mt-2">
                   <div className="flex items-center">
-                    {/* <Label htmlFor="password" className="text-gray-400">
-                      Password
-                    </Label> */}
-                    <a
-                      href="/forgot-password"
-                      className="ml-auto inline-block text-sm underline-offset-4 hover:underline text-white"
+                    <Button
+                      onClick={() => navigate('/forgot-password')}
+                      className="ml-auto inline-block text-sm underline-offset-4 hover:underline text-white hover:bg-gradient-to-r from-purple-600 to-pink-500 hover:text-transparent bg-clip-text"
                     >
                       Forgot your password?
-                    </a>
+                    </Button>
                   </div>
                   <Input
                     type="password"
                     name="password"
                     placeholder="Password"
-                    value={form.password}
-                    onChange={handleChange}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:ring-pink-400 h-15"
                     required
                   />

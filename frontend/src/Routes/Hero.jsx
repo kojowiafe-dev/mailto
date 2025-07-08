@@ -8,6 +8,7 @@ import Footer from './Footer';
 import { MarqueeDemo } from './ReviewCard';
 import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
 import { Meteors } from '@/components/magicui/meteors';
+import { Globe } from '@/components/magicui/globe';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -104,8 +105,13 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.6 }}
           >
-            {/* Lottie animation placeholder */}
-            {/* <Lottie animationData={aiAnimation} loop autoplay className="w-full h-auto" /> */}
+            <div className="relative flex size-full max-w-lg items-center justify-center overflow-hidden rounded-lg px-40 pb-40 pt-8 md:pb-60">
+              <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
+                Globe
+              </span>
+              <Globe className="top-28" />
+              <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_200%,rgba(0,0,0,0.2),rgba(255,255,255,0))]" />
+            </div>
           </motion.div>
         </div>
       </div>
