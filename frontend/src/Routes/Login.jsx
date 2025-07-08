@@ -16,6 +16,7 @@ import { AuthContext } from '../context/AuthContext';
 import api from '../components/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShimmerButton } from '@/components/magicui/shimmer-button';
+import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -115,25 +116,26 @@ const Login = () => {
                 </div>
               </div>
 
-              <Button
-                type="submit"
-                className="w-full  shadow-xl text-lg font-bold px-7 py-3 rounded-xl border-2 border-white/10"
-                disabled={loading}
-              >
-                {loading ? 'Logging in...' : 'Log In'}
-              </Button>
-              <ShimmerButton className="shadow-2xl w-full">
+              <div className="grid grid-cols-3 gap-2">
+                <InteractiveHoverButton
+                  type="submit"
+                  className="shadow-xl col-span-1 font-bold border-2 border-white/10"
+                  disabled={loading}
+                >
+                  {loading ? 'Logging in...' : 'Log In'}
+                </InteractiveHoverButton>
+                <InteractiveHoverButton variant="outline" className="col-span-2">
+                  Login with Google
+                </InteractiveHoverButton>
+              </div>
+              {/* <ShimmerButton className="shadow-2xl w-full">
                 <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
                   Log In
                 </span>
-              </ShimmerButton>
+              </ShimmerButton> */}
             </form>
           </CardContent>
-          <CardFooter>
-            <Button variant="outline" className="w-full">
-              Login with Google
-            </Button>
-          </CardFooter>
+          <CardFooter></CardFooter>
           <div className="text-gray-300 text-base text-center">
             Don't have an account?{' '}
             <span
