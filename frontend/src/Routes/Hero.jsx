@@ -1,4 +1,3 @@
-// Hero.jsx
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../components/ui/button';
@@ -9,11 +8,6 @@ import Footer from './Footer';
 import { MarqueeDemo } from './ReviewCard';
 import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
 import { Meteors } from '@/components/magicui/meteors';
-// export function InteractiveHoverButtonDemo() {
-//   return <InteractiveHoverButton>Hover Me</InteractiveHoverButton>;
-// }
-
-// import aiAnimation from '@/assets/lottie/ai-agent.json'; // optional
 
 const Hero = () => {
   const navigate = useNavigate();

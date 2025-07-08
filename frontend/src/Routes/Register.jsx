@@ -16,6 +16,7 @@ import api from '../components/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShimmerButton } from '@/components/magicui/shimmer-button';
 import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
+import { Meteors } from '@/components/magicui/meteors';
 
 const Register = () => {
   const navigate = useNavigate();

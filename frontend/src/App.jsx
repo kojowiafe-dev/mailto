@@ -16,6 +16,7 @@ import Header from './Routes/Header';
 import Login from './Routes/Login';
 import Register from './Routes/Register';
 import Profile from './Routes/Profile';
+import ForgotPassword from './Routes/ForgotPassword';
 
 function CustomRoutes() {
   const element = useRoutes([
@@ -66,6 +67,10 @@ function CustomRoutes() {
     {
       path: '/profile',
       element: <Profile />,
+    },
+    {
+      path: '/forgot-password',
+      element: <ForgotPassword />,
     },
   ]);
   return element;

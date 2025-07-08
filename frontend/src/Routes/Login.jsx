@@ -17,6 +17,7 @@ import api from '../components/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShimmerButton } from '@/components/magicui/shimmer-button';
 import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
+import { Meteors } from '@/components/magicui/meteors';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -102,7 +103,7 @@ const Login = () => {
                       Password
                     </Label> */}
                     <a
-                      href="#"
+                      href="/forgot-password"
                       className="ml-auto inline-block text-sm underline-offset-4 hover:underline text-white"
                     >
                       Forgot your password?
@@ -132,15 +133,9 @@ const Login = () => {
                   Login with Google
                 </InteractiveHoverButton>
               </div>
-              {/* <ShimmerButton className="shadow-2xl w-full">
-                <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
-                  Log In
-                </span>
-              </ShimmerButton> */}
             </form>
           </CardContent>
-          <CardFooter></CardFooter>
-          <div className="text-gray-300 text-base text-center">
+          <div className="text-gray-300 text-base text-center mt-4">
             Don't have an account?{' '}
             <span
               className="text-pink-300 font-semibold cursor-pointer hover:underline"
