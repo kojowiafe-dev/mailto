@@ -66,7 +66,11 @@ const Login = () => {
               Enter your email below to login to your account
             </CardDescription>
             <CardAction>
-              <Button variant="link" className="text-base text-white">
+              <Button
+                variant="link"
+                className="text-base text-white"
+                onClick={() => navigate('/register')}
+              >
                 Sign Up
               </Button>
             </CardAction>
@@ -92,14 +96,14 @@ const Login = () => {
                     required
                   />
                 </div>
-                <div className="grid gap-2">
+                <div className="grid gap-2 mt-2">
                   <div className="flex items-center">
                     {/* <Label htmlFor="password" className="text-gray-400">
                       Password
                     </Label> */}
                     <a
                       href="#"
-                      className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                      className="ml-auto inline-block text-sm underline-offset-4 hover:underline text-white"
                     >
                       Forgot your password?
                     </a>
