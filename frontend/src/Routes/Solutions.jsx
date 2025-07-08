@@ -1,4 +1,3 @@
-// Solutions.jsx
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { motion } from 'framer-motion';
@@ -12,6 +11,7 @@ import {
   Users,
 } from 'lucide-react';
 import { WordRotate } from '@/components/magicui/word-rotate';
+import { Meteors } from '@/components/magicui/meteors';
 
 const features = [
   {
