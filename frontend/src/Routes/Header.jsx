@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-scroll';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FlipText } from '@/components/magicui/flip-text';
+import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
 
 // export function FlipTextDemo() {
 //   return (
@@ -26,6 +27,11 @@ const Header = () => {
     bgColor = 'bg-gray-900/90';
   // Add more as needed
 
+  let buttonText = 'login';
+  if (location.pathname === '/login') buttonText = 'Register';
+
+  let textNavigate = '/login';
+  if (buttonText === 'Register') textNavigate = '/register';
   return (
     <header
       className={`sticky top-0 z-50 ${bgColor} backdrop-blur-md shadow-md transition-colors duration-300`}
@@ -65,6 +71,12 @@ const Header = () => {
             </Link>
           </li>
         </ul>
+        <InteractiveHoverButton
+          className="font-semibold text-black"
+          onClick={() => navigate(`${textNavigate}`)}
+        >
+          {buttonText}
+        </InteractiveHoverButton>
         <div className="md:hidden">{/* Add mobile menu toggle here if needed */}</div>
       </nav>
     </header>
