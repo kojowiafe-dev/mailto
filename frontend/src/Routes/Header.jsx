@@ -70,6 +70,19 @@ const Header = () => {
               Features
             </Link>
           </li>
+          <li>
+            <Link
+              to="ai-mail-compose"
+              spy={true}
+              smooth={true}
+              offset={-80}
+              duration={500}
+              activeClass="text-indigo-400 border-b-2 border-indigo-400"
+              className="cursor-pointer transition-colors hover:text-indigo-300"
+            >
+              Demo
+            </Link>
+          </li>
         </ul>
         <InteractiveHoverButton
           className="font-semibold text-black"

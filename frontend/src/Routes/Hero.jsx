@@ -9,6 +9,7 @@ import { MarqueeDemo } from './ReviewCard';
 import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
 import { Meteors } from '@/components/magicui/meteors';
 import { Globe } from '@/components/magicui/globe';
+import AIDemoAndTestimonials from './Demo';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -198,6 +199,8 @@ const Hero = () => {
         </div>
       </div>
 
+      <MarqueeDemo />
+
       {/* More Content Section */}
       <section className="bg-black text-white py-8 sm:py-12 px-4 sm:px-6 md:px-8 lg:px-16">
         <motion.div
@@ -346,8 +349,7 @@ const Hero = () => {
           </InteractiveHoverButton>
         </motion.div>
       </section>
-
-      <MarqueeDemo />
+      <AIDemoAndTestimonials />
 
       {/* Sophisticated Footer */}
       {/* <Footer /> */}
