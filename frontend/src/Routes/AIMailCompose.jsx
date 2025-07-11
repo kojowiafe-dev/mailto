@@ -5,28 +5,69 @@ import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Button } from '../components/ui/button';
 import { Sparkles, Send, Mail } from 'lucide-react';
+import api from '../components/api';
 
 const AIMailCompose = () => {
   const [prompt, setPrompt] = useState('');
   const [recipient, setRecipient] = useState('');
+  const [subject, setSubject] = useState('');
   const [aiMessage, setAIMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
-  // Placeholder for AI generation (replace with real API call)
+  // Call FastAPI backend to generate AI email
   const handleGenerate = async () => {
     setLoading(true);
     setError('');
     setSuccess(false);
-    // Simulate AI response
-    setTimeout(() => {
-      setAIMessage(
-        `Hi [Recipient],\n\nThis is a sample AI-generated email based on your prompt: "${prompt}".\n\nBest regards,\nYour Name`
+    setAIMessage(''); // Clear textarea before generating
+
+    try {
+      const res = await api.post(
+        '/ai/generate',
+        { writeup: prompt },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
       );
+
+      console.log('✅ AI response:', res.data);
+
+      const content = res.data?.content;
+      if (!content || content.trim() === '') {
+        throw new Error('AI returned an empty message');
+      }
+
+      let subject = '';
+      let body = content;
+
+      if (content.startsWith('Subject:')) {
+        const splitIndex = content.indexOf('\n\n');
+        if (splitIndex !== -1) {
+          subject = content.slice(8, splitIndex).trim(); // Remove "Subject:" and extract the line
+          body = content.slice(splitIndex + 2).trim(); // The rest is the body
+        } else {
+          subject = content.replace('Subject:', '').trim(); // fallback
+          body = '';
+        }
+      }
+
+      console.log('📧 Subject:', subject);
+      console.log('📝 Body:', body);
+
+      setSubject(subject);
+      setAIMessage(body);
+    } catch (err) {
+      const message = err.response?.data?.detail || err.message || 'Failed to generate email';
+      setError(message);
+      setAIMessage('');
+    } finally {
       setLoading(false);
-    }, 1200);
+    }
   };
 
   // Placeholder for sending email (replace with real API call)
@@ -91,17 +132,38 @@ const AIMailCompose = () => {
                 </Button>
               </div>
             </div>
+
             {/* AI Message Textarea */}
+
+            {/* Subject Input */}
+            <div>
+              <label className="block text-sm font-medium mb-1 text-gray-200">Subject</label>
+              <Input
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+                placeholder="e.g. Meeting follow-up"
+                className="bg-white/10 border-white/20 text-white placeholder:text-gray-400"
+                disabled={loading || sending}
+              />
+            </div>
+
             <div>
               <label className="block text-sm font-medium mb-1 text-gray-200">
                 AI-generated message
               </label>
+
+              {loading && (
+                <p className="text-sm text-purple-400 mb-1 animate-pulse">
+                  Generating email, please wait...
+                </p>
+              )}
+
               <Textarea
                 value={aiMessage}
                 onChange={(e) => setAIMessage(e.target.value)}
                 placeholder="The AI's draft will appear here. You can edit it before sending."
                 className="min-h-[140px] bg-white/10 border-white/20 text-white placeholder:text-gray-400"
-                disabled={loading || sending}
+                disabled={sending}
               />
             </div>
             {/* Recipient Input */}
