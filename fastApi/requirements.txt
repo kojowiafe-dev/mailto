@@ -14,3 +14,4 @@ psycopg[binary]
 python-dotenv       
 fastapi-mail
 jinja2
+google-generativeai
