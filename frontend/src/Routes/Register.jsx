@@ -19,6 +19,7 @@ import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-b
 import { Meteors } from '@/components/magicui/meteors';
 import { useForm } from 'react-hook-form';
 import { notifyError, notifySuccess } from '../utils/toastHelpers';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Register = () => {
   const {
@@ -32,6 +33,7 @@ const Register = () => {
   const [username, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -144,10 +146,10 @@ const Register = () => {
                     required
                   />
                 </div>
-                <div className="grid gap-2">
+                <div className="grid gap-2 relative">
                   <Input
                     {...register('password', { required: true, minLength: 8 })}
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     name="password"
                     placeholder="Password"
                     value={password}
@@ -155,6 +157,13 @@ const Register = () => {
                     className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:ring-pink-400 h-15"
                     required
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white hover:text-blue-600"
+                  >
+                    {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
+                  </button>
                 </div>
               </div>
               {errors.password && errors.password.type === 'minLength'

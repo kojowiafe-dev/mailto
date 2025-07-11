@@ -72,14 +72,29 @@ const AIMailCompose = () => {
 
   // Placeholder for sending email (replace with real API call)
   const handleSend = async () => {
-    setSending(true);
-    setError('');
-    setSuccess(false);
-    // Simulate sending
-    setTimeout(() => {
+    try {
+      setSending(true);
+      setError('');
+      setSuccess(false);
+
+      const res = await api.post('/ai-mail/send', {
+        email: recipient,
+        subject: subject,
+        content: aiMessage,
+      });
+
+      console.log('Notification:', res.data.detail || res.data);
+
+      // Simulate delay
+      setTimeout(() => {
+        setSending(false);
+        setSuccess(true);
+      }, 1200);
+    } catch (err) {
+      console.error('Send Error:', err);
       setSending(false);
-      setSuccess(true);
-    }, 1200);
+      setError('Failed to send email. Please try again.');
+    }
   };
 
   return (

@@ -9,11 +9,13 @@ import { useNavigate } from 'react-router-dom';
 import { Meteors } from '@/components/magicui/meteors';
 import { notifyError, notifySuccess } from '../utils/toastHelpers';
 import { ResetContext } from '../context/ResetPasswordContext';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const ResetPassword = () => {
   const { email, setEmail, code, setCode, isVerified } = useContext(ResetContext);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState('');
   const [loading, setLoading] = useState(false);
   //   const [success, setSuccess] = useState('');
   //   const [error, setError] = useState('');
@@ -97,9 +99,9 @@ const ResetPassword = () => {
           <CardContent>
             <form onSubmit={handleReset} className="space-y-4 flex-col items-center justify-center">
               <div className="flex flex-col gap-2">
-                <div className="grid gap-2">
+                <div className="grid gap-2 relative">
                   <Input
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     name="password"
                     placeholder="New Password"
                     value={password}
@@ -107,12 +109,19 @@ const ResetPassword = () => {
                     className="placeholder:text-xl text-xl bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:ring-purple-400 h-15"
                     required
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white hover:text-blue-600"
+                  >
+                    {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
+                  </button>
                 </div>
               </div>
               <div className="flex flex-col gap-2">
-                <div className="grid gap-2">
+                <div className="grid gap-2 relative">
                   <Input
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     name="password"
                     placeholder="Confirm Password"
                     value={confirmPassword}
@@ -120,6 +129,13 @@ const ResetPassword = () => {
                     className="placeholder:text-xl text-xl bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:ring-purple-400 h-15"
                     required
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white hover:text-blue-600"
+                  >
+                    {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
+                  </button>
                 </div>
               </div>
               <InteractiveHoverButton
