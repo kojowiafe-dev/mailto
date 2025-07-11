@@ -77,11 +77,20 @@ const AIMailCompose = () => {
       setError('');
       setSuccess(false);
 
-      const res = await api.post('/ai-mail/send', {
-        email: recipient,
-        subject: subject,
-        content: aiMessage,
-      });
+      const res = await api.post(
+        '/ai-mail/send',
+        {
+          email: recipient,
+          subject: subject,
+          content: aiMessage,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log({ email: recipient, subject, content: aiMessage });
 
       console.log('Notification:', res.data.detail || res.data);
 
