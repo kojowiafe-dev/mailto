@@ -89,3 +89,9 @@ class GetStartedForm(BaseModel):
     description: Optional[str] = None
     features: List[str] = []
     agreeToTerms: bool
+    
+    
+class MailRequest(SQLModel):
+    email: str
+    subject: str
+    content: str

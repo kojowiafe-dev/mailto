@@ -19,6 +19,7 @@ import { ShimmerButton } from '@/components/magicui/shimmer-button';
 import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
 import { Meteors } from '@/components/magicui/meteors';
 import { notifyError, notifySuccess } from '../utils/toastHelpers';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ const Login = () => {
   // const [form, setForm] = useState({ username: '', password: '' });
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -54,6 +56,11 @@ const Login = () => {
       console.log(response);
 
       notifySuccess(response.message || 'Login successfully!');
+      setTimeout(() => {
+        navigate('/ai-mail-compose');
+      }, 3000);
+      setUserName('');
+      setPassword('');
     } catch (error) {
       console.log(error);
       if (error.response && error.response.data && error.response.data.detail) {
@@ -123,15 +130,24 @@ const Login = () => {
                       Forgot your password?
                     </Button>
                   </div>
-                  <Input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:ring-pink-400 h-15"
-                    required
-                  />
+                  <div className="relative">
+                    <Input
+                      type={showPassword ? 'text' : 'password'}
+                      name="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:ring-pink-400 h-15"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white hover:text-blue-600"
+                    >
+                      {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
+                    </button>
+                  </div>
                 </div>
               </div>
 
