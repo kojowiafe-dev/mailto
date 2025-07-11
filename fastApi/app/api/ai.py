@@ -3,6 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 import os
 import google.generativeai as genai
+import traceback
 
 router = APIRouter(
     prefix="/ai",
@@ -40,6 +41,7 @@ async def generate_email(request: EmailRequest):
         response = model.generate_content(prompt)
         generated_email = response.text.strip() if hasattr(response, "text") and response.text else ""
     except Exception as e:
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"AI email generation failed: {str(e)}")
 
     return {"content": generated_email}
