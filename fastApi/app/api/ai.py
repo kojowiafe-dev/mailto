@@ -1,8 +1,8 @@
+
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 import os
-import openai
-
+import google.generativeai as genai
 
 router = APIRouter(
     prefix="/ai",
@@ -23,10 +23,11 @@ async def generate_email(request: EmailRequest):
     if not request.writeup:
         raise HTTPException(status_code=400, detail="Write-up cannot be empty")
 
-    openai_api_key = os.getenv("OPENAI_API_KEY")
-    if not openai_api_key:
-        raise HTTPException(status_code=500, detail="OpenAI API key not set in environment")
-    openai.api_key = openai_api_key
+    # gemini_api_key = os.getenv("GEMINI_API_KEY")
+    gemini_api_key = "AIzaSyCDUUvsREtnT40dqwinIlu5BKrl4JuSWrw"
+    if not gemini_api_key:
+        raise HTTPException(status_code=500, detail="Gemini API key not set in environment")
+    genai.configure(api_key=gemini_api_key)
 
     prompt = (
         "You are an AI assistant that helps users write professional emails. "
@@ -35,16 +36,9 @@ async def generate_email(request: EmailRequest):
         f"Write-up: {request.writeup}\n\nEmail:"
     )
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "You are an expert email writer."},
-                {"role": "user", "content": prompt}
-            ],
-            max_tokens=400,
-            temperature=0.7,
-        )
-        generated_email = response.choices[0].message["content"].strip()
+        model = genai.GenerativeModel("gemini-2.0-flash")
+        response = model.generate_content(prompt)
+        generated_email = response.text.strip() if hasattr(response, "text") and response.text else ""
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"AI email generation failed: {str(e)}")
 
