@@ -16,6 +16,8 @@ class UserResponse(SQLModel):
     username: str
     email: str
     is_verified: bool
+    mails: List["MailResponse"] = []
+    # get_started_submissions: List["GetStartedSubmissionResponse"] = []
     created_at: datetime
 
 
@@ -99,5 +101,7 @@ class MailRequest(SQLModel):
     
 class MailResponse(MailRequest):
     id: int
+    user_id: Optional[int] = None
+    username: str | None = None
     created_at: datetime
     
