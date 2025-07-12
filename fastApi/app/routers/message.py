@@ -47,7 +47,7 @@ async def update_message(message_id: int, request: schemas.MessageCreate, sessio
 
 
 
-@router.delete("/message/{message_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{message_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_message(message_id: int, session: database.SessionLocal):
     message = session.get(models.Message, message_id)
     if not message:
