@@ -6,6 +6,7 @@ import { Textarea } from '../components/ui/textarea';
 import { Button } from '../components/ui/button';
 import { Sparkles, Send, Mail } from 'lucide-react';
 import api from '../components/api';
+import { notifySuccess } from '../utils/toastHelpers';
 
 const AIMailCompose = () => {
   const [prompt, setPrompt] = useState('');
@@ -93,6 +94,15 @@ const AIMailCompose = () => {
       console.log({ email: recipient, subject, content: aiMessage });
 
       console.log('Notification:', res.data.detail || res.data);
+      setPrompt('');
+      setRecipient('');
+      setSubject('');
+      setAIMessage('');
+
+      // Show success message
+      console.log('Email sent successfully:', res.data);
+      setSuccess(true);
+      notifySuccess('Email sent successfully!');
 
       // Simulate delay
       setTimeout(() => {
@@ -107,7 +117,7 @@ const AIMailCompose = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center py-12 px-2">
+    <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-indigo-950 text-white flex items-center justify-center py-12 px-2">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
