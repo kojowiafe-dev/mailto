@@ -101,7 +101,7 @@ class MailRequest(SQLModel):
     
 class MailResponse(MailRequest):
     id: int
-    user_id: Optional[int] = None
+    user_id: int | None = None
     username: str | None = None
     created_at: datetime
     
