@@ -25,6 +25,7 @@ const Header = () => {
     bgColor = 'bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900';
   else if (location.pathname === '/login' || location.pathname === '/register')
     bgColor = 'bg-black';
+  else if (location.pathname === '/ai-mail-compose') bgColor = 'bg-transparent';
   // Add more as needed
 
   let buttonText = 'login';

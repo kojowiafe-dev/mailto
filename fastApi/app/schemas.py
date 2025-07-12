@@ -95,3 +95,9 @@ class MailRequest(SQLModel):
     email: str
     subject: str
     content: str
+    
+    
+class MailResponse(MailRequest):
+    id: int
+    created_at: datetime
+    

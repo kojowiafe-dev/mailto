@@ -20,6 +20,14 @@ class User(SQLModel, table=True):
     is_verified: bool = Field(index=True, nullable=False, default=False)
     created_at: datetime = Field(default_factory=datetime.utcnow, nullable=False)
     get_started_submissions: list["GetStartedSubmission"] = Relationship(back_populates="user")
+    
+    
+class Mails(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    subject: str = Field(nullable=False)
+    email: str = Field(nullable=False)
+    content: str = Field(nullable=False)
+    created_at: datetime = Field(default_factory=datetime.utcnow, nullable=False)
 
 
 # Hybrid: GetStartedSubmission links to user optionally
