@@ -104,7 +104,7 @@ class MailResponse(SQLModel):
     email: str
     content: str
     created_at: datetime
-
-    # class Config:
-    #     orm_mode = True
+    
+    class Config:
+        orm_mode = True
     
