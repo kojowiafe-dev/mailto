@@ -4,6 +4,7 @@ from datetime import datetime
 
 # class Message is used to store the messages sent by users.
 class Message(SQLModel, table=True):
+    __tablename__ = "messages"
     id: int | None = Field(default=None, primary_key=True)
     name: str = Field(index=True, nullable=False)
     email: str = Field(index=True, nullable=False)
@@ -13,6 +14,7 @@ class Message(SQLModel, table=True):
 
 
 class User(SQLModel, table=True):
+    __tablename__ = "user"
     id: int | None = Field(default=None, primary_key=True)
     username: str = Field(index=True, unique=True, nullable=False)
     email: str = Field(index=True, unique=True, nullable=False)
@@ -24,12 +26,15 @@ class User(SQLModel, table=True):
     
     
 class Mails(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-    user_id: Optional[int] = Field(default=None, foreign_key="user.id")
+    __tablename__ = "mails"
+
+    id: Optional[int] = Field(default=None, primary_key=True)
     subject: str = Field(nullable=False)
     email: str = Field(nullable=False)
     content: str = Field(nullable=False)
     created_at: datetime = Field(default_factory=datetime.utcnow, nullable=False)
+
+    user_id: Optional[int] = Field(default=None, foreign_key="user.id")
     sender: Optional[User] = Relationship(back_populates="mails")
 
 
