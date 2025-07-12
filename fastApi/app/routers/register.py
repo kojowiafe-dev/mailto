@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException, status
 import schemas, database, models, hashing, token_access
 from routers.mail import send_verification_email
+from sqlmodel import select
 
 router = APIRouter(
     tags= ['Register'],
@@ -16,7 +17,7 @@ async def create_user(request: schemas.UserCreate, session: database.SessionLoca
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Username already taken')
     
     # checking if email is taken
-    existing_email = session.query(models.User).filter(models.User.email == request.email).first()
+    existing_email = session.exec(select(models.User).where(models.User.email == request.email)).first()
     
     if existing_email:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Email already taken')
