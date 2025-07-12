@@ -73,7 +73,7 @@ const Header = () => {
           </li>
           <li>
             <Link
-              to="ai-mail-compose"
+              onClick={() => navigate('/ai-mail-compose')}
               spy={true}
               smooth={true}
               offset={-80}
