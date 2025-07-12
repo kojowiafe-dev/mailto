@@ -3,7 +3,7 @@ from fastapi import FastAPI, status, Depends, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import database, models, schemas, hashing
-from routers import user, message, authentication, register, mail, get_started
+from routers import user, message, authentication, register, mail, get_started, userMails
 from api import ai, aiMail
 # from fastapi.security import OAuth2PasswordBearer
 
@@ -33,6 +33,7 @@ app.include_router(mail.router)
 app.include_router(get_started.router)
 app.include_router(ai.router)
 app.include_router(aiMail.router)
+app.include_router(userMails.router)
 
 
 @app.on_event("startup")
