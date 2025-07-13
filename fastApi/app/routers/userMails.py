@@ -59,3 +59,17 @@ async def delete_mail(mail_id: int, session: database.SessionLocal):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Mail not found")
     session.delete(mail)
     session.commit()
+    
+    
+    
+# @app.get("/usermails/", response_model=list[MailOut])
+# def get_user_mails_by_email(email: str, db: Session = Depends(get_db)):
+#     # 1. Check if the user exists
+#     user = db.exec(select(User).where(User.email == email)).first()
+#     if not user:
+#         raise HTTPException(status_code=404, detail="User not found")
+
+#     # 2. Get mails linked to user_id
+#     mails = db.exec(select(Mails).where(Mails.user_id == user.id)).all()
+
+#     return mails
