@@ -53,6 +53,9 @@ const Login = () => {
         }
       );
 
+      const data = await response.json();
+      localStorage.setItem('token', data.access_token);
+
       console.log(response);
 
       notifySuccess(response.message || 'Login successfully!');

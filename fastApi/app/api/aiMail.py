@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, status, Depends
 from email.message import EmailMessage
 import smtplib
 from schemas import MailRequest
-from routers.authentication import get_current_user
+from oauth2 import get_current_user
 import models
 
 router = APIRouter(
