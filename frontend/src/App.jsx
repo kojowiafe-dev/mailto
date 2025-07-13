@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useRoutes } from 'react-router-dom';
+import { Routes, Route, useRoutes } from 'react-router-dom';
 import LandingPage from './Routes/LandingPage';
 import Solutions from './Routes/Solutions';
 import Industries from './Routes/Industries';
@@ -19,6 +19,7 @@ import Profile from './Routes/Profile';
 import ForgotPassword from './Routes/ForgotPassword';
 import ResetPassword from './Routes/ResetPassword';
 import VerifyResetCode from './Routes/VerifyResetCode';
+import ProtectedRoute from './Routes/ProtectedRoute';
 
 function CustomRoutes() {
   const element = useRoutes([
@@ -55,20 +56,12 @@ function CustomRoutes() {
       element: <GetStarted />,
     },
     {
-      path: '/ai-mail-compose',
-      element: <AIMailCompose />,
-    },
-    {
       path: '/contact',
       element: <Contact />,
     },
     {
       path: '/save-progress-prompt',
       element: <SaveProgressPrompt />,
-    },
-    {
-      path: '/profile',
-      element: <Profile />,
     },
     {
       path: '/forgot-password',
@@ -88,15 +81,18 @@ function CustomRoutes() {
 
 const App = () => {
   return (
-    // <div className="min-h-screen flex flex-col background-color text-gray-950 overflow-visible">
-    <div className="min-h-screen flex flex-col bg-black overflow-visible">
-      <Toaster position="top-center" richColors />
-      <Spotlight className="absolute inset-0 z-0" />
-      <Header />
-
-      <CustomRoutes />
-      <Footer />
-    </div>
+    <Routes>
+      {/* Public Routes */}
+      <Route path="/*" element={<CustomRoutes />} />
+      <Route
+        path="/ai-mail-compose"
+        element={
+          <ProtectedRoute>
+            <AIMailCompose />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
   );
 };
 
