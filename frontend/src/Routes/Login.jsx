@@ -20,11 +20,13 @@ import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-b
 import { Meteors } from '@/components/magicui/meteors';
 import { notifyError, notifySuccess } from '../utils/toastHelpers';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
   const navigate = useNavigate();
   // const { setUser } = useContext(AuthContext);
   // const [form, setForm] = useState({ username: '', password: '' });
+  const { setAuth } = useAuth();
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState('');
@@ -55,6 +57,11 @@ const Login = () => {
 
       const data = await response.json();
       localStorage.setItem('token', data.access_token);
+
+      setAuth({
+        token: data.access_token,
+        user: data.user,
+      });
 
       console.log(response);
 
