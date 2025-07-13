@@ -20,70 +20,37 @@ import ForgotPassword from './Routes/ForgotPassword';
 import ResetPassword from './Routes/ResetPassword';
 import VerifyResetCode from './Routes/VerifyResetCode';
 import ProtectedRoute from './Routes/ProtectedRoute';
+import Hero from './Routes/Hero';
 
-function CustomRoutes() {
-  const element = useRoutes([
-    {
-      path: '/login',
-      element: <Login />,
-    },
-    {
-      path: '/register',
-      element: <Register />,
-    },
-    {
-      path: '/profile',
-      element: <Profile />,
-    },
-    {
-      path: '/',
-      element: <LandingPage />,
-    },
-    {
-      path: '/solutions',
-      element: <Solutions />,
-    },
-    {
-      path: '/industries',
-      element: <Industries />,
-    },
-    {
-      path: '/demo',
-      element: <Demo />,
-    },
-    {
-      path: '/get-started',
-      element: <GetStarted />,
-    },
-    {
-      path: '/contact',
-      element: <Contact />,
-    },
-    {
-      path: '/save-progress-prompt',
-      element: <SaveProgressPrompt />,
-    },
-    {
-      path: '/forgot-password',
-      element: <ForgotPassword />,
-    },
-    {
-      path: '/reset-password',
-      element: <ResetPassword />,
-    },
-    {
-      path: '/verify-reset-code',
-      element: <VerifyResetCode />,
-    },
-  ]);
-  return element;
-}
+// function CustomRoutes() {
+//   const element = useRoutes([
+//     {
+//       path: '/',
+//       element: <LandingPage />,
+//     }
+//   ]);
+//   return element;
+// }
 
 const App = () => {
   return (
     <Routes>
       {/* Public Routes */}
-      <Route path="/*" element={<CustomRoutes />} />
+      {/* <Route path="/*" element={<CustomRoutes />} /> */}
+      <Route element={<LandingPage />}>
+        <Route path="/" element={<Hero />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/solutions" element={<Solutions />} />
+        <Route path="/industries" element={<Industries />} />
+        <Route path="/demo" element={<Demo />} />
+        <Route path="/get-started" element={<GetStarted />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/verify-reset-code" element={<VerifyResetCode />} />
+      </Route>
+      {/* <Route path="/" element={<LandingPage />} /> */}
       <Route
         path="/ai-mail-compose"
         element={

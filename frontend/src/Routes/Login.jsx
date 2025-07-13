@@ -55,7 +55,7 @@ const Login = () => {
         }
       );
 
-      const data = await response.json();
+      const data = response.data;
       localStorage.setItem('token', data.access_token);
 
       setAuth({
