@@ -16,14 +16,14 @@ router = APIRouter(
     
     
 
-def get_user(session: Session, username: str):
+def get_user(session: database.SessionLocal, username: str):
     statement = select(models.User).where(models.User.username == username)
     user = session.exec(statement).first()
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='User not found')
     return user
 
-def authenticate_user(session: Session, username: str, password: str):
+def authenticate_user(session: database.SessionLocal, username: str, password: str):
     user = get_user(session, username)
     if not hashing.verify_password(password, user.password):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail='Invalid credentials')
