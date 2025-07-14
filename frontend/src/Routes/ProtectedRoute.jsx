@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import jwt_decode from 'jwt-decode'; // install if not already: npm install jwt-decode
+import { jwtDecode } from 'jwt-decode'; // install if not already: npm install jwt-decode
 
 const ProtectedRoute = ({ children }) => {
   const { auth, logout } = useAuth();
@@ -15,7 +15,7 @@ const ProtectedRoute = ({ children }) => {
     }
 
     try {
-      const decoded = jwt_decode(token);
+      const decoded = jwtDecode(token);
       const isExpired = Date.now() >= decoded.exp * 1000;
       if (isExpired) {
         logout();
