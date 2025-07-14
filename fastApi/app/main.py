@@ -2,7 +2,7 @@ from sqlmodel import select
 from fastapi import FastAPI, status, Depends, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-import database, models, schemas, hashing
+import database, models, schemas, hashing, oauth2
 from routers import user, message, authentication, register, mail, get_started, userMails
 from api import ai, aiMail
 # from fastapi.security import OAuth2PasswordBearer
@@ -27,6 +27,7 @@ app.add_middleware(
 
 app.include_router(user.router)
 app.include_router(message.router)
+app.include_router(oauth2.router)
 app.include_router(authentication.router)
 app.include_router(register.router)
 app.include_router(mail.router)

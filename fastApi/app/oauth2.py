@@ -1,5 +1,5 @@
-from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+from fastapi import Depends, HTTPException, status, APIRouter
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from typing import Annotated
 import token_access, database, models
 from jose import jwt, JWTError
@@ -8,14 +8,21 @@ from sqlmodel import select
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='/auth/login')
 
-# def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
-#     credentials_exception = HTTPException(
-#         status_code=status.HTTP_401_UNAUTHORIZED,
-#         detail="Could not validate credentials",
-#         headers={"WWW-Authenticate": "Bearer"}
-#     )
-#     token_access.verify_access_token(token, credentials_exception)
-    
+
+router = APIRouter(
+    prefix="/auth",
+    tags=["Authentication"]
+)
+
+@router.post("/token")
+async def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    if form_data.username != "user" or form_data.password != "pass":
+        raise HTTPException(status_code=400, detail="Invalid credentials")
+    return {"access_token": "mytoken", "token_type": "bearer"}
+
+@router.get("/protected")
+async def protected_route(token: str = Depends(oauth2_scheme)):
+    return {"message": "Access granted", "token": token}
     
     
 async def read_users_me(token: Annotated[str, Depends(oauth2_scheme)]):
