@@ -40,7 +40,7 @@ const Login = () => {
       // If not authenticated, redirect to login
       navigate('/login');
     }
-  }
+  }, [auth, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
