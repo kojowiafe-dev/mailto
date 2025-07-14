@@ -46,6 +46,7 @@ async def read_users_me(token: Annotated[str, Depends(oauth2_scheme)]):
     
 
 def get_current_user(session: database.SessionLocal, token: str = Depends(oauth2_scheme)):
+    print("Token received:", token)  # Debugging line
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -54,6 +55,7 @@ def get_current_user(session: database.SessionLocal, token: str = Depends(oauth2
 
     try:
         payload = jwt.decode(token, token_access.SECRET_KEY, algorithms=[token_access.ALGORITHM])
+        print("Payload:", payload)  # Debugging line
         user_id: int = payload.get("user_id")
 
         if user_id is None:

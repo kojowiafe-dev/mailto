@@ -37,7 +37,7 @@ def login(request: schemas.UserLogin, session: Annotated[Session, Depends(databa
 
     access_token_expires = timedelta(minutes=token_access.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = token_access.create_access_token(
-        data={"sub": user.username},
+        data={"user_id": user.id},
         expires_delta=access_token_expires
     )
     return schemas.Token(access_token=access_token, token_type='bearer')
