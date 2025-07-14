@@ -38,7 +38,7 @@ async def send_mail(session: database.SessionLocal, request: MailRequest, curren
         session.add(mail)
         session.commit()
         session.refresh(mail)
-        
+        print(current_user.email)
         return {"detail": "Mail sent and saved", "mail_id": mail.id}
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f'Email not sent: {str(e)}')
