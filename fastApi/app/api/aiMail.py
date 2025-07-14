@@ -3,7 +3,8 @@ from email.message import EmailMessage
 import smtplib
 from schemas import MailRequest
 from oauth2 import get_current_user
-import models
+import models, database
+from datetime import datetime
 
 router = APIRouter(
     prefix="/ai-mail",
@@ -12,7 +13,7 @@ router = APIRouter(
 )
 
 @router.post("/send")
-async def send_mail(request: MailRequest, current_user: models.User = Depends(get_current_user)):
+async def send_mail(session: database.SessionLocal, request: MailRequest, current_user: models.User = Depends(get_current_user)):
     message = EmailMessage()
     message["Subject"] = request.subject
     message["From"] = current_user.email
@@ -25,7 +26,6 @@ async def send_mail(request: MailRequest, current_user: models.User = Depends(ge
             server.login("wiafejeremiah@gmail.com", "moid yxus tial suwd")
             server.send_message(message)
             
-            return { "detail" : "Message sent successfully"}
         
         mail = models.Mails(
             subject=request.subject,
@@ -39,6 +39,6 @@ async def send_mail(request: MailRequest, current_user: models.User = Depends(ge
         session.commit()
         session.refresh(mail)
         
-        return mail
+        return {"detail": "Mail sent and saved", "mail_id": mail.id}
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f'Email not sent: {str(e)}')
