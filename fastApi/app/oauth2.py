@@ -17,6 +17,10 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl='/auth/login')
 #     token_access.verify_access_token(token, credentials_exception)
     
     
+    
+async def read_users_me(token: Annotated[str, Depends(oauth2_scheme)]):
+    return {"token": token}
+    
 def get_current_user(session: database.SessionLocal, token: str = Depends(oauth2_scheme)):
     try:
         payload = jwt.decode(token, token_access.SECRET_KEY, algorithms=[token_access.ALGORITHM])
