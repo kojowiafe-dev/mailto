@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -26,7 +26,7 @@ const Login = () => {
   const navigate = useNavigate();
   // const { setUser } = useContext(AuthContext);
   // const [form, setForm] = useState({ username: '', password: '' });
-  const { setAuth } = useAuth();
+  const { auth, logout, setAuth } = useAuth();
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState('');
@@ -34,6 +34,13 @@ const Login = () => {
   const [error, setError] = useState('');
 
   // const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  useEffect(() => {
+    if (!auth?.token) {
+      // If not authenticated, redirect to login
+      navigate('/login');
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();

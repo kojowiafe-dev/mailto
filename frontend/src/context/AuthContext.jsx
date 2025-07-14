@@ -1,5 +1,5 @@
-// context/AuthContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import jwt_decode from 'jwt-decode';
 
 export const AuthContext = createContext();
 
@@ -8,7 +8,28 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const stored = localStorage.getItem('auth');
-    if (stored) setAuth(JSON.parse(stored));
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      const token = parsed?.token;
+
+      if (token) {
+        try {
+          const decoded = jwt_decode(token);
+          const isExpired = Date.now() >= decoded.exp * 1000;
+
+          if (isExpired) {
+            logout();
+          } else {
+            setAuth(parsed); // still valid
+          }
+        } catch (e) {
+          console.error('Invalid token:', e);
+          logout();
+        }
+      } else {
+        logout();
+      }
+    }
   }, []);
 
   useEffect(() => {
@@ -19,7 +40,10 @@ export const AuthProvider = ({ children }) => {
     }
   }, [auth]);
 
-  const logout = () => setAuth(null);
+  const logout = () => {
+    setAuth(null);
+    localStorage.removeItem('auth');
+  };
 
   return <AuthContext.Provider value={{ auth, setAuth, logout }}>{children}</AuthContext.Provider>;
 };
