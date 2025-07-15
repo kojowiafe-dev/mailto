@@ -49,6 +49,7 @@ const App = () => {
         <Route path="/get-started" element={<GetStarted />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/verify-reset-code" element={<VerifyResetCode />} />
+        <Route path="/google-linked-success" element={<GoogleSuccess />} />
       </Route>
       {/* <Route path="/" element={<LandingPage />} /> */}
       <Route
