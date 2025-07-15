@@ -2,10 +2,16 @@ from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
 from email.mime.text import MIMEText
 import base64
+import os
 
-def send_gmail_email(to_email, subject, body):
-    # Load stored credentials
-    creds = Credentials.from_authorized_user_file("token.json", ['https://www.googleapis.com/auth/gmail.send'])
+def send_gmail_email(to_email, subject, body, user_email):
+    token_path = f"tokens/{user_email.replace('@', '_at_')}.json"
+
+    # Check if token file exists
+    if not os.path.exists(token_path):
+        raise Exception(f"No Gmail token found for {user_email}. User must authenticate via Google first.")
+
+    creds = Credentials.from_authorized_user_file(token_path, ['https://www.googleapis.com/auth/gmail.send'])
     service = build('gmail', 'v1', credentials=creds)
 
     # Build MIME message
@@ -21,3 +27,6 @@ def send_gmail_email(to_email, subject, body):
     ).execute()
 
     return send_result
+
+
+
