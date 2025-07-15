@@ -71,13 +71,13 @@ class VerifyResetCodeRequest(SQLModel):
     code: str
 
 
-class ResetPasswordRequest(BaseModel):
+class ResetPasswordRequest(SQLModel):
     email: EmailStr
     code: str
     new_password: str
     
 
-class GetStartedForm(BaseModel):
+class GetStartedForm(SQLModel):
     companyName: str
     fullName: str
     email: EmailStr
@@ -91,6 +91,17 @@ class GetStartedForm(BaseModel):
     features: List[str] = []
     agreeToTerms: bool
     
+    
+    
+class GetStartedRequest(SQLModel):
+    companyName: str
+    fullName: str
+    email: str
+    phone: str
+    industry: str
+    companySize: str
+    projectType: str
+        
     
 class MailRequest(SQLModel):
     email: str

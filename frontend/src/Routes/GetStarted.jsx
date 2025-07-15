@@ -69,7 +69,11 @@ const GetStarted = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/get-started', formData);
+      const response = await api.post('/get-started', formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       if (response.data && response.data.submission_id) {
         setSubmissionId(response.data.submission_id);
         setShowSavePrompt(true);
