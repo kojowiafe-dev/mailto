@@ -21,6 +21,7 @@ import ResetPassword from './Routes/ResetPassword';
 import VerifyResetCode from './Routes/VerifyResetCode';
 import ProtectedRoute from './Routes/ProtectedRoute';
 import Hero from './Routes/Hero';
+import GoogleSuccess from './Routes/GoogleSuccess';
 
 // function CustomRoutes() {
 //   const element = useRoutes([

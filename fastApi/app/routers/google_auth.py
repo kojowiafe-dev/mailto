@@ -1,7 +1,9 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Depends
 from fastapi.responses import RedirectResponse
 from .gmail_auth import get_authorization_url, fetch_token
 import pickle, os
+import models
+from oauth2 import get_current_user
 
 router = APIRouter(prefix="/auth/google", tags=["Google Auth"])
 
@@ -34,3 +36,9 @@ def google_callback(request: Request):
 
     # Redirect to frontend success page
     return RedirectResponse("http://localhost:5173/google-linked-success")
+
+
+@router.get("/email/status")
+def gmail_status(current_user: models.User = Depends(get_current_user)):
+    token_path = f"tokens/{current_user.email.replace('@', '_at_')}.json"
+    return {"gmail_linked": os.path.exists(token_path)}
