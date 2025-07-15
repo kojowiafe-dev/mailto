@@ -36,7 +36,7 @@ async def submit_get_started(request: schemas.GetStartedForm, session: Session =
 
 
 
-@router.get("/", response_model=schemas.GetStartedRequest, status_code=status.HTTP_200_OK)
+@router.get("/", response_model=list[models.GetStartedSubmission], status_code=status.HTTP_200_OK)
 async def retrieve_get_started(session: database.SessionLocal):
     forms = session.exec(select(models.GetStartedSubmission)).all()
     return forms
