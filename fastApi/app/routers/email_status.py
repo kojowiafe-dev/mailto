@@ -12,6 +12,9 @@ router = APIRouter(
 )
 
 @router.get("/email/status")
-def gmail_status(current_user: models.User = Depends(get_current_user)):
-    token_path = f"tokens/{current_user.email.replace('@', '_at_')}.json"
-    return {"gmail_linked": os.path.exists(token_path)}
+def gmail_status(user: models.User = Depends(get_current_user)):
+    print("User email:", user.email)
+    token_path = f"tokens/{user.email.replace('@', '_at_')}.json"
+    exists = os.path.exists(token_path)
+    print("Token exists?", exists, "| Path:", token_path)
+    return {"gmail_linked": exists}

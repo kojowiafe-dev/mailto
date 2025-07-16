@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+// import { AuthContext } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
 
 const Profile = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(useAuth);
 
   return (
     <motion.div

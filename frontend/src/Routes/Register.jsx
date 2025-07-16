@@ -11,10 +11,10 @@ import {
   CardHeader,
   CardTitle,
 } from '../components/ui/card';
-import { AuthContext } from '../context/AuthContext';
+// import { AuthContext } from '../context/AuthContext';
 import api from '../components/api';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShimmerButton } from '@/components/magicui/shimmer-button';
+// import { ShimmerButton } from '@/components/magicui/shimmer-button';
 import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
 import { Meteors } from '@/components/magicui/meteors';
 import { useForm } from 'react-hook-form';
@@ -87,6 +87,7 @@ const Register = () => {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <Meteors number={30} />
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 40 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}

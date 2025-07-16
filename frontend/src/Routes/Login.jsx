@@ -12,10 +12,10 @@ import {
   CardTitle,
 } from '../components/ui/card';
 import { Label } from '@/components/ui/label';
-import { AuthContext } from '../context/AuthContext';
+// import { AuthContext } from '../context/AuthContext';
 import api from '../components/api';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShimmerButton } from '@/components/magicui/shimmer-button';
+// import { ShimmerButton } from '@/components/magicui/shimmer-button';
 import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
 import { Meteors } from '@/components/magicui/meteors';
 import { notifyError, notifySuccess } from '../utils/toastHelpers';
@@ -26,7 +26,7 @@ const Login = () => {
   const navigate = useNavigate();
   // const { setUser } = useContext(AuthContext);
   // const [form, setForm] = useState({ username: '', password: '' });
-  const { auth, logout, setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState('');
@@ -92,6 +92,7 @@ const Login = () => {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <Meteors number={30} />
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 40 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}

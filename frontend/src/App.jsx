@@ -8,7 +8,7 @@ import GetStarted from './Routes/GetStarted';
 import AIMailCompose from './Routes/AIMailCompose';
 import { Spotlight } from './components/ui/spotlight';
 // import { SparklesCore } from './components/ui/spotlight';
-import SaveProgressPrompt from './Routes/SaveProgressPrompt';
+// import SaveProgressPrompt from './Routes/SaveProgressPrompt';
 import { Toaster } from 'sonner';
 import Footer from './Routes/Footer';
 import Contact from './Routes/Contact';
@@ -22,6 +22,7 @@ import VerifyResetCode from './Routes/VerifyResetCode';
 import ProtectedRoute from './Routes/ProtectedRoute';
 import Hero from './Routes/Hero';
 import GoogleSuccess from './Routes/GoogleSuccess';
+import GmailSuccess from './Routes/GmailSuccess';
 
 // function CustomRoutes() {
 //   const element = useRoutes([
@@ -51,6 +52,7 @@ const App = () => {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/verify-reset-code" element={<VerifyResetCode />} />
         <Route path="/google-linked-success" element={<GoogleSuccess />} />
+        <Route path="/gmail/success" element={<GmailSuccess />} />
       </Route>
       {/* <Route path="/" element={<LandingPage />} /> */}
       <Route
