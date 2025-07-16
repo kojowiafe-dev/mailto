@@ -51,7 +51,6 @@ async def update_mail(mail_id: int, request: schemas.MailRequest, session: datab
     return mail
 
 
-
 @router.delete("/{mail_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_mail(mail_id: int, session: database.SessionLocal):
     mail = session.get(models.Mails, mail_id)

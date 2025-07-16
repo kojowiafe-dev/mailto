@@ -8,6 +8,7 @@ import secrets
 import json
 import logging
 from typing import Dict, Optional
+from fastapi.responses import RedirectResponse
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -282,13 +283,11 @@ def google_callback(request: Request):
         token_file = auth_manager.save_credentials(user_email, credentials)
         
         logger.info(f"Successfully authenticated user: {user_email}")
+
+        success_url = f"http://localhost:5173/gmail/success?email={user_email}"
+        return RedirectResponse(url=success_url)
+
         
-        return {
-            "detail": f"Gmail connected successfully for {user_email}",
-            "user_email": user_email,
-            "user_name": user_info.get("name"),
-            "token_file": token_file
-        }
         
     except HTTPException:
         raise
