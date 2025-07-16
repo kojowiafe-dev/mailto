@@ -1,44 +1,76 @@
-from fastapi import APIRouter, Request, Depends
+from fastapi import APIRouter, Request, Depends, HTTPException, status
 from fastapi.responses import RedirectResponse
-from .gmail_auth import get_authorization_url, fetch_token
-import pickle, os
-import models
-from oauth2 import get_current_user
+from google_auth_oauthlib.flow import Flow
+import os
+
+CLIENT_SECRETS_FILE = "credentials.json"
+SCOPES = [
+    "https://www.googleapis.com/auth/gmail.send",
+    "openid",
+    "email",
+    "profile"
+]
+
+REDIRECT_URI = "http://localhost:8000/auth/google/callback"
+
 
 router = APIRouter(prefix="/auth/google", tags=["Google Auth"])
 
+import pickle
+from .gmail_auth import get_authorization_url
 @router.get("/")
 def google_login():
     auth_url, flow = get_authorization_url()
-    # Save flow state temporarily
-    with open("flow.pkl", "wb") as f:
-        pickle.dump(flow, f)
+
+    # Save flow as JSON instead of pickle
+    with open("flow.json", "w") as f:
+        f.write(flow.to_json())
+
     return RedirectResponse(auth_url)
+
+
+
+import requests
+
+def get_user_email(credentials):
+    """Uses access_token to get email from Google's userinfo endpoint."""
+    response = requests.get(
+        "https://www.googleapis.com/oauth2/v3/userinfo",
+        headers={"Authorization": f"Bearer {credentials.token}"}
+    )
+    if response.status_code != 200:
+        raise Exception("Failed to fetch user info")
+
+    userinfo = response.json()
+    return userinfo.get("email")
+
+
 
 @router.get("/callback")
 def google_callback(request: Request):
     code = request.query_params["code"]
-    with open("flow.pkl", "rb") as f:
-        flow = pickle.load(f)
 
-    credentials = fetch_token(flow, code)
+    with open("state.txt", "r") as f:
+        state = f.read()
 
-    # Get user's email from token
-    user_email = credentials.id_token.get("email")  # Get from ID token
+    flow = Flow.from_client_secrets_file(
+        CLIENT_SECRETS_FILE,
+        scopes=SCOPES,
+        redirect_uri=REDIRECT_URI,
+        state=state
+    )
+    flow.fetch_token(code=code)
+    credentials = flow.credentials
+
+    # ✅ Get email via userinfo endpoint
+    user_email = get_user_email(credentials)
     if not user_email:
-        return {"error": "Unable to extract user email from Google credentials"}
+        raise HTTPException(status_code=400, detail="Could not retrieve email from Google")
 
-    # Save per-user token file
+    # ✅ Save token
     os.makedirs("tokens", exist_ok=True)
-    token_path = f"tokens/{user_email.replace('@', '_at_')}.json"
-    with open(token_path, "w") as token_file:
+    with open(f"tokens/{user_email.replace('@', '_at_')}.json", "w") as token_file:
         token_file.write(credentials.to_json())
 
-    # Redirect to frontend success page
-    return RedirectResponse("http://localhost:5173/google-linked-success")
+    return {"detail": f"Gmail connected for {user_email}"}
 
-
-@router.get("/email/status")
-def gmail_status(current_user: models.User = Depends(get_current_user)):
-    token_path = f"tokens/{current_user.email.replace('@', '_at_')}.json"
-    return {"gmail_linked": os.path.exists(token_path)}

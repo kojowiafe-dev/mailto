@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card';
 import { Input } from '../components/ui/input';
@@ -6,7 +6,9 @@ import { Textarea } from '../components/ui/textarea';
 import { Button } from '../components/ui/button';
 import { Sparkles, Send, Mail } from 'lucide-react';
 import api from '../components/api';
-import { notifySuccess } from '../utils/toastHelpers';
+import { notifySuccess, notifyError } from '../utils/toastHelpers';
+import GmailStatusBadge from './GmailStatusBadge';
+import { useAuth } from '../context/AuthContext';
 
 const AIMailCompose = () => {
   const [prompt, setPrompt] = useState('');
@@ -17,6 +19,32 @@ const AIMailCompose = () => {
   const [sending, setSending] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+
+  const { auth } = useAuth();
+
+  useEffect(() => {
+    const checkGmail = async () => {
+      try {
+        const res = await api.get('/email/status', {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        });
+
+        if (!res.data.gmail_linked) {
+          notifyError('Please connect your Gmail to send emails.');
+          window.location.href = 'http://localhost:8000/auth/google';
+        }
+      } catch (e) {
+        console.error(e);
+        notifyError('Failed to verify Gmail connection.');
+      }
+    };
+
+    if (auth?.token) {
+      checkGmail();
+    }
+  }, [auth]);
 
   // Call FastAPI backend to generate AI email
   const handleGenerate = async () => {
@@ -239,6 +267,7 @@ const AIMailCompose = () => {
             </div>
           </CardContent>
         </Card>
+        <GmailStatusBadge />
       </motion.div>
     </div>
   );

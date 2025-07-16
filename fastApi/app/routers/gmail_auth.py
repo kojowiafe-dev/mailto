@@ -10,6 +10,9 @@ SCOPES = ['https://www.googleapis.com/auth/gmail.send']
 CLIENT_SECRETS_FILE = 'credentials.json'
 
 def get_authorization_url():
+    if not os.path.exists("credentials.json"):
+        raise FileNotFoundError("credentials.json file not found. Please place your Google OAuth credentials here.")
+
     flow = Flow.from_client_secrets_file(
         CLIENT_SECRETS_FILE,
         scopes=SCOPES,
