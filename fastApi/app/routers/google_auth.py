@@ -1,7 +1,17 @@
-from fastapi import APIRouter, Request, Depends, HTTPException, status
+from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import RedirectResponse
 from google_auth_oauthlib.flow import Flow
+from google.auth.exceptions import RefreshError
 import os
+import requests
+import secrets
+import json
+import logging
+from typing import Dict, Optional
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 CLIENT_SECRETS_FILE = "credentials.json"
 SCOPES = [
@@ -10,67 +20,249 @@ SCOPES = [
     "email",
     "profile"
 ]
-
 REDIRECT_URI = "http://localhost:8000/auth/google/callback"
-
 
 router = APIRouter(prefix="/auth/google", tags=["Google Auth"])
 
-import pickle
-from .gmail_auth import get_authorization_url
+class GoogleAuthManager:
+    """Handles Google OAuth authentication flow"""
+    
+    def __init__(self):
+        self.ensure_directories()
+    
+    def ensure_directories(self):
+        """Create necessary directories if they don't exist"""
+        os.makedirs("tokens", exist_ok=True)
+        os.makedirs("states", exist_ok=True)
+    
+    def create_flow(self, state: Optional[str] = None) -> Flow:
+        """Create a Google OAuth flow instance"""
+        try:
+            return Flow.from_client_secrets_file(
+                CLIENT_SECRETS_FILE,
+                scopes=SCOPES,
+                redirect_uri=REDIRECT_URI,
+                state=state
+            )
+        except FileNotFoundError:
+            raise HTTPException(
+                status_code=500, 
+                detail="Google OAuth credentials file not found. Please ensure credentials.json exists."
+            )
+        except Exception as e:
+            logger.error(f"Error creating OAuth flow: {str(e)}")
+            raise HTTPException(status_code=500, detail="Failed to initialize OAuth flow")
+    
+    def generate_and_store_state(self) -> str:
+        """Generate a secure state parameter and store it"""
+        state = secrets.token_urlsafe(32)
+        state_file = f"states/{state}.txt"
+        
+        try:
+            with open(state_file, "w") as f:
+                f.write(state)
+            return state
+        except Exception as e:
+            logger.error(f"Error storing state: {str(e)}")
+            raise HTTPException(status_code=500, detail="Failed to generate authentication state")
+    
+    def verify_and_cleanup_state(self, state: str) -> bool:
+        """Verify state parameter and clean up the state file"""
+        state_file = f"states/{state}.txt"
+        
+        try:
+            if not os.path.exists(state_file):
+                return False
+            
+            with open(state_file, "r") as f:
+                stored_state = f.read().strip()
+            
+            # Clean up the state file
+            os.remove(state_file)
+            
+            return stored_state == state
+        except Exception as e:
+            logger.error(f"Error verifying state: {str(e)}")
+            return False
+    
+    def get_user_info(self, credentials) -> Dict[str, str]:
+        """Fetch user information from Google API"""
+        try:
+            response = requests.get(
+                "https://www.googleapis.com/oauth2/v3/userinfo",
+                headers={"Authorization": f"Bearer {credentials.token}"},
+                timeout=10
+            )
+            
+            if response.status_code != 200:
+                logger.error(f"Failed to fetch user info: {response.status_code} - {response.text}")
+                raise HTTPException(status_code=400, detail="Failed to fetch user information from Google")
+            
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Network error fetching user info: {str(e)}")
+            raise HTTPException(status_code=500, detail="Network error while fetching user information")
+    
+    def save_credentials(self, user_email: str, credentials) -> str:
+        """Save user credentials to file"""
+        try:
+            safe_email = user_email.replace("@", "_at_").replace(".", "_dot_")
+            token_file = f"tokens/{safe_email}.json"
+            
+            credentials_dict = {
+                "token": credentials.token,
+                "refresh_token": credentials.refresh_token,
+                "token_uri": credentials.token_uri,
+                "client_id": credentials.client_id,
+                "client_secret": credentials.client_secret,
+                "scopes": credentials.scopes
+            }
+            
+            with open(token_file, "w") as f:
+                json.dump(credentials_dict, f, indent=2)
+            
+            return token_file
+        except Exception as e:
+            logger.error(f"Error saving credentials: {str(e)}")
+            raise HTTPException(status_code=500, detail="Failed to save authentication credentials")
+
+# Initialize the auth manager
+auth_manager = GoogleAuthManager()
+
 @router.get("/")
 def google_login():
-    auth_url, flow = get_authorization_url()
-
-    # Save flow as JSON instead of pickle
-    with open("flow.json", "w") as f:
-        f.write(flow.to_json())
-
-    return RedirectResponse(auth_url)
-
-
-
-import requests
-
-def get_user_email(credentials):
-    """Uses access_token to get email from Google's userinfo endpoint."""
-    response = requests.get(
-        "https://www.googleapis.com/oauth2/v3/userinfo",
-        headers={"Authorization": f"Bearer {credentials.token}"}
-    )
-    if response.status_code != 200:
-        raise Exception("Failed to fetch user info")
-
-    userinfo = response.json()
-    return userinfo.get("email")
-
-
+    """
+    Initiate Google OAuth login flow
+    Returns a redirect to Google's OAuth consent page
+    """
+    try:
+        # Create OAuth flow
+        flow = auth_manager.create_flow()
+        
+        # Generate and store state parameter
+        state = auth_manager.generate_and_store_state()
+        
+        # Get authorization URL with state parameter
+        auth_url, _ = flow.authorization_url(
+            prompt="consent",
+            include_granted_scopes="true",
+            state=state
+        )
+        
+        logger.info(f"Redirecting to Google OAuth with state: {state}")
+        return RedirectResponse(auth_url)
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Unexpected error in google_login: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to initiate Google login")
 
 @router.get("/callback")
 def google_callback(request: Request):
-    code = request.query_params["code"]
+    """
+    Handle Google OAuth callback
+    Exchange authorization code for access token
+    """
+    try:
+        # Extract code and state from query parameters
+        code = request.query_params.get("code")
+        state = request.query_params.get("state")
+        error = request.query_params.get("error")
+        
+        # Check for OAuth errors
+        if error:
+            logger.error(f"OAuth error: {error}")
+            raise HTTPException(status_code=400, detail=f"OAuth error: {error}")
+        
+        if not code:
+            raise HTTPException(status_code=400, detail="Authorization code not provided")
+        
+        if not state:
+            raise HTTPException(status_code=400, detail="State parameter not provided")
+        
+        # Verify state parameter
+        if not auth_manager.verify_and_cleanup_state(state):
+            raise HTTPException(status_code=400, detail="Invalid or expired state parameter")
+        
+        # Create flow with state and exchange code for token
+        flow = auth_manager.create_flow(state=state)
+        flow.fetch_token(code=code)
+        
+        credentials = flow.credentials
+        
+        # Get user information
+        user_info = auth_manager.get_user_info(credentials)
+        user_email = user_info.get("email")
+        
+        if not user_email:
+            raise HTTPException(status_code=400, detail="Could not retrieve email from Google")
+        
+        # Save credentials
+        token_file = auth_manager.save_credentials(user_email, credentials)
+        
+        logger.info(f"Successfully authenticated user: {user_email}")
+        
+        return {
+            "detail": f"Gmail connected successfully for {user_email}",
+            "user_email": user_email,
+            "user_name": user_info.get("name"),
+            "token_file": token_file
+        }
+        
+    except HTTPException:
+        raise
+    except RefreshError as e:
+        logger.error(f"Token refresh error: {str(e)}")
+        raise HTTPException(status_code=400, detail="Failed to refresh authentication token")
+    except Exception as e:
+        logger.error(f"Unexpected error in google_callback: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to complete Google authentication")
 
-    with open("state.txt", "r") as f:
-        state = f.read()
+@router.get("/status/{user_email}")
+def check_auth_status(user_email: str):
+    """
+    Check if a user has valid authentication credentials
+    """
+    try:
+        safe_email = user_email.replace("@", "_at_").replace(".", "_dot_")
+        token_file = f"tokens/{safe_email}.json"
+        
+        if not os.path.exists(token_file):
+            return {"authenticated": False, "message": "No credentials found"}
+        
+        with open(token_file, "r") as f:
+            credentials_data = json.load(f)
+        
+        return {
+            "authenticated": True,
+            "user_email": user_email,
+            "scopes": credentials_data.get("scopes", []),
+            "token_file": token_file
+        }
+        
+    except Exception as e:
+        logger.error(f"Error checking auth status: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to check authentication status")
 
-    flow = Flow.from_client_secrets_file(
-        CLIENT_SECRETS_FILE,
-        scopes=SCOPES,
-        redirect_uri=REDIRECT_URI,
-        state=state
-    )
-    flow.fetch_token(code=code)
-    credentials = flow.credentials
-
-    # ✅ Get email via userinfo endpoint
-    user_email = get_user_email(credentials)
-    if not user_email:
-        raise HTTPException(status_code=400, detail="Could not retrieve email from Google")
-
-    # ✅ Save token
-    os.makedirs("tokens", exist_ok=True)
-    with open(f"tokens/{user_email.replace('@', '_at_')}.json", "w") as token_file:
-        token_file.write(credentials.to_json())
-
-    return {"detail": f"Gmail connected for {user_email}"}
-
+@router.delete("/revoke/{user_email}")
+def revoke_auth(user_email: str):
+    """
+    Revoke authentication for a user (delete stored credentials)
+    """
+    try:
+        safe_email = user_email.replace("@", "_at_").replace(".", "_dot_")
+        token_file = f"tokens/{safe_email}.json"
+        
+        if os.path.exists(token_file):
+            os.remove(token_file)
+            logger.info(f"Revoked authentication for user: {user_email}")
+            return {"detail": f"Authentication revoked for {user_email}"}
+        else:
+            raise HTTPException(status_code=404, detail="No credentials found for this user")
+            
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error revoking auth: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to revoke authentication")
