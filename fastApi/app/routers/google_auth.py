@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Request, HTTPException
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, HTMLResponse
 from google_auth_oauthlib.flow import Flow
 from google.auth.exceptions import RefreshError
 import os
@@ -16,27 +16,44 @@ logger = logging.getLogger(__name__)
 CLIENT_SECRETS_FILE = "credentials.json"
 SCOPES = [
     "https://www.googleapis.com/auth/gmail.send",
-    "openid",
-    "email",
-    "profile"
+    "https://www.googleapis.com/auth/userinfo.email",
+    "https://www.googleapis.com/auth/userinfo.profile",
+    "openid"
 ]
 REDIRECT_URI = "http://localhost:8000/auth/google/callback"
 
 router = APIRouter(prefix="/auth/google", tags=["Google Auth"])
 
 class GoogleAuthManager:
-    """Handles Google OAuth authentication flow"""
+    """Enhanced Google OAuth authentication manager with better error handling"""
     
     def __init__(self):
         self.ensure_directories()
+        self.validate_credentials_file()
     
     def ensure_directories(self):
         """Create necessary directories if they don't exist"""
         os.makedirs("tokens", exist_ok=True)
         os.makedirs("states", exist_ok=True)
     
+    def validate_credentials_file(self):
+        """Validate that credentials file exists and is properly formatted"""
+        if not os.path.exists(CLIENT_SECRETS_FILE):
+            raise FileNotFoundError(
+                f"Google OAuth credentials file '{CLIENT_SECRETS_FILE}' not found. "
+                "Please download it from Google Cloud Console."
+            )
+        
+        try:
+            with open(CLIENT_SECRETS_FILE, 'r') as f:
+                creds = json.load(f)
+                if 'web' not in creds and 'installed' not in creds:
+                    raise ValueError("Invalid credentials file format")
+        except json.JSONDecodeError:
+            raise ValueError("Credentials file is not valid JSON")
+    
     def create_flow(self, state: Optional[str] = None) -> Flow:
-        """Create a Google OAuth flow instance"""
+        """Create a Google OAuth flow instance with enhanced error handling"""
         try:
             return Flow.from_client_secrets_file(
                 CLIENT_SECRETS_FILE,
@@ -44,14 +61,12 @@ class GoogleAuthManager:
                 redirect_uri=REDIRECT_URI,
                 state=state
             )
-        except FileNotFoundError:
-            raise HTTPException(
-                status_code=500, 
-                detail="Google OAuth credentials file not found. Please ensure credentials.json exists."
-            )
         except Exception as e:
             logger.error(f"Error creating OAuth flow: {str(e)}")
-            raise HTTPException(status_code=500, detail="Failed to initialize OAuth flow")
+            raise HTTPException(
+                status_code=500, 
+                detail=f"Failed to initialize OAuth flow: {str(e)}"
+            )
     
     def generate_and_store_state(self) -> str:
         """Generate a secure state parameter and store it"""
@@ -68,6 +83,9 @@ class GoogleAuthManager:
     
     def verify_and_cleanup_state(self, state: str) -> bool:
         """Verify state parameter and clean up the state file"""
+        if not state:
+            return False
+            
         state_file = f"states/{state}.txt"
         
         try:
@@ -96,12 +114,18 @@ class GoogleAuthManager:
             
             if response.status_code != 200:
                 logger.error(f"Failed to fetch user info: {response.status_code} - {response.text}")
-                raise HTTPException(status_code=400, detail="Failed to fetch user information from Google")
+                raise HTTPException(
+                    status_code=400, 
+                    detail="Failed to fetch user information from Google"
+                )
             
             return response.json()
         except requests.exceptions.RequestException as e:
             logger.error(f"Network error fetching user info: {str(e)}")
-            raise HTTPException(status_code=500, detail="Network error while fetching user information")
+            raise HTTPException(
+                status_code=500, 
+                detail="Network error while fetching user information"
+            )
     
     def save_credentials(self, user_email: str, credentials) -> str:
         """Save user credentials to file"""
@@ -146,7 +170,8 @@ def google_login():
         auth_url, _ = flow.authorization_url(
             prompt="consent",
             include_granted_scopes="true",
-            state=state
+            state=state,
+            access_type="offline"
         )
         
         logger.info(f"Redirecting to Google OAuth with state: {state}")
@@ -161,19 +186,61 @@ def google_login():
 @router.get("/callback")
 def google_callback(request: Request):
     """
-    Handle Google OAuth callback
-    Exchange authorization code for access token
+    Handle Google OAuth callback with enhanced error handling
     """
     try:
-        # Extract code and state from query parameters
+        # Extract parameters from query
         code = request.query_params.get("code")
         state = request.query_params.get("state")
         error = request.query_params.get("error")
+        error_description = request.query_params.get("error_description")
         
-        # Check for OAuth errors
+        # Handle OAuth errors
         if error:
-            logger.error(f"OAuth error: {error}")
-            raise HTTPException(status_code=400, detail=f"OAuth error: {error}")
+            logger.error(f"OAuth error: {error} - {error_description}")
+            
+            # Handle specific error cases
+            if error == "access_denied":
+                return HTMLResponse(
+                    content="""
+                    <html>
+                        <body>
+                            <h2>Access Denied</h2>
+                            <p>You denied access to the application.</p>
+                            <p><a href="/auth/google/">Try again</a></p>
+                        </body>
+                    </html>
+                    """,
+                    status_code=400
+                )
+            elif "verification" in error_description.lower() if error_description else False:
+                return HTMLResponse(
+                    content="""
+                    <html>
+                        <body>
+                            <h2>App Not Verified</h2>
+                            <p>This app hasn't completed Google's verification process.</p>
+                            <h3>For Developers:</h3>
+                            <ul>
+                                <li>Add your email to test users in Google Cloud Console</li>
+                                <li>Or complete the verification process for production use</li>
+                            </ul>
+                            <h3>For Users:</h3>
+                            <ul>
+                                <li>Click "Advanced" on the warning page</li>
+                                <li>Then click "Go to [App Name] (unsafe)" to proceed</li>
+                            </ul>
+                            <p><a href="/auth/google/">Try again</a></p>
+                        </body>
+                    </html>
+                    """,
+                    status_code=400
+                )
+            
+            raise HTTPException(
+                status_code=400, 
+                detail=f"OAuth error: {error} - {error_description or 'Unknown error'}"
+            )
         
         if not code:
             raise HTTPException(status_code=400, detail="Authorization code not provided")
@@ -187,7 +254,20 @@ def google_callback(request: Request):
         
         # Create flow with state and exchange code for token
         flow = auth_manager.create_flow(state=state)
-        flow.fetch_token(code=code)
+        
+        try:
+            flow.fetch_token(code=code)
+        except Exception as e:
+            logger.error(f"Token exchange failed: {str(e)}")
+            if "invalid_grant" in str(e):
+                raise HTTPException(
+                    status_code=400, 
+                    detail="Authorization code expired or invalid. Please try again."
+                )
+            raise HTTPException(
+                status_code=400, 
+                detail=f"Failed to exchange authorization code: {str(e)}"
+            )
         
         credentials = flow.credentials
         
@@ -219,11 +299,77 @@ def google_callback(request: Request):
         logger.error(f"Unexpected error in google_callback: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to complete Google authentication")
 
+@router.get("/setup-help")
+def setup_help():
+    """
+    Provide setup instructions for Google OAuth
+    """
+    return HTMLResponse(
+        content="""
+        <html>
+            <head>
+                <title>Google OAuth Setup Help</title>
+                <style>
+                    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+                    code { background-color: #f4f4f4; padding: 2px 4px; }
+                    .error { color: #d32f2f; }
+                    .success { color: #388e3c; }
+                </style>
+            </head>
+            <body>
+                <h1>Google OAuth Setup Help</h1>
+                
+                <h2>Common Issues</h2>
+                
+                <h3>1. "Access Blocked" Error</h3>
+                <p class="error">This occurs when your app isn't verified by Google.</p>
+                <p><strong>Solutions:</strong></p>
+                <ul>
+                    <li><strong>For Testing:</strong> Add test users in Google Cloud Console</li>
+                    <li><strong>For Production:</strong> Complete Google's verification process</li>
+                </ul>
+                
+                <h3>2. Adding Test Users</h3>
+                <ol>
+                    <li>Go to <a href="https://console.cloud.google.com/" target="_blank">Google Cloud Console</a></li>
+                    <li>Navigate to "APIs & Services" → "OAuth consent screen"</li>
+                    <li>Scroll to "Test users" section</li>
+                    <li>Click "Add Users" and add email addresses</li>
+                    <li>Save changes</li>
+                </ol>
+                
+                <h3>3. Bypassing Unverified App Warning</h3>
+                <p>Users can bypass the warning by:</p>
+                <ol>
+                    <li>Click "Advanced" on the warning page</li>
+                    <li>Click "Go to [App Name] (unsafe)"</li>
+                </ol>
+                
+                <h3>4. Required Files</h3>
+                <p>Make sure you have:</p>
+                <ul>
+                    <li><code>credentials.json</code> - Download from Google Cloud Console</li>
+                    <li>Correct redirect URI: <code>http://localhost:8000/auth/google/callback</code></li>
+                </ul>
+                
+                <h3>5. Scopes Configuration</h3>
+                <p>Ensure these scopes are configured in your OAuth consent screen:</p>
+                <ul>
+                    <li><code>https://www.googleapis.com/auth/gmail.send</code></li>
+                    <li><code>https://www.googleapis.com/auth/userinfo.email</code></li>
+                    <li><code>https://www.googleapis.com/auth/userinfo.profile</code></li>
+                    <li><code>openid</code></li>
+                </ul>
+                
+                <p><a href="/auth/google/">← Back to Login</a></p>
+            </body>
+        </html>
+        """
+    )
+
 @router.get("/status/{user_email}")
 def check_auth_status(user_email: str):
-    """
-    Check if a user has valid authentication credentials
-    """
+    """Check if a user has valid authentication credentials"""
     try:
         safe_email = user_email.replace("@", "_at_").replace(".", "_dot_")
         token_file = f"tokens/{safe_email}.json"
@@ -247,9 +393,7 @@ def check_auth_status(user_email: str):
 
 @router.delete("/revoke/{user_email}")
 def revoke_auth(user_email: str):
-    """
-    Revoke authentication for a user (delete stored credentials)
-    """
+    """Revoke authentication for a user"""
     try:
         safe_email = user_email.replace("@", "_at_").replace(".", "_dot_")
         token_file = f"tokens/{safe_email}.json"
