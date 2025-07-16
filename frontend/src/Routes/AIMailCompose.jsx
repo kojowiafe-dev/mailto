@@ -147,6 +147,7 @@ const AIMailCompose = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-indigo-950 text-white flex items-center justify-center py-12 px-2">
+      <GmailStatusBadge />
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -267,7 +268,7 @@ const AIMailCompose = () => {
             </div>
           </CardContent>
         </Card>
-        <GmailStatusBadge />
+        {/* <GmailStatusBadge /> */}
       </motion.div>
     </div>
   );

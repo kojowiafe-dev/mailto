@@ -23,7 +23,7 @@ import ProtectedRoute from './Routes/ProtectedRoute';
 import Hero from './Routes/Hero';
 import GoogleSuccess from './Routes/GoogleSuccess';
 // import GmailSuccess from './Routes/GmailSuccess';
-import GmailStatusBadge from './Routes/GmailStatusBadge';
+// import GmailStatusBadge from './Routes/GmailStatusBadge';
 
 // function CustomRoutes() {
 //   const element = useRoutes([
@@ -54,7 +54,7 @@ const App = () => {
         <Route path="/verify-reset-code" element={<VerifyResetCode />} />
         <Route path="/google-linked-success" element={<GoogleSuccess />} />
         {/* <Route path="/gmail/success" element={<GmailSuccess />} /> */}
-        <Route path="/gmail/success" element={<GmailStatusBadge />} />
+        {/* <Route path="/gmail/success" element={<GmailStatusBadge />} /> */}
       </Route>
       {/* <Route path="/" element={<LandingPage />} /> */}
       <Route
