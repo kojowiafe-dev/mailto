@@ -4,7 +4,13 @@ from google.oauth2.credentials import Credentials
 import os
 
 # Define scopes
-SCOPES = ['https://www.googleapis.com/auth/gmail.send']
+SCOPES = [
+    'https://www.googleapis.com/auth/gmail.send',
+    'openid',
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile'
+]
+
 
 # Path to credentials.json downloaded from Google Cloud
 CLIENT_SECRETS_FILE = 'credentials.json'

@@ -5,7 +5,9 @@ import base64
 import os
 
 def send_gmail_email(to_email, subject, body, user_email):
-    token_path = f"tokens/{user_email.replace('@', '_at_')}.json"
+    # 🔥 Fix: use user_email not undefined user
+    safe_email = user_email.replace("@", "_at_").replace(".", "_dot_")
+    token_path = f"tokens/{safe_email}.json"
 
     # Check if token file exists
     if not os.path.exists(token_path):
@@ -27,6 +29,3 @@ def send_gmail_email(to_email, subject, body, user_email):
     ).execute()
 
     return send_result
-
-
-

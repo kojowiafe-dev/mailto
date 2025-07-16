@@ -40,12 +40,24 @@ export const AuthProvider = ({ children }) => {
     }
   }, [auth]);
 
+  const login = (token) => {
+    try {
+      const decoded = jwtDecode(token);
+      const user = { token, user_id: decoded.user_id };
+      setAuth(user);
+    } catch (e) {
+      console.error('Failed to decode and login:', e);
+    }
+  };
+
   const logout = () => {
     setAuth(null);
     localStorage.removeItem('auth');
   };
 
-  return <AuthContext.Provider value={{ auth, setAuth, logout }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ auth, setAuth, logout, login }}>{children}</AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => useContext(AuthContext);

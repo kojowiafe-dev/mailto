@@ -2,19 +2,31 @@ import React, { useEffect, useState } from 'react';
 import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
 import api from '../components/api';
 import { notifyError } from '../utils/toastHelpers';
+import { useNavigate } from 'react-router-dom';
 
 const GmailStatusBadge = () => {
   const [gmailLinked, setGmailLinked] = useState(null); // null = loading
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (gmailLinked) {
+      setTimeout(() => navigate('/login'), 2000);
+    }
     const fetchGmailStatus = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = JSON.parse(localStorage.getItem('auth'))?.token;
+        if (!token) {
+          notifyError('You are not logged in');
+          setGmailLinked(false);
+          return;
+        }
+
         const res = await api.get('/email/status', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
+
         setGmailLinked(res.data.gmail_linked);
       } catch (err) {
         console.log(err);

@@ -5,6 +5,8 @@ from fastapi.responses import JSONResponse
 import database, models, schemas, hashing, oauth2
 from routers import user, message, authentication, register, mail, get_started, userMails, google_auth, email_status
 from api import ai, aiMail
+# import os
+# import logging
 # from fastapi.security import OAuth2PasswordBearer
 
 app = FastAPI()
@@ -41,4 +43,5 @@ app.include_router(email_status.router)
 
 @app.on_event("startup")
 async def on_startup():
+    # logger.info(f"Working directory: {os.getcwd()}")
     database.create_db_and_tables()

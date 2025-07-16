@@ -30,7 +30,9 @@ class GoogleAuthManager:
     
     def __init__(self):
         self.ensure_directories()
+        logger.info(f"Working directory: {os.getcwd()}")
         self.validate_credentials_file()
+
     
     def ensure_directories(self):
         """Create necessary directories if they don't exist"""
@@ -133,23 +135,32 @@ class GoogleAuthManager:
         try:
             safe_email = user_email.replace("@", "_at_").replace(".", "_dot_")
             token_file = f"tokens/{safe_email}.json"
-            
+
             credentials_dict = {
                 "token": credentials.token,
                 "refresh_token": credentials.refresh_token,
                 "token_uri": credentials.token_uri,
                 "client_id": credentials.client_id,
-                "client_secret": credentials.client_secret,
                 "scopes": credentials.scopes
             }
-            
+
+            # Only add client_secret if it exists
+            if getattr(credentials, "client_secret", None):
+                credentials_dict["client_secret"] = credentials.client_secret
+
+            # Log what you're saving
+            logger.info(f"Saving credentials to {token_file}")
+            logger.debug(json.dumps(credentials_dict, indent=2))  # For deeper debugging
+
             with open(token_file, "w") as f:
                 json.dump(credentials_dict, f, indent=2)
-            
+
             return token_file
         except Exception as e:
             logger.error(f"Error saving credentials: {str(e)}")
             raise HTTPException(status_code=500, detail="Failed to save authentication credentials")
+
+
 
 # Initialize the auth manager
 auth_manager = GoogleAuthManager()
