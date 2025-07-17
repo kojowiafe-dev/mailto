@@ -20,6 +20,10 @@ const AIMailCompose = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
+  const [gmailLinked, setGmailLinked] = useState(null);
+  const [showGmailPrompt, setShowGmailPrompt] = useState(false);
+  const [popupDismissed, setPopupDismissed] = useState(false);
+
   const { auth } = useAuth();
 
   useEffect(() => {
@@ -31,12 +35,12 @@ const AIMailCompose = () => {
           },
         });
 
-        if (!res.data.gmail_linked) {
-          notifyError('Please connect your Gmail to send emails.');
-          window.location.href = 'http://localhost:8000/auth/google';
-        }
+        setGmailLinked(res.data.gmail_linked);
+        if (!res.data.gmail_linked) setShowGmailPrompt(true);
       } catch (e) {
         console.error(e);
+        setGmailLinked(false);
+        setShowGmailPrompt(true);
         notifyError('Failed to verify Gmail connection.');
       }
     };
@@ -46,12 +50,11 @@ const AIMailCompose = () => {
     }
   }, [auth]);
 
-  // Call FastAPI backend to generate AI email
   const handleGenerate = async () => {
     setLoading(true);
     setError('');
     setSuccess(false);
-    setAIMessage(''); // Clear textarea before generating
+    setAIMessage('');
 
     try {
       const res = await api.post(
@@ -64,8 +67,6 @@ const AIMailCompose = () => {
         }
       );
 
-      console.log('✅ AI response:', res.data);
-
       const content = res.data?.content;
       if (!content || content.trim() === '') {
         throw new Error('AI returned an empty message');
@@ -77,16 +78,13 @@ const AIMailCompose = () => {
       if (content.startsWith('Subject:')) {
         const splitIndex = content.indexOf('\n\n');
         if (splitIndex !== -1) {
-          subject = content.slice(8, splitIndex).trim(); // Remove "Subject:" and extract the line
-          body = content.slice(splitIndex + 2).trim(); // The rest is the body
+          subject = content.slice(8, splitIndex).trim();
+          body = content.slice(splitIndex + 2).trim();
         } else {
-          subject = content.replace('Subject:', '').trim(); // fallback
+          subject = content.replace('Subject:', '').trim();
           body = '';
         }
       }
-
-      console.log('📧 Subject:', subject);
-      console.log('📝 Body:', body);
 
       setSubject(subject);
       setAIMessage(body);
@@ -99,8 +97,12 @@ const AIMailCompose = () => {
     }
   };
 
-  // Placeholder for sending email (replace with real API call)
   const handleSend = async () => {
+    if (!gmailLinked) {
+      setShowGmailPrompt(true);
+      return;
+    }
+
     try {
       setSending(true);
       setError('');
@@ -115,28 +117,21 @@ const AIMailCompose = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            Authorization: `Bearer ${auth.token}`,
             'Content-Type': 'application/json',
           },
         }
       );
-      console.log({ email: recipient, subject, content: aiMessage });
 
-      console.log('Notification:', res.data.detail || res.data);
       setPrompt('');
       setRecipient('');
       setSubject('');
       setAIMessage('');
-
-      // Show success message
-      console.log('Email sent successfully:', res.data);
       setSuccess(true);
       notifySuccess('Email sent successfully!');
 
-      // Simulate delay
       setTimeout(() => {
         setSending(false);
-        setSuccess(true);
       }, 1200);
     } catch (err) {
       console.error('Send Error:', err);
@@ -147,7 +142,6 @@ const AIMailCompose = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-indigo-950 text-white flex items-center justify-center py-12 px-2">
-      <GmailStatusBadge />
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -164,8 +158,8 @@ const AIMailCompose = () => {
               recipient, and send!
             </p>
           </CardHeader>
+
           <CardContent className="space-y-6">
-            {/* Prompt Input */}
             <div>
               <label className="block text-sm font-medium mb-1 text-gray-200">
                 Describe your email to the AI
@@ -197,9 +191,6 @@ const AIMailCompose = () => {
               </div>
             </div>
 
-            {/* AI Message Textarea */}
-
-            {/* Subject Input */}
             <div>
               <label className="block text-sm font-medium mb-1 text-gray-200">Subject</label>
               <Input
@@ -215,13 +206,11 @@ const AIMailCompose = () => {
               <label className="block text-sm font-medium mb-1 text-gray-200">
                 AI-generated message
               </label>
-
               {loading && (
                 <p className="text-sm text-purple-400 mb-1 animate-pulse">
                   Generating email, please wait...
                 </p>
               )}
-
               <Textarea
                 value={aiMessage}
                 onChange={(e) => setAIMessage(e.target.value)}
@@ -230,7 +219,7 @@ const AIMailCompose = () => {
                 disabled={sending}
               />
             </div>
-            {/* Recipient Input */}
+
             <div>
               <label className="block text-sm font-medium mb-1 text-gray-200">
                 Recipient Email
@@ -244,11 +233,17 @@ const AIMailCompose = () => {
                 type="email"
               />
             </div>
-            {/* Send Button & Feedback */}
+
             <div className="flex flex-col items-center gap-2 mt-4">
               <Button
                 onClick={handleSend}
-                disabled={!aiMessage.trim() || !recipient.trim() || sending || loading}
+                disabled={
+                  !aiMessage.trim() ||
+                  !recipient.trim() ||
+                  sending ||
+                  loading ||
+                  (!gmailLinked && popupDismissed)
+                }
                 className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white flex items-center justify-center"
               >
                 {sending ? (
@@ -259,17 +254,52 @@ const AIMailCompose = () => {
                   </>
                 )}
               </Button>
+
               {success && (
                 <div className="flex items-center gap-2 text-green-400 mt-2">
                   <Mail className="w-5 h-5" /> Message sent successfully!
                 </div>
               )}
+
               {error && <div className="text-red-400 mt-2">{error}</div>}
             </div>
           </CardContent>
         </Card>
-        {/* <GmailStatusBadge /> */}
+
+        <div className="mt-6">
+          <GmailStatusBadge />
+        </div>
       </motion.div>
+
+      {showGmailPrompt && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-xl max-w-sm text-black text-center space-y-4 shadow-xl">
+            <h2 className="text-lg font-semibold">Connect Gmail</h2>
+            <p className="text-sm text-gray-700">
+              You need to connect your Gmail account to send emails. Would you like to connect now?
+            </p>
+            <div className="flex justify-center gap-4 mt-4">
+              <Button
+                className="bg-purple-600 hover:bg-purple-700 text-white"
+                onClick={() => {
+                  window.location.href = 'http://localhost:8000/auth/google';
+                }}
+              >
+                Connect
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  setShowGmailPrompt(false);
+                  setPopupDismissed(true); // ❌ disables Send
+                }}
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
