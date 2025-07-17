@@ -237,13 +237,13 @@ const AIMailCompose = () => {
             <div className="flex flex-col items-center gap-2 mt-4">
               <Button
                 onClick={handleSend}
-                disabled={
-                  !aiMessage.trim() ||
-                  !recipient.trim() ||
-                  sending ||
-                  loading ||
-                  (!gmailLinked && popupDismissed)
-                }
+                // disabled={
+                //   !aiMessage.trim() ||
+                //   !recipient.trim() ||
+                //   sending ||
+                //   loading ||
+                //   (!gmailLinked && popupDismissed)
+                // }
                 className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white flex items-center justify-center"
               >
                 {sending ? (
