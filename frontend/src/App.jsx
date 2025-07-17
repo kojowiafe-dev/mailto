@@ -55,16 +55,16 @@ const App = () => {
         <Route path="/google-linked-success" element={<GoogleSuccess />} />
         {/* <Route path="/gmail/success" element={<GmailSuccess />} /> */}
         {/* <Route path="/gmail/success" element={<GmailStatusBadge />} /> */}
+        <Route
+          path="/ai-mail-compose"
+          element={
+            <ProtectedRoute>
+              <AIMailCompose />
+            </ProtectedRoute>
+          }
+        />
       </Route>
       {/* <Route path="/" element={<LandingPage />} /> */}
-      <Route
-        path="/ai-mail-compose"
-        element={
-          <ProtectedRoute>
-            <AIMailCompose />
-          </ProtectedRoute>
-        }
-      />
     </Routes>
   );
 };
