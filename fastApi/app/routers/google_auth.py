@@ -118,7 +118,7 @@ class GoogleAuthManager:
             if response.status_code != 200:
                 logger.error(f"Failed to fetch user info: {response.status_code} - {response.text}")
                 raise HTTPException(
-                    status_code=400, 
+                    status_code=400,
                     detail="Failed to fetch user information from Google"
                 )
             

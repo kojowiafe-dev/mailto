@@ -1,6 +1,7 @@
-from sqlmodel import Relationship, SQLModel, Field
-from typing import Optional
 from datetime import datetime
+from typing import Optional
+from sqlmodel import Relationship, SQLModel, Field
+
 
 # class Message is used to store the messages sent by users.
 class Message(SQLModel, table=True):
