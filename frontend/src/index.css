@@ -1,3 +1,17 @@
+/* Hide horizontal scrollbar globally */
+html,
+body {
+  overflow-x: hidden !important;
+}
+
+/* Utility class to hide all scrollbars (cross-browser) */
+.custom-hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+.custom-hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Webkit */
+}
 /* Hide scrollbar for custom-hide-scrollbar utility class */
 @import 'tailwindcss';
 @import 'tw-animate-css';
@@ -35,40 +49,134 @@
 body {
   font-family: 'Poppins', sans-serif;
   font-size: 0.95rem;
+  background: linear-gradient(120deg, #101522 0%, #1a2236 100%);
+  transition:
+    background 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .background {
-  background: #050e1f;
+  background: linear-gradient(120deg, #101522 0%, #1a2236 100%);
   background-image:
-    radial-gradient(
-      circle at 25% 15%,
-      rgba(255, 255, 255, 0.03) 0%,
-      rgba(255, 255, 255, 0.2) 5%,
-      transparent 5%,
-      transparent 100%
-    ),
-    radial-gradient(
-      circle at 50% 35%,
-      rgba(255, 255, 255, 0.03) 0%,
-      rgba(255, 255, 255, 0.2) 5%,
-      transparent 5%,
-      transparent 100%
-    ),
-    radial-gradient(
-      circle at 65% 60%,
-      rgba(255, 255, 255, 0.03) 0%,
-      rgba(255, 255, 255, 0.2) 5%,
-      transparent 5%,
-      transparent 100%
-    ),
-    radial-gradient(
-      circle at 75% 20%,
-      rgba(255, 255, 255, 0.03) 0%,
-      rgba(255, 255, 255, 0.2) 5%,
-      transparent 5%,
-      transparent 100%
-    );
+    radial-gradient(circle at 25% 15%, rgba(255, 255, 255, 0.04) 0%, transparent 80%),
+    radial-gradient(circle at 60% 60%, rgba(255, 255, 255, 0.03) 0%, transparent 80%);
   background-attachment: fixed;
+  transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* Smoother headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  margin-bottom: 0.5em;
+  color: #f3f4f6;
+  transition: color 0.3s;
+}
+h1 {
+  font-size: 1.7rem;
+  line-height: 1.1;
+}
+h2 {
+  font-size: 1.3rem;
+  line-height: 1.15;
+}
+h3 {
+  font-size: 1.1rem;
+  line-height: 1.18;
+}
+h4 {
+  font-size: 1rem;
+  line-height: 1.2;
+}
+h5 {
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+h6 {
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+
+/* Smoother buttons */
+button,
+.btn,
+input[type='submit'] {
+  border-radius: 0.7em;
+  background: linear-gradient(90deg, #2e335a 0%, #1b1e2e 100%);
+  color: #fff;
+  border: none;
+  padding: 0.5em 1.2em;
+  font-weight: 600;
+  font-family: 'Poppins', Arial, sans-serif;
+  box-shadow: 0 2px 12px 0 rgba(30, 40, 90, 0.1);
+  transition:
+    background 0.3s,
+    box-shadow 0.3s,
+    transform 0.15s;
+  cursor: pointer;
+}
+button:hover,
+.btn:hover,
+input[type='submit']:hover {
+  background: linear-gradient(90deg, #3a3f7a 0%, #23263a 100%);
+  box-shadow: 0 4px 24px 0 rgba(30, 40, 90, 0.18);
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* Smoother cards and containers */
+.container,
+.card,
+.Card,
+.shadow,
+.shadow-xl,
+.shadow-2xl {
+  border-radius: 1.1em !important;
+  box-shadow:
+    0 4px 32px 0 rgba(20, 20, 30, 0.1),
+    0 1.5px 6px 0 rgba(20, 20, 30, 0.08);
+  background: rgba(20, 22, 34, 0.92);
+  transition:
+    box-shadow 0.3s,
+    background 0.3s;
+}
+
+/* Smoother inputs */
+input,
+textarea,
+select {
+  border-radius: 0.5em;
+  border: 1px solid #23263a;
+  background: #181a24;
+  color: #f3f4f6;
+  padding: 0.5em 1em;
+  transition:
+    border 0.2s,
+    background 0.2s;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #3a3f7a;
+  background: #23263a;
+  outline: none;
+}
+
+/* Smoother links */
+a {
+  color: #a5b4fc;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  color: #f472b6;
+  text-decoration: underline;
 }
 
 @keyframes slide-in {
