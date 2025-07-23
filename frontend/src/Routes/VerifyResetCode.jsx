@@ -73,7 +73,7 @@ const VerifyResetCode = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden text-sm">
       <Meteors number={30} />
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 40 }}
@@ -82,25 +82,25 @@ const VerifyResetCode = () => {
         transition={{ duration: 0.5, type: 'spring' }}
         className="flex items-center justify-center w-full"
       >
-        <Card className="w-full max-w-2xl h-100 flex justify-center shadow-2xl border-1 bg-black/90 backdrop-blur-xl">
-          <CardHeader className="text-center mb-8">
-            <CardTitle className="text-3xl font-extrabold tracking-tight drop-shadow-lg text-white">
+        <Card className="w-full max-w-lg h-80 flex justify-center shadow-xl border bg-black/90 backdrop-blur-xl">
+          <CardHeader className="text-center mb-4">
+            <CardTitle className="text-xl font-bold tracking-tight drop-shadow text-white">
               Reset Password
             </CardTitle>
-            <CardDescription className="text-gray-300 text-base">
+            <CardDescription className="text-gray-300 text-xs">
               Enter your new password and confirm
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form
               onSubmit={handleVerify}
-              className="space-y-8 flex flex-col items-center justify-center text-white"
+              className="space-y-4 flex flex-col items-center justify-center text-white"
             >
-              <InputOTP maxLength={6} value={inputCode} onChange={setInputCode} className="gap-4">
+              <InputOTP maxLength={6} value={inputCode} onChange={setInputCode} className="gap-2">
                 <InputOTPGroup>
                   <InputOTPSlot
                     index={0}
-                    className="w-14 h-16 text-3xl rounded-lg border-2 border-gray-700 bg-gray-900 text-white focus:border-pink-500 focus:ring-2 focus:ring-pink-400 transition-all duration-200"
+                    className="w-10 h-10 text-lg rounded border border-gray-700 bg-gray-900 text-white focus:border-pink-500 focus:ring-2 focus:ring-pink-400 transition-all duration-200"
                   />
                   <InputOTPSlot
                     index={1}
@@ -132,29 +132,29 @@ const VerifyResetCode = () => {
               </InputOTP>
               <InteractiveHoverButton
                 type="submit"
-                className="shadow-xl col-span-1 font-bold border-2 border-white/10 text-black"
+                className="shadow col-span-1 font-bold border border-white/10 text-black text-xs"
                 disabled={loading}
               >
                 {loading ? 'Confirming Code...' : 'Confirm Code'}
               </InteractiveHoverButton>
             </form>
           </CardContent>
-          <div className="text-gray-300 text-base text-center">
+          <div className="text-gray-300 text-xs text-center">
             Remembered your password?{' '}
             <span
-              className="text-pink-300 font-semibold cursor-pointer hover:underline"
+              className="text-pink-300 font-semibold cursor-pointer hover:underline text-xs"
               onClick={() => navigate('/login')}
             >
               Login
             </span>
           </div>
           {success && (
-            <div className="text-green-400 mt-4 animate-pulse font-bold text-lg text-center">
+            <div className="text-green-400 mt-2 animate-pulse font-bold text-base text-center">
               {success}
             </div>
           )}
           {error && (
-            <div className="text-red-400 mt-4 animate-pulse font-bold text-lg text-center">
+            <div className="text-red-400 mt-2 animate-pulse font-bold text-base text-center">
               {error}
             </div>
           )}

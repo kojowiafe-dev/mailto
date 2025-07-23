@@ -48,27 +48,27 @@ const ReviewCard = React.memo(({ img, name, username, body }) => {
   return (
     <figure
       className={cn(
-        'relative h-full w-80 min-w-[20rem] cursor-pointer overflow-hidden rounded-2xl border p-6',
+        'relative h-full w-64 min-w-[14rem] cursor-pointer overflow-hidden rounded-xl border p-3',
         'border-gray-800 bg-gray-900 text-white',
         'hover:bg-gray-800 transition-colors duration-200',
-        'shadow-[0_6px_32px_0_rgba(20,20,30,0.85)]'
+        'shadow-[0_4px_16px_0_rgba(20,20,30,0.7)]'
       )}
     >
       <div className="flex flex-row items-center gap-2">
-        <img className="rounded-full" width="32" height="32" alt="" src={img} />
+        <img className="rounded-full" width="24" height="24" alt="" src={img} />
         <div className="flex flex-col">
-          <figcaption className="text-sm font-medium dark:text-white">{name}</figcaption>
-          <p className="text-xs font-medium dark:text-white/40">{username}</p>
+          <figcaption className="text-xs font-medium dark:text-white">{name}</figcaption>
+          <p className="text-[10px] font-medium dark:text-white/40">{username}</p>
         </div>
       </div>
-      <blockquote className="mt-2 text-sm">{body}</blockquote>
+      <blockquote className="mt-1 text-xs">{body}</blockquote>
     </figure>
   );
 });
 
 export function MarqueeDemo() {
   return (
-    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden overflow-x-hidden bg-black shadow-[0_8px_48px_0_rgba(20,20,30,0.95)] py-8">
+    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden overflow-x-hidden bg-black shadow-[0_4px_24px_0_rgba(20,20,30,0.7)] py-4">
       <Marquee pauseOnHover className="[--duration:20s]">
         {firstRow.map((review) => (
           <ReviewCard key={review.username} {...review} />
