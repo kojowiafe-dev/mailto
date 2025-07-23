@@ -6,6 +6,22 @@ import { Users, ThumbsUp, TrendingUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import CountUp from 'react-countup';
 
+const StatCard = React.memo(function StatCard({ icon: Icon, value, label, inView, ...props }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      className="bg-gray-900 rounded-xl p-6 shadow-md"
+      ref={props.ref}
+    >
+      <Icon className={props.iconClass} />
+      <p className="text-3xl font-semibold mt-4">{inView && value}</p>
+      <p className="text-gray-400 mt-2">{label}</p>
+    </motion.div>
+  );
+});
+
 export default function AIDemoAndTestimonials() {
   const navigate = useNavigate();
 
@@ -55,7 +71,11 @@ export default function AIDemoAndTestimonials() {
           transition={{ delay: 0.6 }}
           className="mt-8"
         >
-          <Button size="lg" className="text-lg font-semibold" onClick={() => navigate('/ai-mail-compose')}>
+          <Button
+            size="lg"
+            className="text-lg font-semibold"
+            onClick={() => navigate('/ai-mail-compose')}
+          >
             Try a Live Demo
           </Button>
         </motion.div>
@@ -73,47 +93,30 @@ export default function AIDemoAndTestimonials() {
         </motion.h2>
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="bg-gray-900 rounded-xl p-6 shadow-md"
+          <StatCard
+            icon={Users}
+            iconClass="text-indigo-500 w-8 h-8 mx-auto"
+            value={<CountUp end={12000} duration={3} separator="," prefix="+" />}
+            label="Users reached via automation"
+            inView={usersInView}
             ref={usersRef}
-          >
-            <Users className="text-indigo-500 w-8 h-8 mx-auto" />
-            <p className="text-3xl font-semibold mt-4">
-              {usersInView && <CountUp end={12000} duration={3} separator="," prefix="+" />}
-            </p>
-            <p className="text-gray-400 mt-2">Users reached via automation</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="bg-gray-900 rounded-xl p-6 shadow-md"
+          />
+          <StatCard
+            icon={ThumbsUp}
+            iconClass="text-green-400 w-8 h-8 mx-auto"
+            value={<CountUp end={96} duration={2} suffix="%" />}
+            label="Customer satisfaction rate"
+            inView={thumbsInView}
             ref={thumbsRef}
-          >
-            <ThumbsUp className="text-green-400 w-8 h-8 mx-auto" />
-            <p className="text-3xl font-semibold mt-4">
-              {thumbsInView && <CountUp end={96} duration={2} suffix="%" />}
-            </p>
-            <p className="text-gray-400 mt-2">Customer satisfaction rate</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-            className="bg-gray-900 rounded-xl p-6 shadow-md"
+          />
+          <StatCard
+            icon={TrendingUp}
+            iconClass="text-blue-400 w-8 h-8 mx-auto"
+            value={<CountUp end={43} duration={2} suffix="%" prefix="+" />}
+            label="Efficiency increase across clients"
+            inView={growthInView}
             ref={growthRef}
-          >
-            <TrendingUp className="text-blue-400 w-8 h-8 mx-auto" />
-            <p className="text-3xl font-semibold mt-4">
-              {growthInView && <CountUp end={43} duration={2} suffix="%" prefix="+" />}
-            </p>
-            <p className="text-gray-400 mt-2">Efficiency increase across clients</p>
-          </motion.div>
+          />
         </div>
       </div>
     </section>

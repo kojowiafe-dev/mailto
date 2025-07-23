@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 // import SaveProgressPrompt from './SaveProgressPrompt';
-import { motion } from 'framer-motion';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
@@ -17,6 +16,26 @@ import { Checkbox } from '../components/ui/checkbox';
 import { Badge } from '../components/ui/badge';
 import { ArrowRight, CheckCircle, Sparkles, Zap, Shield, Users } from 'lucide-react';
 import api from '../components/api';
+
+const FeatureCard = React.memo(function FeatureCard({ feature, selected, onToggle }) {
+  const Icon = feature.icon;
+  return (
+    <div
+      key={feature.id}
+      onClick={() => onToggle(feature.id)}
+      className={`p-4 rounded-lg border-2 cursor-pointer transition-all duration-200 ${
+        selected
+          ? 'border-purple-500 bg-purple-500/20'
+          : 'border-white/20 bg-white/5 hover:border-white/40'
+      }`}
+    >
+      <div className="flex items-center space-x-3">
+        <Icon className={`w-5 h-5 ${selected ? 'text-purple-400' : 'text-gray-400'}`} />
+        <span className="font-medium">{feature.label}</span>
+      </div>
+    </div>
+  );
+});
 
 const GetStarted = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -45,14 +64,14 @@ const GetStarted = () => {
     { id: 'team-collaboration', label: 'Team Collaboration', icon: Users },
   ];
 
-  const handleFeatureToggle = (featureId) => {
+  const handleFeatureToggle = useCallback((featureId) => {
     setFormData((prev) => ({
       ...prev,
       features: prev.features.includes(featureId)
         ? prev.features.filter((id) => id !== featureId)
         : [...prev.features, featureId],
     }));
-  };
+  }, []);
 
   const handleInputChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -276,31 +295,14 @@ const GetStarted = () => {
                         Select the features you're interested in:
                       </Label>
                       <div className="grid md:grid-cols-2 gap-4">
-                        {features.map((feature) => {
-                          const Icon = feature.icon;
-                          return (
-                            <div
-                              key={feature.id}
-                              onClick={() => handleFeatureToggle(feature.id)}
-                              className={`p-4 rounded-lg border-2 cursor-pointer transition-all duration-200 ${
-                                formData.features.includes(feature.id)
-                                  ? 'border-purple-500 bg-purple-500/20'
-                                  : 'border-white/20 bg-white/5 hover:border-white/40'
-                              }`}
-                            >
-                              <div className="flex items-center space-x-3">
-                                <Icon
-                                  className={`w-5 h-5 ${
-                                    formData.features.includes(feature.id)
-                                      ? 'text-purple-400'
-                                      : 'text-gray-400'
-                                  }`}
-                                />
-                                <span className="font-medium">{feature.label}</span>
-                              </div>
-                            </div>
-                          );
-                        })}
+                        {features.map((feature) => (
+                          <FeatureCard
+                            key={feature.id}
+                            feature={feature}
+                            selected={formData.features.includes(feature.id)}
+                            onToggle={handleFeatureToggle}
+                          />
+                        ))}
                       </div>
                     </div>
                   </motion.div>

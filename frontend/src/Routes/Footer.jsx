@@ -1,9 +1,10 @@
+import React from 'react';
 import { Button } from '../components/ui/button';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
 
-export default function Footer() {
+const Footer = React.memo(function Footer() {
   return (
     <>
       {/* Final Call to Action */}
@@ -180,4 +181,6 @@ export default function Footer() {
     //     </div>
     //   </footer>
   );
-}
+});
+
+export default Footer;

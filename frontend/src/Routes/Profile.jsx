@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
 
-const Profile = () => {
+const Profile = React.memo(() => {
   const { user } = useContext(useAuth);
 
   return (
@@ -31,6 +31,6 @@ const Profile = () => {
       </div>
     </motion.div>
   );
-};
+});
 
 export default Profile;

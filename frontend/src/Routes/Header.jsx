@@ -12,7 +12,7 @@ import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-b
 //   );
 // }
 
-const Header = () => {
+const Header = React.memo(() => {
   const location = useLocation();
   const navigate = useNavigate();
   // Set background color based on route
@@ -95,6 +95,6 @@ const Header = () => {
       </header>
     </div>
   );
-};
+});
 
 export default Header;

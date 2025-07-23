@@ -1,9 +1,9 @@
+import React, { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { jwtDecode } from 'jwt-decode'; // install if not already: npm install jwt-decode
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = React.memo(({ children }) => {
   const { auth, logout } = useAuth();
 
   useEffect(() => {
@@ -31,6 +31,6 @@ const ProtectedRoute = ({ children }) => {
   }
 
   return children;
-};
+});
 
 export default ProtectedRoute;

@@ -1,3 +1,4 @@
+import React from 'react';
 import { cn } from '@/lib/utils';
 import { Marquee } from '@/components/magicui/marquee';
 
@@ -43,7 +44,7 @@ const reviews = [
 const firstRow = reviews.slice(0, reviews.length / 2);
 const secondRow = reviews.slice(reviews.length / 2);
 
-const ReviewCard = ({ img, name, username, body }) => {
+const ReviewCard = React.memo(({ img, name, username, body }) => {
   return (
     <figure
       className={cn(
@@ -63,11 +64,11 @@ const ReviewCard = ({ img, name, username, body }) => {
       <blockquote className="mt-2 text-sm">{body}</blockquote>
     </figure>
   );
-};
+});
 
 export function MarqueeDemo() {
   return (
-    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-black shadow-[0_8px_48px_0_rgba(20,20,30,0.95)] py-8">
+    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden overflow-x-hidden bg-black shadow-[0_8px_48px_0_rgba(20,20,30,0.95)] py-8">
       <Marquee pauseOnHover className="[--duration:20s]">
         {firstRow.map((review) => (
           <ReviewCard key={review.username} {...review} />

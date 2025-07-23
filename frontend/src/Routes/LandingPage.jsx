@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Hero from './Hero';
 import { Toaster } from 'sonner';
 import { Spotlight } from '../components/ui/spotlight';
@@ -6,7 +6,7 @@ import Header from './Header';
 import Footer from './Footer';
 import { Outlet } from 'react-router-dom';
 
-export default function HeroSection() {
+const HeroSection = React.memo(function HeroSection() {
   useEffect(() => {
     // This effect runs once when the component mounts
     localStorage.removeItem('token');
@@ -15,7 +15,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-black">
+    <div className="min-h-screen flex flex-col bg-black overflow-x-hidden">
       <Toaster position="top-center" richColors />
       <Spotlight className="absolute inset-0 z-0" />
       <Header />
@@ -25,4 +25,6 @@ export default function HeroSection() {
       <Footer />
     </div>
   );
-}
+});
+
+export default HeroSection;

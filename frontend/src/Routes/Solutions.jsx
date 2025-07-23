@@ -40,6 +40,27 @@ const features = [
   },
 ];
 
+const FeatureCard = React.memo(function FeatureCard({ title, description, icon }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40, scale: 0.96 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      whileHover={{ scale: 1.04 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+    >
+      <Card className="bg-gray-900 text-white transition-colors duration-300 shadow-lg rounded-2xl p-6 text-left border border-gray-800">
+        <CardHeader className="flex items-center gap-3">
+          {React.createElement(icon, { className: 'w-10 h-10 text-indigo-500' })}
+          <CardTitle className="text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">
+            {title}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="text-sm text-gray-300 pt-2">{description}</CardContent>
+      </Card>
+    </motion.div>
+  );
+});
+
 export default function Solutions() {
   return (
     <section
@@ -71,24 +92,8 @@ export default function Solutions() {
         </motion.p>
 
         <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map(({ title, description, icon }, i) => (
-            <motion.div
-              key={title}
-              initial={{ opacity: 0, y: 40, scale: 0.96 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              whileHover={{ scale: 1.04 }}
-              transition={{ delay: i * 0.15, type: 'spring', stiffness: 300, damping: 20 }}
-            >
-              <Card className="bg-gray-900 text-white transition-colors duration-300 shadow-lg rounded-2xl p-6 text-left border border-gray-800">
-                <CardHeader className="flex items-center gap-3">
-                  {React.createElement(icon, { className: 'w-10 h-10 text-indigo-500' })}
-                  <CardTitle className="text-xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500">
-                    {title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-gray-300 pt-2">{description}</CardContent>
-              </Card>
-            </motion.div>
+          {features.map((feature, i) => (
+            <FeatureCard key={feature.title} {...feature} />
           ))}
         </div>
 

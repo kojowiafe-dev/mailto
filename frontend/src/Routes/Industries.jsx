@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { motion } from 'framer-motion';
+import React from 'react';
 import {
   LucideBanknote,
   LucideHospital,
@@ -8,7 +8,6 @@ import {
   LucidePlane,
   LucideShieldCheck,
 } from 'lucide-react';
-import React from 'react';
 
 const industries = [
   {
@@ -47,6 +46,24 @@ const industries = [
   },
 ];
 
+const IndustryCard = React.memo(function IndustryCard({ title, description, icon }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+    >
+      <Card className="bg-gray-900 hover:bg-gray-800 transition-colors duration-300 shadow-md rounded-2xl p-6 text-left">
+        <CardHeader className="flex items-center gap-3">
+          {React.createElement(icon, { className: 'w-8 h-8 text-blue-500' })}
+          <CardTitle className="text-xl font-semibold text-white">{title}</CardTitle>
+        </CardHeader>
+        <CardContent className="text-sm text-gray-400 pt-2">{description}</CardContent>
+      </Card>
+    </motion.div>
+  );
+});
+
 export default function IndustriesSection() {
   return (
     <section className="w-full bg-black text-white py-24 px-6 md:px-20">
@@ -64,28 +81,15 @@ export default function IndustriesSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-            className="mt-6 text-lg text-white max-w-3xl mx-auto"
+          className="mt-6 text-lg text-white max-w-3xl mx-auto"
         >
           Eventus delivers tailored, AI-powered solutions for sectors where performance, precision,
           and personalization matter.
         </motion.p>
 
         <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {industries.map(({ title, description, icon }, i) => (
-            <motion.div
-              key={title}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-            >
-              <Card className="bg-gray-900 hover:bg-gray-800 transition-colors duration-300 shadow-md rounded-2xl p-6 text-left">
-                <CardHeader className="flex items-center gap-3">
-                  {React.createElement(icon, { className: 'w-8 h-8 text-blue-500' })}
-                  <CardTitle className="text-xl font-semibold text-white">{title}</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-gray-400 pt-2">{description}</CardContent>
-              </Card>
-            </motion.div>
+          {industries.map((industry) => (
+            <IndustryCard key={industry.title} {...industry} />
           ))}
         </div>
       </div>

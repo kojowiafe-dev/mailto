@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { Button } from '../components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import AOS from 'aos';
@@ -25,7 +24,7 @@ const Hero = () => {
   return (
     <div
       id="hero"
-      className="min-h-screen flex flex-col scrollbar-thin scrollbar-thumb-indigo-500 scrollbar-track-gray-200 overflow-y-auto overflow-x-hidden pt-4 sm:pt-6"
+      className="min-h-screen flex flex-col scrollbar-thin scrollbar-thumb-indigo-500 scrollbar-track-gray-200 overflow-y-auto overflow-x-hidden pt-4 sm:pt-6 overflow-x-hidden"
     >
       <Meteors number={30} />
 
@@ -35,41 +34,41 @@ const Hero = () => {
           className="w-full max-w-2xl space-y-4 sm:space-y-6 text-center lg:text-left"
           data-aos="fade-right"
         >
-          <motion.h1
+          <h1
             initial={{ opacity: 0, y: -50, scale: 0.95 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, type: 'spring', bounce: 0.3 }}
             viewport={{ once: true, amount: 0.7 }}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight"
           >
-            <motion.span
+            <span
               initial={{ color: '#fff' }}
               whileInView={{ color: '#6366f1' }}
               transition={{ delay: 0.3, duration: 0.7 }}
               className="text-indigo-500"
             >
               Build the Future
-            </motion.span>
+            </span>
             <br />
-            <motion.span
+            <span
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.5, duration: 0.7 }}
               className=""
             >
               with
-            </motion.span>{' '}
-            <motion.span
+            </span>{' '}
+            <span
               initial={{ opacity: 0, y: 30, scale: 0.9 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ delay: 0.7, duration: 0.7, type: 'spring', bounce: 0.4 }}
               className="bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text"
             >
               AI-Powered Automation Agents
-            </motion.span>
-          </motion.h1>
+            </span>
+          </h1>
 
-          <motion.p
+          <p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -77,9 +76,9 @@ const Hero = () => {
           >
             Eventus designs intelligent agents, web systems, and data-driven solutions that drive
             performance, unlock insights, and reimagine what's possible.
-          </motion.p>
+          </p>
 
-          <motion.div
+          <div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
@@ -100,14 +99,14 @@ const Hero = () => {
             >
               Explore Solutions
             </InteractiveHoverButton>
-          </motion.div>
+          </div>
         </div>
 
         <div
           className="w-full flex justify-center lg:block lg:w-full max-w-sm sm:max-w-md lg:max-w-xl mt-6 lg:mt-0"
           data-aos="fade-left"
         >
-          <motion.div
+          <div
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.6 }}
@@ -119,7 +118,7 @@ const Hero = () => {
               <Globe className="top-16 sm:top-20 lg:top-28" />
               <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_200%,rgba(0,0,0,0.2),rgba(255,255,255,0))]" />
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
@@ -203,90 +202,39 @@ const Hero = () => {
 
       {/* More Content Section */}
       <section className="bg-black text-white py-8 sm:py-12 px-4 sm:px-6 md:px-8 lg:px-16">
-        <motion.div
-          className="max-w-6xl mx-auto grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12 items-start"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={{
-            hidden: {},
-            visible: {
-              transition: { staggerChildren: 0.2 },
-            },
-          }}
-        >
-          <motion.div
-            initial={{ opacity: 0, x: -60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="w-full"
-          >
+        <div className="max-w-6xl mx-auto grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12 items-start">
+          <div className="w-full">
             <h3 className="text-2xl sm:text-3xl font-bold mb-4 text-indigo-400">AI Use Cases</h3>
             <ul className="space-y-3 sm:space-y-4 text-base sm:text-lg text-gray-200">
-              <motion.li
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-                className="flex items-start gap-2"
-              >
+              <li className="flex items-start gap-2">
                 <span className="text-indigo-400 mt-1">•</span>
                 <span>Automated Email & Workflow Management</span>
-              </motion.li>
-              <motion.li
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className="flex items-start gap-2"
-              >
+              </li>
+              <li className="flex items-start gap-2">
                 <span className="text-indigo-400 mt-1">•</span>
                 <span>Smart Data Extraction & Document Processing</span>
-              </motion.li>
-              <motion.li
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-                className="flex items-start gap-2"
-              >
+              </li>
+              <li className="flex items-start gap-2">
                 <span className="text-indigo-400 mt-1">•</span>
                 <span>Conversational AI for Customer Support</span>
-              </motion.li>
-              <motion.li
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
-                className="flex items-start gap-2"
-              >
+              </li>
+              <li className="flex items-start gap-2">
                 <span className="text-indigo-400 mt-1">•</span>
                 <span>Predictive Analytics for Business Insights</span>
-              </motion.li>
-              <motion.li
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.6 }}
-                className="flex items-start gap-2"
-              >
+              </li>
+              <li className="flex items-start gap-2">
                 <span className="text-indigo-400 mt-1">•</span>
                 <span>Custom AI Integrations for Your Stack</span>
-              </motion.li>
+              </li>
             </ul>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="w-full"
-          >
+          <div className="w-full">
             <h3 className="text-2xl sm:text-3xl font-bold mb-4 text-pink-400">
               What Sets Us Apart?
             </h3>
             <div className="space-y-4 sm:space-y-4">
-              <motion.div
-                className="flex items-start gap-3"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
+              <div className="flex items-start gap-3">
                 <span className="w-6 h-6 sm:w-8 sm:h-8 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base flex-shrink-0 mt-1">
                   1
                 </span>
@@ -294,13 +242,8 @@ const Hero = () => {
                   <span className="font-semibold">End-to-End Delivery:</span> From ideation to
                   deployment, we handle it all.
                 </div>
-              </motion.div>
-              <motion.div
-                className="flex items-start gap-3"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-              >
+              </div>
+              <div className="flex items-start gap-3">
                 <span className="w-6 h-6 sm:w-8 sm:h-8 bg-pink-600 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base flex-shrink-0 mt-1">
                   2
                 </span>
@@ -308,13 +251,8 @@ const Hero = () => {
                   <span className="font-semibold">Human-Centric Design:</span> Solutions built for
                   real users, not just technology.
                 </div>
-              </motion.div>
-              <motion.div
-                className="flex items-start gap-3"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-              >
+              </div>
+              <div className="flex items-start gap-3">
                 <span className="w-6 h-6 sm:w-8 sm:h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base flex-shrink-0 mt-1">
                   3
                 </span>
@@ -322,17 +260,12 @@ const Hero = () => {
                   <span className="font-semibold">Security & Privacy:</span> Enterprise-grade
                   protection for your data and users.
                 </div>
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
-        <motion.div
-          className="mt-8 sm:mt-10 max-w-4xl mx-auto text-center px-2 sm:px-4"
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-        >
+        <div className="mt-8 sm:mt-10 max-w-4xl mx-auto text-center px-2 sm:px-4">
           <h4 className="text-xl sm:text-2xl font-semibold mb-2 text-gradient bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent">
             Ready to transform your business with AI?
           </h4>
@@ -347,7 +280,7 @@ const Hero = () => {
           >
             Get Started with Eventus
           </InteractiveHoverButton>
-        </motion.div>
+        </div>
       </section>
       <AIDemoAndTestimonials />
 
