@@ -54,3 +54,4 @@ async def delete_message(message_id: int, session: database.SessionLocal):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Message not found")
     session.delete(message)
     session.commit()
+    return {"detail": "Message deleted successfully"}
