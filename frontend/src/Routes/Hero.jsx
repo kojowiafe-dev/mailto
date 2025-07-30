@@ -34,56 +34,21 @@ const Hero = () => {
           className="w-full max-w-2xl space-y-4 sm:space-y-6 text-center lg:text-left"
           data-aos="fade-right"
         >
-          <h1
-            initial={{ opacity: 0, y: -50, scale: 0.95 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.8, type: 'spring', bounce: 0.3 }}
-            viewport={{ once: true, amount: 0.7 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight"
-          >
-            <span
-              initial={{ color: '#fff' }}
-              whileInView={{ color: '#6366f1' }}
-              transition={{ delay: 0.3, duration: 0.7 }}
-              className="text-indigo-500"
-            >
-              Build the Future
-            </span>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
+            <span className="text-indigo-500">Build the Future</span>
             <br />
-            <span
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.5, duration: 0.7 }}
-              className=""
-            >
-              with
-            </span>{' '}
-            <span
-              initial={{ opacity: 0, y: 30, scale: 0.9 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ delay: 0.7, duration: 0.7, type: 'spring', bounce: 0.4 }}
-              className="bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text"
-            >
+            <span>with</span>{' '}
+            <span className="bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text">
               AI-Powered Automation Agents
             </span>
           </h1>
 
-          <p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-base sm:text-lg text-gray-300 px-2 sm:px-0"
-          >
+          <p className="text-base sm:text-lg text-gray-300 px-2 sm:px-0">
             Eventus designs intelligent agents, web systems, and data-driven solutions that drive
             performance, unlock insights, and reimagine what's possible.
           </p>
 
-          <div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start px-2 sm:px-0"
-          >
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start px-2 sm:px-0">
             <InteractiveHoverButton
               size="lg"
               className="text-base sm:text-lg font-semibold text-black w-full sm:w-auto"
