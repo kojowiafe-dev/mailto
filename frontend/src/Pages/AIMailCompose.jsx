@@ -7,7 +7,7 @@ import { Button } from '../components/ui/button';
 import { Sparkles, Send, Mail } from 'lucide-react';
 import api from '../components/api';
 import { notifySuccess, notifyError } from '../utils/toastHelpers';
-import GmailStatusBadge from './GmailStatusBadge';
+import GmailStatusBadge from '../Routes/GmailStatusBadge';
 import { useAuth } from '../context/AuthContext';
 
 const AIMailCompose = () => {
