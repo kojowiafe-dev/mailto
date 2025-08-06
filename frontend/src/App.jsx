@@ -1,18 +1,18 @@
 import { Routes, Route } from 'react-router-dom';
 import LandingPage from './Routes/LandingPage';
-import Solutions from './Routes/Solutions';
-import Industries from './Routes/Industries';
-import Demo from './Routes/Demo';
-import GetStarted from './Routes/GetStarted';
+import Solutions from './Pages/Solutions';
+import Industries from './Pages/Industries';
+import Demo from './Pages/Demo';
+import GetStarted from './Pages/GetStarted';
 import AIMailCompose from './Pages/AIMailCompose';
 import Contact from './Pages/Contact';
 import Register from './Pages/Register';
 import Login from './Pages/Login';
 import ForgotPassword from './Routes/ForgotPassword';
 import ResetPassword from './Pages/ResetPassword';
-import VerifyResetCode from './Routes/VerifyResetCode';
+import VerifyResetCode from './Pages/VerifyResetCode';
 import ProtectedRoute from './Routes/ProtectedRoute';
-import Hero from './Routes/Hero';
+import Hero from './Pages/Hero';
 import GoogleSuccess from './Routes/GoogleSuccess';
 
 const App = () => {

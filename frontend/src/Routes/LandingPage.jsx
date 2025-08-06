@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Hero from './Hero';
+import Hero from '../Pages/Hero';
 import { Toaster } from 'sonner';
 import { Spotlight } from '../components/ui/spotlight';
 import Header from './Header';
