@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import { Button } from '../components/ui/button';
-import api from '../components/api';
+import api from '../api/api';
 import { motion } from 'framer-motion';
 import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
 import { useNavigate } from 'react-router-dom';

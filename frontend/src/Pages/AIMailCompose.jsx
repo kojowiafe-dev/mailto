@@ -5,7 +5,7 @@ import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Button } from '../components/ui/button';
 import { Sparkles, Send, Mail } from 'lucide-react';
-import api from '../components/api';
+import api from '../api/api';
 import { notifySuccess, notifyError } from '../utils/toastHelpers';
 import GmailStatusBadge from '../Routes/GmailStatusBadge';
 import { useAuth } from '../context/AuthContext';

@@ -15,7 +15,7 @@ import { Textarea } from '../components/ui/textarea';
 import { Checkbox } from '../components/ui/checkbox';
 import { Badge } from '../components/ui/badge';
 import { ArrowRight, CheckCircle, Sparkles, Zap, Shield, Users } from 'lucide-react';
-import api from '../components/api';
+import api from '../api/api';
 
 const FeatureCard = React.memo(function FeatureCard({ feature, selected, onToggle }) {
   const Icon = feature.icon;

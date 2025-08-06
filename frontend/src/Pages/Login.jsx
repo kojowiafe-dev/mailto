@@ -13,7 +13,7 @@ import {
 } from '../components/ui/card';
 import { Label } from '@/components/ui/label';
 // import { AuthContext } from '../context/AuthContext';
-import api from '../components/api';
+import api from '../api/api';
 import { motion, AnimatePresence } from 'framer-motion';
 // import { ShimmerButton } from '@/components/magicui/shimmer-button';
 import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';

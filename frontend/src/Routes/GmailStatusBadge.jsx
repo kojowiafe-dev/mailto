@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import api from '../components/api';
+import api from '../api/api';
 import { notifyError } from '../utils/toastHelpers';
 
 const GmailStatusBadge = () => {
