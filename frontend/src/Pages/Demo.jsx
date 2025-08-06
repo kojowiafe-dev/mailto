@@ -22,7 +22,7 @@ const StatCard = React.memo(function StatCard({ icon: Icon, value, label, inView
   );
 });
 
-export default function AIDemoAndTestimonials() {
+export default function Demo() {
   const navigate = useNavigate();
 
   const usersRef = useRef(null);

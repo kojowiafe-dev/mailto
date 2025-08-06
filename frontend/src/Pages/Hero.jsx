@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Button } from '../components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -7,7 +6,7 @@ import { MarqueeDemo } from '../Routes/ReviewCard';
 import { InteractiveHoverButton } from '../components/magicui/interactive-hover-button';
 // import { Meteors } from '@/components/magicui/meteors';
 import { Globe } from '@/components/magicui/globe';
-import AIDemoAndTestimonials from './Demo';
+// import Demo from './Demo';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -23,7 +22,7 @@ const Hero = () => {
   return (
     <div
       id="hero"
-      className="min-h-screen flex flex-col scrollbar-thin scrollbar-thumb-indigo-500 scrollbar-track-gray-200 overflow-y-auto overflow-x-hidden pt-4 sm:pt-6 overflow-x-hidden"
+      className="min-h-screen flex flex-col scrollbar-thin scrollbar-thumb-indigo-500 scrollbar-track-gray-200 overflow-y-auto pt-4 sm:pt-6 overflow-x-hidden"
     >
       {/* <Meteors number={30} /> */}
 
