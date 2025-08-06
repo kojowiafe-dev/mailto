@@ -13,7 +13,7 @@ import ResetPassword from './Pages/ResetPassword';
 import VerifyResetCode from './Pages/VerifyResetCode';
 import ProtectedRoute from './Routes/ProtectedRoute';
 import Hero from './Pages/Hero';
-import GoogleSuccess from './Routes/GoogleSuccess';
+import GoogleSuccess from './Pages/GoogleSuccess';
 
 const App = () => {
   return (

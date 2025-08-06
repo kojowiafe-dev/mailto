@@ -3,10 +3,9 @@ import { Button } from '../components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import Footer from '../Routes/Footer';
 import { MarqueeDemo } from '../Routes/ReviewCard';
-import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
-import { Meteors } from '@/components/magicui/meteors';
+import { InteractiveHoverButton } from '../components/magicui/interactive-hover-button';
+// import { Meteors } from '@/components/magicui/meteors';
 import { Globe } from '@/components/magicui/globe';
 import AIDemoAndTestimonials from './Demo';
 
@@ -26,7 +25,7 @@ const Hero = () => {
       id="hero"
       className="min-h-screen flex flex-col scrollbar-thin scrollbar-thumb-indigo-500 scrollbar-track-gray-200 overflow-y-auto overflow-x-hidden pt-4 sm:pt-6 overflow-x-hidden"
     >
-      <Meteors number={30} />
+      {/* <Meteors number={30} /> */}
 
       {/* Hero Header */}
       <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 flex-1 pb-8 lg:pb-10 gap-8 lg:gap-0">
@@ -49,9 +48,16 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start px-2 sm:px-0">
-            <InteractiveHoverButton
+            {/* <InteractiveHoverButton
               size="lg"
               className="text-base sm:text-lg font-semibold text-black w-full sm:w-auto"
+              onClick={handleGetStarted}
+            >
+              Get Started
+            </InteractiveHoverButton> */}
+            <InteractiveHoverButton
+              // size="lg"
+              // className="text-base sm:text-lg w-full sm:w-auto"
               onClick={handleGetStarted}
             >
               Get Started
@@ -59,7 +65,7 @@ const Hero = () => {
             <InteractiveHoverButton
               variant="ghost"
               size="lg"
-              className="text-base sm:text-lg text-black w-full sm:w-auto"
+              // className="text-base sm:text-lg text-black w-full sm:w-auto"
               onClick={() => navigate('/solutions')}
             >
               Explore Solutions
@@ -240,7 +246,7 @@ const Hero = () => {
           </p>
           <InteractiveHoverButton
             size="lg"
-            className="bg-white text-black text-base sm:text-lg font-semibold px-6 sm:px-8 py-3 w-full sm:w-auto"
+            // className="bg-white text-black text-base sm:text-lg font-semibold px-6 sm:px-8 py-3 w-full sm:w-auto"
             onClick={handleGetStarted}
           >
             Get Started with Eventus
