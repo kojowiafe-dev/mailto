@@ -1,24 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/card';
-import { Input } from '../components/ui/input';
-import { Textarea } from '../components/ui/textarea';
-import { Button } from '../components/ui/button';
-import { Sparkles, Send, Mail } from 'lucide-react';
-import api from '../api/api';
-import { notifySuccess, notifyError } from '../utils/toastHelpers';
-import GmailStatusBadge from '../Routes/GmailStatusBadge';
-import { useAuth } from '../context/AuthContext';
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Textarea } from "../components/ui/textarea";
+import { Button } from "../components/ui/button";
+import { Sparkles, Send, Mail } from "lucide-react";
+import api from "../api/api";
+import { notifySuccess, notifyError } from "../utils/toastHelpers";
+import GmailStatusBadge from "../Routes/GmailStatusBadge";
+import { useAuth } from "../context/AuthContext";
 
 const AIMailCompose = () => {
-  const [prompt, setPrompt] = useState('');
-  const [recipient, setRecipient] = useState('');
-  const [subject, setSubject] = useState('');
-  const [aiMessage, setAIMessage] = useState('');
+  const [prompt, setPrompt] = useState("");
+  const [recipient, setRecipient] = useState("");
+  const [subject, setSubject] = useState("");
+  const [aiMessage, setAIMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const [gmailLinked, setGmailLinked] = useState(null);
   const [showGmailPrompt, setShowGmailPrompt] = useState(false);
@@ -29,7 +34,7 @@ const AIMailCompose = () => {
   useEffect(() => {
     const checkGmail = async () => {
       try {
-        const res = await api.get('/email/status', {
+        const res = await api.get("/email/status", {
           headers: {
             Authorization: `Bearer ${auth.token}`,
           },
@@ -41,7 +46,7 @@ const AIMailCompose = () => {
         console.error(e);
         setGmailLinked(false);
         setShowGmailPrompt(true);
-        notifyError('Failed to verify Gmail connection.');
+        notifyError("Failed to verify Gmail connection.");
       }
     };
 
@@ -52,46 +57,47 @@ const AIMailCompose = () => {
 
   const handleGenerate = async () => {
     setLoading(true);
-    setError('');
+    setError("");
     setSuccess(false);
-    setAIMessage('');
+    setAIMessage("");
 
     try {
       const res = await api.post(
-        '/ai/generate',
+        "/ai/generate",
         { writeup: prompt },
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
 
       const content = res.data?.content;
-      if (!content || content.trim() === '') {
-        throw new Error('AI returned an empty message');
+      if (!content || content.trim() === "") {
+        throw new Error("AI returned an empty message");
       }
 
-      let subject = '';
+      let subject = "";
       let body = content;
 
-      if (content.startsWith('Subject:')) {
-        const splitIndex = content.indexOf('\n\n');
+      if (content.startsWith("Subject:")) {
+        const splitIndex = content.indexOf("\n\n");
         if (splitIndex !== -1) {
           subject = content.slice(8, splitIndex).trim();
           body = content.slice(splitIndex + 2).trim();
         } else {
-          subject = content.replace('Subject:', '').trim();
-          body = '';
+          subject = content.replace("Subject:", "").trim();
+          body = "";
         }
       }
 
       setSubject(subject);
       setAIMessage(body);
     } catch (err) {
-      const message = err.response?.data?.detail || err.message || 'Failed to generate email';
+      const message =
+        err.response?.data?.detail || err.message || "Failed to generate email";
       setError(message);
-      setAIMessage('');
+      setAIMessage("");
     } finally {
       setLoading(false);
     }
@@ -105,11 +111,11 @@ const AIMailCompose = () => {
 
     try {
       setSending(true);
-      setError('');
+      setError("");
       setSuccess(false);
 
       const res = await api.post(
-        '/ai-mail/send',
+        "/ai-mail/send",
         {
           email: recipient,
           subject: subject,
@@ -118,34 +124,34 @@ const AIMailCompose = () => {
         {
           headers: {
             Authorization: `Bearer ${auth.token}`,
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
 
-      setPrompt('');
-      setRecipient('');
-      setSubject('');
-      setAIMessage('');
+      setPrompt("");
+      setRecipient("");
+      setSubject("");
+      setAIMessage("");
       setSuccess(true);
-      notifySuccess('Email sent successfully!');
+      notifySuccess("Email sent successfully!");
 
       setTimeout(() => {
         setSending(false);
       }, 1200);
     } catch (err) {
-      console.error('Send Error:', err);
+      console.error("Send Error:", err);
       setSending(false);
-      setError('Failed to send email. Please try again.');
+      setError("Failed to send email. Please try again.");
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-indigo-950 text-white flex items-center justify-center py-12 px-2">
+    <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-indigo-950 text-white flex items-center justify-center py-12 px-2 pt-25">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-2xl"
+        className="w-full max-w-2xl mt-24"
       >
         <Card className="bg-white/10 backdrop-blur-lg border-white/20 text-white shadow-xl">
           <CardHeader className="text-center">
@@ -154,8 +160,8 @@ const AIMailCompose = () => {
               Compose with AI
             </CardTitle>
             <p className="text-gray-300 mt-2 text-base font-normal">
-              Tell the AI what kind of email you want to send. Edit the draft, specify the
-              recipient, and send!
+              Tell the AI what kind of email you want to send. Edit the draft,
+              specify the recipient, and send!
             </p>
           </CardHeader>
 
@@ -172,7 +178,7 @@ const AIMailCompose = () => {
                   className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-gray-400"
                   disabled={loading || sending}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter') handleGenerate();
+                    if (e.key === "Enter") handleGenerate();
                   }}
                 />
                 <Button
@@ -181,7 +187,7 @@ const AIMailCompose = () => {
                   className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
                 >
                   {loading ? (
-                    'Generating...'
+                    "Generating..."
                   ) : (
                     <>
                       <Sparkles className="w-4 h-4 mr-1" /> Generate
@@ -192,7 +198,9 @@ const AIMailCompose = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1 text-gray-200">Subject</label>
+              <label className="block text-sm font-medium mb-1 text-gray-200">
+                Subject
+              </label>
               <Input
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
@@ -247,7 +255,7 @@ const AIMailCompose = () => {
                 className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white flex items-center justify-center"
               >
                 {sending ? (
-                  'Sending...'
+                  "Sending..."
                 ) : (
                   <>
                     <Send className="w-4 h-4 mr-1" /> Send Message
@@ -276,13 +284,14 @@ const AIMailCompose = () => {
           <div className="bg-white p-6 rounded-xl max-w-sm text-black text-center space-y-4 shadow-xl">
             <h2 className="text-lg font-semibold">Connect Gmail</h2>
             <p className="text-sm text-gray-700">
-              You need to connect your Gmail account to send emails. Would you like to connect now?
+              You need to connect your Gmail account to send emails. Would you
+              like to connect now?
             </p>
             <div className="flex justify-center gap-4 mt-4">
               <Button
                 className="bg-purple-600 hover:bg-purple-700 text-white"
                 onClick={() => {
-                  window.location.href = 'http://localhost:8000/auth/google';
+                  window.location.href = "http://localhost:8000/auth/google";
                 }}
               >
                 Connect
