@@ -13,55 +13,60 @@ body {
   display: none; /* Chrome/Safari/Webkit */
 }
 /* Hide scrollbar for custom-hide-scrollbar utility class */
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('./myFonts/Poppins-Regular.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("./myFonts/Poppins-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('./myFonts/Poppins-Medium.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("./myFonts/Poppins-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('./myFonts/Poppins-SemiBold.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("./myFonts/Poppins-SemiBold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('./myFonts/Poppins-Bold.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("./myFonts/Poppins-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 0.95rem;
   background: linear-gradient(120deg, #101522 0%, #1a2236 100%);
-  transition:
-    background 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.3s;
+  transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .background {
   background: linear-gradient(120deg, #101522 0%, #1a2236 100%);
-  background-image:
-    radial-gradient(circle at 25% 15%, rgba(255, 255, 255, 0.04) 0%, transparent 80%),
-    radial-gradient(circle at 60% 60%, rgba(255, 255, 255, 0.03) 0%, transparent 80%);
+  background-image: radial-gradient(
+      circle at 25% 15%,
+      rgba(255, 255, 255, 0.04) 0%,
+      transparent 80%
+    ),
+    radial-gradient(
+      circle at 60% 60%,
+      rgba(255, 255, 255, 0.03) 0%,
+      transparent 80%
+    );
   background-attachment: fixed;
   transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -72,7 +77,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Poppins', Arial, sans-serif;
+  font-family: "Poppins", Arial, sans-serif;
   font-weight: 700;
   letter-spacing: 0.01em;
   margin-bottom: 0.5em;
@@ -105,7 +110,7 @@ h6 {
 }
 
 /* Smoother cards and containers */
-.container,
+/* .container,
 .card,
 .Card,
 .shadow,
@@ -119,7 +124,7 @@ h6 {
   transition:
     box-shadow 0.3s,
     background 0.3s;
-}
+} */
 
 /* Smoother inputs */
 input,
@@ -130,9 +135,7 @@ select {
   background: #181a24;
   color: #f3f4f6;
   padding: 0.5em 1em;
-  transition:
-    border 0.2s,
-    background 0.2s;
+  transition: border 0.2s, background 0.2s;
 }
 input:focus,
 textarea:focus,
@@ -344,7 +347,8 @@ a {
       opacity: 0;
     }
   }
-  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
+  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite
+    alternate;
   --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
   @keyframes shimmer-slide {
     to {
