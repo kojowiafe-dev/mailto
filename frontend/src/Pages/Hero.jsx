@@ -6,7 +6,7 @@ import { MarqueeDemo } from '../Routes/ReviewCard';
 import { InteractiveHoverButton } from '../components/magicui/interactive-hover-button';
 // import { Meteors } from '@/components/magicui/meteors';
 import { Globe } from '@/components/magicui/globe';
-// import Demo from './Demo';
+import Demo from './Demo';
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -54,13 +54,7 @@ const Hero = () => {
             >
               Get Started
             </InteractiveHoverButton> */}
-            <InteractiveHoverButton
-              // size="lg"
-              // className="text-base sm:text-lg w-full sm:w-auto"
-              onClick={handleGetStarted}
-            >
-              Get Started
-            </InteractiveHoverButton>
+            <InteractiveHoverButton onClick={handleGetStarted}>Get Started</InteractiveHoverButton>
             <InteractiveHoverButton
               variant="ghost"
               size="lg"
@@ -252,7 +246,7 @@ const Hero = () => {
           </InteractiveHoverButton>
         </div>
       </section>
-      <AIDemoAndTestimonials />
+      <Demo />
 
       {/* Sophisticated Footer */}
       {/* <Footer /> */}
