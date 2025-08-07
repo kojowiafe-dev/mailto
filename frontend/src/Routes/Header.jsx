@@ -76,7 +76,7 @@ const Header = React.memo(() => {
         </li>
       </ul>
       <InteractiveHoverButton
-        className="font-semibold text-black px-4 py-2 text-xs md:text-base"
+        className="font-semibold text-black"
         onClick={() => navigate(`${textNavigate}`)}
       >
         {buttonText}
