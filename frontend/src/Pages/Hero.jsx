@@ -6,6 +6,7 @@ import { MarqueeDemo } from "../Routes/ReviewCard";
 import { InteractiveHoverButton } from "../components/magicui/interactive-hover-button";
 // import { Meteors } from '@/components/magicui/meteors';
 import { Globe } from "@/components/magicui/globe";
+import Tech from "../assets/tech.png";
 import Demo from "./Demo";
 
 const Hero = () => {
@@ -33,11 +34,11 @@ const Hero = () => {
           data-aos="fade-right"
         >
           <h1 className="text-6xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
-            <span className="text-indigo-500">Build the Future</span>
+            <span className="text-cyan-500">Build the Future</span>
             <br />
             <span>with</span>{" "}
             {/* <span className="bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text"> */}
-            <span className="text-indigo-500 font-extrabold">
+            <span className="text-cyan-500 font-extrabold">
               AI-Powered Automation Agents
             </span>
           </h1>
@@ -73,13 +74,18 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.6 }}
           >
-            <div className="relative flex w-full max-w-xs sm:max-w-md lg:max-w-lg items-center justify-center overflow-hidden rounded-lg px-2 sm:px-4 lg:px-10 xl:px-40 pb-6 sm:pb-10 pt-4 sm:pt-8 lg:pb-40 lg:pt-8">
-              <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
-                {/* Globe */}
-              </span>
-              {/* <Globe className="top-16 sm:top-20 lg:top-28" /> */}
-              <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_200%,rgba(0,0,0,0.2),rgba(255,255,255,0))]" />
+            <div className="flex items-center justify-center">
+              <span>{/* Globe */}</span>
+              <img src={Tech} alt="Tech" className="h-60 w-80 rounded-2xl" />
+              <div />
             </div>
+            {/* <div className="relative flex w-full max-w-xs sm:max-w-md lg:max-w-lg items-center justify-center overflow-hidden rounded-lg px-2 sm:px-4 lg:px-10 xl:px-40 pb-6 sm:pb-10 pt-4 sm:pt-8 lg:pb-40 lg:pt-8">
+              <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
+                Globe
+              </span>
+              <Globe className="top-16 sm:top-20 lg:top-28" />
+              <div className="pointer-events-none absolute inset-0 h-full bg-[radial-gradient(circle_at_50%_200%,rgba(0,0,0,0.2),rgba(255,255,255,0))]" />
+            </div> */}
           </div>
         </div>
       </div>
@@ -93,7 +99,7 @@ const Hero = () => {
           className="max-w-6xl mx-auto text-center space-y-4 sm:space-y-6"
           data-aos="zoom-in-up"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-indigo-500 px-2">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-cyan-700 px-2">
             Why Choose Eventus?
           </h2>
 
@@ -106,20 +112,20 @@ const Hero = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mt-6 sm:mt-8">
             <div
-              className="rounded-xl shadow-lg p-4 sm:p-6 bg-gray-50 border border-gray-200 mx-2 sm:mx-0"
+              className="rounded-xl shadow-lg p-4 sm:p-6 bg-black border border-gray-200 mx-2 sm:mx-0"
               data-aos="fade-up"
             >
               {/* <h3 className="font-semibold text-lg sm:text-xl mb-2 text-purple-700"> */}
-              <h3 className="font-semibold text-lg sm:text-xl mb-2 text-indigo-500">
+              <h3 className="font-semibold text-lg sm:text-xl mb-2 text-cyan-500">
                 AI Automation
               </h3>
-              <p className="text-sm sm:text-base text-gray-600">
+              <p className="text-sm sm:text-base text-gray-400">
                 Automate repetitive tasks, streamline workflows, and boost
                 productivity with intelligent agents tailored to your needs.
               </p>
             </div>
             <div
-              className="rounded-xl shadow-lg p-4 sm:p-6 bg-gray-50 border border-gray-200 mx-2 sm:mx-0"
+              className="rounded-xl shadow-lg p-4 sm:p-6 bg-black border border-gray-200 mx-2 sm:mx-0"
               data-aos="fade-up"
               data-aos-delay="100"
             >
@@ -127,21 +133,21 @@ const Hero = () => {
               <h3 className="font-semibold text-lg sm:text-xl mb-2 text-indigo-500">
                 Web Systems
               </h3>
-              <p className="text-sm sm:text-base text-gray-600">
+              <p className="text-sm sm:text-base text-gray-400">
                 Modern, secure, and scalable web platforms that power your
                 digital transformation and customer engagement.
               </p>
             </div>
             <div
-              className="rounded-xl shadow-lg p-4 sm:p-6 bg-gray-50 border border-gray-200 mx-2 sm:mx-0"
+              className="rounded-xl shadow-lg p-4 sm:p-6 bg-black border border-gray-200 mx-2 sm:mx-0"
               data-aos="fade-up"
               data-aos-delay="200"
             >
               {/* <h3 className="font-semibold text-lg sm:text-xl mb-2 text-blue-600"> */}
-              <h3 className="font-semibold text-lg sm:text-xl mb-2 text-indigo-500">
+              <h3 className="font-semibold text-lg sm:text-xl mb-2 text-cyan-500">
                 Data Analytics
               </h3>
-              <p className="text-sm sm:text-base text-gray-600">
+              <p className="text-sm sm:text-base text-gray-400">
                 Unlock insights from your data to drive smarter decisions and
                 uncover new opportunities for growth.
               </p>
@@ -154,7 +160,7 @@ const Hero = () => {
             data-aos="zoom-in"
           >
             <div className="flex items-center gap-2 text-center sm:text-left">
-              <span className="font-bold text-indigo-500 text-xl sm:text-2xl">
+              <span className="font-bold text-cyan-500 text-xl sm:text-2xl">
                 99.9%
               </span>
               <span className="text-sm sm:text-base text-gray-700">
@@ -170,7 +176,7 @@ const Hero = () => {
               </span>
             </div>
             <div className="flex items-center gap-2 text-center sm:text-left">
-              <span className="font-bold text-indigo-500 text-xl sm:text-2xl">
+              <span className="font-bold text-cyan-500 text-xl sm:text-2xl">
                 1000+
               </span>
               <span className="text-sm sm:text-base text-gray-700">
@@ -187,40 +193,40 @@ const Hero = () => {
       <section className="bg-black text-white py-8 sm:py-12 px-4 sm:px-6 md:px-8 lg:px-16">
         <div className="max-w-6xl mx-auto grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12 items-start">
           <div className="w-full">
-            <h3 className="text-2xl sm:text-3xl font-bold mb-4 text-indigo-500">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-4 text-cyan-500">
               AI Use Cases
             </h3>
             <ul className="space-y-3 sm:space-y-4 text-base sm:text-lg text-gray-200">
               <li className="flex items-start gap-2">
-                <span className="text-indigo-400 mt-1">•</span>
+                <span className="text-cyan-500 mt-1">•</span>
                 <span>Automated Email & Workflow Management</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-indigo-400 mt-1">•</span>
+                <span className="text-cyan-500 mt-1">•</span>
                 <span>Smart Data Extraction & Document Processing</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-indigo-400 mt-1">•</span>
+                <span className="text-cyan-500 mt-1">•</span>
                 <span>Conversational AI for Customer Support</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-indigo-400 mt-1">•</span>
+                <span className="text-cyan-500 mt-1">•</span>
                 <span>Predictive Analytics for Business Insights</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-indigo-400 mt-1">•</span>
+                <span className="text-cyan-500 mt-1">•</span>
                 <span>Custom AI Integrations for Your Stack</span>
               </li>
             </ul>
           </div>
 
           <div className="w-full">
-            <h3 className="text-2xl sm:text-3xl font-bold mb-4 text-indigo-500">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-4 text-cyan-500">
               What Sets Us Apart?
             </h3>
             <div className="space-y-4 sm:space-y-4">
               <div className="flex items-start gap-3">
-                <span className="w-6 h-6 sm:w-8 sm:h-8 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base flex-shrink-0 mt-1">
+                <span className="w-6 h-6 sm:w-8 sm:h-8 bg-cyan-500 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base flex-shrink-0 mt-1">
                   1
                 </span>
                 <div className="text-sm sm:text-base">
@@ -229,7 +235,7 @@ const Hero = () => {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="w-6 h-6 sm:w-8 sm:h-8 bg-pink-600 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base flex-shrink-0 mt-1">
+                <span className="w-6 h-6 sm:w-8 sm:h-8 bg-cyan-500 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base flex-shrink-0 mt-1">
                   2
                 </span>
                 <div className="text-sm sm:text-base">
@@ -238,7 +244,7 @@ const Hero = () => {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <span className="w-6 h-6 sm:w-8 sm:h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base flex-shrink-0 mt-1">
+                <span className="w-6 h-6 sm:w-8 sm:h-8 bg-cyan-500 rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base flex-shrink-0 mt-1">
                   3
                 </span>
                 <div className="text-sm sm:text-base">
