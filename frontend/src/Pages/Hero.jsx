@@ -22,12 +22,12 @@ const Hero = () => {
   return (
     <div
       id="hero"
-      className="min-h-screen flex flex-col scrollbar-thin scrollbar-thumb-indigo-500 scrollbar-track-gray-200 overflow-y-auto pt-4 sm:pt-6 overflow-x-hidden"
+      className="min-h-screen flex flex-col scrollbar-thin scrollbar-thumb-indigo-500 scrollbar-track-gray-200 overflow-y-auto pt-25 sm:pt-28 overflow-x-hidden"
     >
       {/* <Meteors number={30} /> */}
 
       {/* Hero Header */}
-      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 flex-1 pb-8 lg:pb-10 gap-8 lg:gap-0">
+      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 flex-1 pb-8 lg:pb-10 gap-8 lg:gap-0 mt-8 sm:mt-0">
         <div
           className="w-full max-w-2xl space-y-4 sm:space-y-6 text-center lg:text-left"
           data-aos="fade-right"
