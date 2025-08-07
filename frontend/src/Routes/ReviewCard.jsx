@@ -42,7 +42,7 @@ const reviews = [
 ];
 
 const firstRow = reviews.slice(0, reviews.length / 2);
-const secondRow = reviews.slice(reviews.length / 2);
+// const secondRow = reviews.slice(reviews.length / 2);
 
 const ReviewCard = React.memo(({ img, name, username, body }) => {
   return (
@@ -68,17 +68,17 @@ const ReviewCard = React.memo(({ img, name, username, body }) => {
 
 export function MarqueeDemo() {
   return (
-    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden overflow-x-hidden bg-black shadow-[0_4px_24px_0_rgba(20,20,30,0.7)] py-4">
+    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden overflow-x-hidden bg-black shadow-[0_4px_24px_0_rgba(20,20,30,0.7)] py-6">
       <Marquee pauseOnHover className="[--duration:20s]">
         {firstRow.map((review) => (
           <ReviewCard key={review.username} {...review} />
         ))}
       </Marquee>
-      <Marquee reverse pauseOnHover className="[--duration:20s]">
+      {/* <Marquee reverse pauseOnHover className="[--duration:20s]">
         {secondRow.map((review) => (
           <ReviewCard key={review.username} {...review} />
         ))}
-      </Marquee>
+      </Marquee> */}
       <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-gray-950"></div>
       <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-gray-950"></div>
     </div>

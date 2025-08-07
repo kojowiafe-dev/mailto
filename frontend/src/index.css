@@ -76,7 +76,7 @@ h6 {
   font-weight: 700;
   letter-spacing: 0.01em;
   margin-bottom: 0.5em;
-  color: #f3f4f6;
+  /* color: #f3f4f6; */
   transition: color 0.3s;
 }
 h1 {
@@ -102,32 +102,6 @@ h5 {
 h6 {
   font-size: 0.8rem;
   line-height: 1.3;
-}
-
-/* Smoother buttons */
-button,
-.btn,
-input[type='submit'] {
-  border-radius: 0.7em;
-  background: linear-gradient(90deg, #2e335a 0%, #1b1e2e 100%);
-  color: #fff;
-  border: none;
-  padding: 0.5em 1.2em;
-  font-weight: 600;
-  font-family: 'Poppins', Arial, sans-serif;
-  box-shadow: 0 2px 12px 0 rgba(30, 40, 90, 0.1);
-  transition:
-    background 0.3s,
-    box-shadow 0.3s,
-    transform 0.15s;
-  cursor: pointer;
-}
-button:hover,
-.btn:hover,
-input[type='submit']:hover {
-  background: linear-gradient(90deg, #3a3f7a 0%, #23263a 100%);
-  box-shadow: 0 4px 24px 0 rgba(30, 40, 90, 0.18);
-  transform: translateY(-2px) scale(1.03);
 }
 
 /* Smoother cards and containers */
@@ -170,13 +144,9 @@ select:focus {
 
 /* Smoother links */
 a {
-  color: #a5b4fc;
+  /* color: #a5b4fc; */
   text-decoration: none;
   transition: color 0.2s;
-}
-a:hover {
-  color: #f472b6;
-  text-decoration: underline;
 }
 
 @keyframes slide-in {

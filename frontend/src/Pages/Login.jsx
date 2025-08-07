@@ -172,7 +172,7 @@ const Login = () => {
               <div className="grid grid-cols-3 gap-2">
                 <InteractiveHoverButton
                   type="submit"
-                  className="shadow-xl col-span-1 font-bold border-2 border-white/10"
+                  className="font-semibold text-black"
                   disabled={loading}
                 >
                   {loading ? 'Logging in...' : 'Log In'}
