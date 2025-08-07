@@ -255,11 +255,11 @@ const AIMailCompose = () => {
                 )}
               </Button>
 
-              {success && (
+              {/* {success && (
                 <div className="flex items-center gap-2 text-green-400 mt-2">
                   <Mail className="w-5 h-5" /> Message sent successfully!
                 </div>
-              )}
+              )} */}
 
               {error && <div className="text-red-400 mt-2">{error}</div>}
             </div>
