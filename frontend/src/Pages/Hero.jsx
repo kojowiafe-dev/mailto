@@ -32,7 +32,7 @@ const Hero = () => {
           className="w-full max-w-2xl space-y-4 sm:space-y-6 text-center lg:text-left"
           data-aos="fade-right"
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
+          <h1 className="text-6xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
             <span className="text-indigo-500">Build the Future</span>
             <br />
             <span>with</span>{" "}
