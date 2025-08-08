@@ -98,8 +98,8 @@ const Login = () => {
         transition={{ duration: 0.5, type: "spring" }}
         className="flex items-center justify-center w-full"
       >
-        <Card className="w-full max-w-2xl h-150 flex justify-center shadow-2xl border-1 bg-black/90 backdrop-blur-xl">
-          <CardHeader className="text-center mb-8">
+        <Card className="w-full max-w-xl h-125 flex justify-center shadow-2xl border-1 bg-black/90 backdrop-blur-xl">
+          <CardHeader className="text-center mb-6 mt-3">
             <CardTitle className="text-3xl font-extrabold tracking-tight drop-shadow-lg text-cyan-500">
               Welcome Back
             </CardTitle>
@@ -141,7 +141,7 @@ const Login = () => {
                   <div className="flex items-center">
                     <Button
                       onClick={() => navigate("/forgot-password")}
-                      className="ml-auto inline-block text-sm underline-offset-4 hover:underline text-white hover:text-cyan-500"
+                      className="ml-auto inline-block underline-offset-4 hover:underline text-white hover:text-cyan-500 text-sm cursor-pointer"
                     >
                       Forgot your password?
                     </Button>
@@ -159,7 +159,7 @@ const Login = () => {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white hover:text-cyan-500"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white hover:text-cyan-500 cursor-pointer"
                     >
                       {showPassword ? (
                         <FaEye size={20} />
