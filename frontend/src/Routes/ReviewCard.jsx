@@ -1,43 +1,43 @@
-import React from 'react';
-import { cn } from '@/lib/utils';
-import { Marquee } from '@/components/magicui/marquee';
+import React from "react";
+import { cn } from "@/lib/utils";
+import { Marquee } from "@/components/magicui/marquee";
 
 const reviews = [
   {
-    name: 'Jack',
-    username: '@jack',
+    name: "Jack",
+    username: "@jack",
     body: "I've never seen anything like this before. It's amazing. I love it.",
-    img: 'https://avatar.vercel.sh/jack',
+    img: "https://avatar.vercel.sh/jack",
   },
   {
-    name: 'Jill',
-    username: '@jill',
+    name: "Jill",
+    username: "@jill",
     body: "I don't know what to say. I'm speechless. This is amazing.",
-    img: 'https://avatar.vercel.sh/jill',
+    img: "https://avatar.vercel.sh/jill",
   },
   {
-    name: 'John',
-    username: '@john',
+    name: "John",
+    username: "@john",
     body: "I'm at a loss for words. This is amazing. I love it.",
-    img: 'https://avatar.vercel.sh/john',
+    img: "https://avatar.vercel.sh/john",
   },
   {
-    name: 'Jane',
-    username: '@jane',
+    name: "Jane",
+    username: "@jane",
     body: "I'm at a loss for words. This is amazing. I love it.",
-    img: 'https://avatar.vercel.sh/jane',
+    img: "https://avatar.vercel.sh/jane",
   },
   {
-    name: 'Jenny',
-    username: '@jenny',
+    name: "Jenny",
+    username: "@jenny",
     body: "I'm at a loss for words. This is amazing. I love it.",
-    img: 'https://avatar.vercel.sh/jenny',
+    img: "https://avatar.vercel.sh/jenny",
   },
   {
-    name: 'James',
-    username: '@james',
+    name: "James",
+    username: "@james",
     body: "I'm at a loss for words. This is amazing. I love it.",
-    img: 'https://avatar.vercel.sh/james',
+    img: "https://avatar.vercel.sh/james",
   },
 ];
 
@@ -48,17 +48,21 @@ const ReviewCard = React.memo(({ img, name, username, body }) => {
   return (
     <figure
       className={cn(
-        'relative h-full w-64 min-w-[14rem] cursor-pointer overflow-hidden rounded-xl border p-3',
-        'border-gray-800 bg-gray-900 text-white',
-        'hover:bg-gray-800 transition-colors duration-200',
-        'shadow-[0_4px_16px_0_rgba(20,20,30,0.7)]'
+        "relative h-full w-64 min-w-[14rem] cursor-pointer overflow-hidden rounded-xl border p-3",
+        "border-gray-800 bg-gray-900 text-white",
+        "hover:bg-gray-800 transition-colors duration-200",
+        "shadow-[0_4px_16px_0_rgba(20,20,30,0.7)]"
       )}
     >
       <div className="flex flex-row items-center gap-2">
         <img className="rounded-full" width="24" height="24" alt="" src={img} />
         <div className="flex flex-col">
-          <figcaption className="text-xs font-medium dark:text-white">{name}</figcaption>
-          <p className="text-[10px] font-medium dark:text-white/40">{username}</p>
+          <figcaption className="text-xs font-medium dark:text-white">
+            {name}
+          </figcaption>
+          <p className="text-[10px] font-medium dark:text-white/40">
+            {username}
+          </p>
         </div>
       </div>
       <blockquote className="mt-1 text-xs">{body}</blockquote>
@@ -69,6 +73,11 @@ const ReviewCard = React.memo(({ img, name, username, body }) => {
 export function MarqueeDemo() {
   return (
     <div className="relative flex w-full flex-col items-center justify-center overflow-hidden overflow-x-hidden bg-black shadow-[0_4px_24px_0_rgba(20,20,30,0.7)] py-6">
+      <div className="m-7">
+        <p className="text-cyan-500 font-semibold text-2xl">
+          What our customers say
+        </p>
+      </div>
       <Marquee pauseOnHover className="[--duration:20s]">
         {firstRow.map((review) => (
           <ReviewCard key={review.username} {...review} />
