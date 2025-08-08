@@ -258,7 +258,7 @@ const Hero = () => {
 
         <div className="mt-8 sm:mt-10 max-w-4xl mx-auto text-center px-2 sm:px-4">
           {/* <h4 className="text-xl sm:text-2xl font-semibold mb-2 text-gradient bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent"> */}
-          <h4 className="text-xl sm:text-2xl font-semibold mb-2 text-gradient text-indigo-500">
+          <h4 className="text-xl sm:text-2xl font-semibold mb-2 text-gradient text-cyan-500">
             Ready to transform your business with AI?
           </h4>
           <p className="text-base sm:text-lg text-gray-300 mb-6 px-2">
@@ -281,7 +281,7 @@ const Hero = () => {
       {/* Scroll to top - Mobile optimized */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-indigo-600 text-white p-2 sm:p-3 rounded-full shadow-lg hover:bg-indigo-700 z-50 text-sm sm:text-base"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-cyan-600 text-white p-2 sm:p-3 rounded-full shadow-lg hover:bg-indigo-700 z-50 text-sm sm:text-base"
       >
         ↑
       </button>
