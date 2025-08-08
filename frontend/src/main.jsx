@@ -14,7 +14,7 @@ createRoot(document.getElementById("root")).render(
   <GoogleOAuthProvider clientId={CLIENT_ID}>
     <AuthProvider>
       <ResetProvider>
-        <BrowserRouter basename="/mailto">
+        <BrowserRouter>
           <App />
         </BrowserRouter>
       </ResetProvider>
