@@ -3,8 +3,11 @@ import { Button } from "../components/ui/button";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
+import { useNavigate } from "react-router-dom";
 
 const Footer = React.memo(function Footer() {
+  const navigate = useNavigate();
+
   return (
     <>
       {/* Final Call to Action */}
@@ -35,7 +38,11 @@ const Footer = React.memo(function Footer() {
           transition={{ delay: 0.4 }}
           className="flex justify-center gap-6"
         >
-          <InteractiveHoverButton size="lg" className="text-lg font-semibold">
+          <InteractiveHoverButton
+            size="lg"
+            className="text-lg font-semibold"
+            onClick={() => navigate("/contact")}
+          >
             Contact Us
           </InteractiveHoverButton>
           <InteractiveHoverButton

@@ -1,8 +1,15 @@
-import { useState } from 'react';
-import { Button } from '../components/ui/button';
-import { Textarea } from '../components/ui/textarea';
-import { motion } from 'framer-motion';
-import { Phone, MessageCircle, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { useState } from "react";
+import { Button } from "../components/ui/button";
+import { Textarea } from "../components/ui/textarea";
+import { motion } from "framer-motion";
+import {
+  Phone,
+  MessageCircle,
+  Facebook,
+  Twitter,
+  Linkedin,
+  Instagram,
+} from "lucide-react";
 import {
   Card,
   CardAction,
@@ -11,12 +18,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '../components/ui/card';
-import { Input } from '../components/ui/input';
-import { Label } from '../components/ui/label';
+} from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { useNavigate } from "react-router-dom";
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const navigate = useNavigate();
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
@@ -25,12 +34,12 @@ export default function ContactPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Submitted: ', form);
+    console.log("Submitted: ", form);
     setSubmitted(true);
   };
 
   return (
-    <section className="h-full bg-black text-white py-24 px-6 md:px-20">
+    <section className="h-full bg-black text-white py-24 px-6 md:px-20 mt-18">
       <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
         <div className="space-y-8">
           <motion.h2
@@ -39,20 +48,20 @@ export default function ContactPage() {
             transition={{ duration: 0.6 }}
             className="text-4xl font-bold"
           >
-            Get in <span className="text-indigo-500">Touch</span>
+            Get in <span className="text-cyan-500">Touch</span>
           </motion.h2>
 
           <div className="grid gap-6">
             <div className="bg-gray-900 p-6 rounded-xl flex items-center gap-4 shadow-md">
-              <Phone className="w-10 h-10 text-indigo-500" />
+              <Phone className="w-10 h-10 text-cyan-500" />
               <div>
                 <p className="text-sm text-gray-400">Call Us</p>
-                <p className="font-semibold">+1 (800) 123-4567</p>
+                <p className="font-semibold">+233 (0) 591-783-838</p>
               </div>
             </div>
 
             <div className="bg-gray-900 p-6 rounded-xl flex items-center gap-4 shadow-md">
-              <MessageCircle className="w-10 h-10 text-indigo-500" />
+              <MessageCircle className="w-10 h-10 text-cyan-500" />
               <div>
                 <p className="text-sm text-gray-400">Live Chat</p>
                 <p className="font-semibold">Chat with an AI Agent</p>
@@ -86,66 +95,18 @@ export default function ContactPage() {
               Thanks for reaching out! We’ll get back to you shortly.
             </motion.div>
           ) : (
-            // <form onSubmit={handleSubmit} className="space-y-4 text-left">
-            //   <div>
-            //     <label htmlFor="name" className="block mb-1 text-sm font-medium">
-            //       Name
-            //     </label>
-            //     <Input
-            //       id="name"
-            //       name="name"
-            //       type="text"
-            //       required
-            //       value={form.name}
-            //       onChange={handleChange}
-            //       placeholder="Jane Doe"
-            //       className="bg-gray-800 text-white"
-            //     />
-            //   </div>
-
-            //   <div>
-            //     <label htmlFor="email" className="block mb-1 text-sm font-medium">
-            //       Email
-            //     </label>
-            //     <Input
-            //       id="email"
-            //       name="email"
-            //       type="email"
-            //       required
-            //       value={form.email}
-            //       onChange={handleChange}
-            //       placeholder="jane@example.com"
-            //       className="bg-gray-800 text-white"
-            //     />
-            //   </div>
-
-            //   <div>
-            //     <label htmlFor="message" className="block mb-1 text-sm font-medium">
-            //       Message
-            //     </label>
-            //     <Textarea
-            //       id="message"
-            //       name="message"
-            //       rows={4}
-            //       required
-            //       value={form.message}
-            //       onChange={handleChange}
-            //       placeholder="Briefly describe your request"
-            //       className="bg-gray-800 text-white"
-            //     />
-            //   </div>
-
-            //   <Button type="submit" size="lg" className="text-lg font-semibold w-full">
-            //     Send Message
-            //   </Button>
-            // </form>
-
             <Card className="w-full max-w-sm bg-gray-900 text-white">
               <CardHeader>
                 <CardTitle>Contact Us</CardTitle>
-                <CardDescription>Enter your email below to contact us</CardDescription>
+                <CardDescription>
+                  Enter your email below to contact us
+                </CardDescription>
                 <CardAction>
-                  <Button variant="link" className="text-white" navigate="/">
+                  <Button
+                    variant="link"
+                    className="text-white hover:text-cyan-500 cursor-pointer"
+                    onClick={() => navigate("/")}
+                  >
                     Back to Home
                   </Button>
                 </CardAction>
@@ -155,7 +116,12 @@ export default function ContactPage() {
                   <div className="flex flex-col gap-6">
                     <div className="grid gap-2">
                       <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" placeholder="m@example.com" required />
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="m@example.com"
+                        required
+                      />
                     </div>
                     <div className="grid gap-2">
                       <div className="flex items-center">
