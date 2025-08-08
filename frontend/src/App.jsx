@@ -1,19 +1,20 @@
-import { Routes, Route } from 'react-router-dom';
-import LandingPage from './Routes/LandingPage';
-import Solutions from './Pages/Solutions';
-import Industries from './Pages/Industries';
-import Demo from './Pages/Demo';
-import GetStarted from './Pages/GetStarted';
-import AIMailCompose from './Pages/AIMailCompose';
-import Contact from './Pages/Contact';
-import Register from './Pages/Register';
-import Login from './Pages/Login';
-import ForgotPassword from './Routes/ForgotPassword';
-import ResetPassword from './Pages/ResetPassword';
-import VerifyResetCode from './Pages/VerifyResetCode';
-import ProtectedRoute from './Routes/ProtectedRoute';
-import Hero from './Pages/Hero';
-import GoogleSuccess from './Pages/GoogleSuccess';
+import { Routes, Route } from "react-router-dom";
+import LandingPage from "./Routes/LandingPage";
+import Solutions from "./Pages/Solutions";
+import Industries from "./Pages/Industries";
+import Demo from "./Pages/Demo";
+import GetStarted from "./Pages/GetStarted";
+import AIMailCompose from "./Pages/AIMailCompose";
+import Contact from "./Pages/Contact";
+import Register from "./Pages/Register";
+import Login from "./Pages/Login";
+import ForgotPassword from "./Routes/ForgotPassword";
+import ResetPassword from "./Pages/ResetPassword";
+import VerifyResetCode from "./Pages/VerifyResetCode";
+import ProtectedRoute from "./Routes/ProtectedRoute";
+import Hero from "./Pages/Hero";
+import GoogleSuccess from "./Pages/GoogleSuccess";
+import MailGenerator from "./Pages/MailGenerator";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/verify-reset-code" element={<VerifyResetCode />} />
         <Route path="/google-linked-success" element={<GoogleSuccess />} />
+        <Route path="/mail-generate" element={<MailGenerator />} />
         <Route
           path="/ai-mail-compose"
           element={

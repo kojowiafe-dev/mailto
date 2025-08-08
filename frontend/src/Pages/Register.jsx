@@ -11,12 +11,10 @@ import {
   CardHeader,
   CardTitle,
 } from "../components/ui/card";
-// import { AuthContext } from '../context/AuthContext';
 import api from "../api/api";
-import { motion, AnimatePresence } from "framer-motion";
-// import { ShimmerButton } from '@/components/magicui/shimmer-button';
+import { motion } from "framer-motion";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
-import { Meteors } from "@/components/magicui/meteors";
+// import { Meteors } from "@/components/magicui/meteors";
 import { useForm } from "react-hook-form";
 import { notifyError, notifySuccess } from "../utils/toastHelpers";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -187,11 +185,6 @@ const Register = () => {
                   SIgn Up with Google
                 </InteractiveHoverButton>
               </div>
-              {/* <ShimmerButton className="shadow-2xl w-full">
-                <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
-                  Log In
-                </span>
-              </ShimmerButton> */}
             </form>
           </CardContent>
           <CardFooter></CardFooter>

@@ -1,8 +1,8 @@
-import React from 'react';
-import { Button } from '../components/ui/button';
-import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail } from 'lucide-react';
-import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
+import React from "react";
+import { Button } from "../components/ui/button";
+import { motion } from "framer-motion";
+import { Github, Linkedin, Mail } from "lucide-react";
+import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 
 const Footer = React.memo(function Footer() {
   return (
@@ -15,7 +15,8 @@ const Footer = React.memo(function Footer() {
           transition={{ duration: 0.6 }}
           className="text-4xl md:text-5xl font-bold mb-6"
         >
-          Let’s Build the <span className="text-black underline">Future</span> Together
+          Let’s Build the <span className="text-black underline">Future</span>{" "}
+          Together
         </motion.h2>
 
         <motion.p
@@ -24,8 +25,8 @@ const Footer = React.memo(function Footer() {
           transition={{ delay: 0.2 }}
           className="text-lg text-black/90 max-w-3xl mx-auto mb-8"
         >
-          Whether you're a startup or an enterprise, our AI-powered solutions are ready to transform
-          your workflows. Partner with Eventus today.
+          Whether you're a startup or an enterprise, our AI-powered solutions
+          are ready to transform your workflows. Partner with Eventus today.
         </motion.p>
 
         <motion.div
@@ -37,7 +38,11 @@ const Footer = React.memo(function Footer() {
           <InteractiveHoverButton size="lg" className="text-lg font-semibold">
             Contact Us
           </InteractiveHoverButton>
-          <InteractiveHoverButton variant="ghost" size="lg" className="text-lg text-black bg-white">
+          <InteractiveHoverButton
+            variant="ghost"
+            size="lg"
+            className="text-lg text-black bg-white"
+          >
             Explore More
           </InteractiveHoverButton>
         </motion.div>
@@ -74,13 +79,16 @@ const Footer = React.memo(function Footer() {
           <div>
             <h4 className="text-lg font-medium mb-2">Connect</h4>
             <div className="flex gap-4">
-              <a href="#" className="text-gray-400 hover:text-white">
+              <a href="#" className="text-gray-400 hover:text-cyan-500">
                 <Github className="w-6 h-6" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white">
+              <a href="#" className="text-gray-400 hover:text-cyan-500">
                 <Linkedin className="w-6 h-6" />
               </a>
-              <a href="mailto:info@eventus.ai" className="text-gray-400 hover:text-white">
+              <a
+                href="mailto:info@eventus.ai"
+                className="text-gray-400 hover:text-cyan-500"
+              >
                 <Mail className="w-6 h-6" />
               </a>
             </div>
