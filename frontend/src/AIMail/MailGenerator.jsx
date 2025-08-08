@@ -143,6 +143,75 @@ const MailGenerator = () => {
     location: "Accra, Ghana",
   };
 
+  // Content for each sidebar route
+  const renderContent = () => {
+    switch (selectedPage) {
+      case "Dashboard":
+        return <Dashboard />;
+      case "Mail Generator":
+        return (
+          <main className="flex-1 px-6 py-8 bg-gray-950 text-white min-h-[calc(100vh-64px)]">
+            <div className="max-w-2xl mx-auto">
+              <h2 className="text-2xl font-bold mb-4">Mail Generator</h2>
+              <p className="mb-6 text-gray-300">
+                Generate AI-powered emails quickly and easily.
+              </p>
+              {/* Add your mail generator form or logic here */}
+            </div>
+          </main>
+        );
+      case "Templates":
+        return (
+          <main className="flex-1 px-6 py-8 bg-gray-950 text-white min-h-[calc(100vh-64px)]">
+            <div className="max-w-2xl mx-auto">
+              <h2 className="text-2xl font-bold mb-4">Templates</h2>
+              <p className="mb-6 text-gray-300">
+                Manage and create reusable email templates.
+              </p>
+            </div>
+          </main>
+        );
+      case "Profile":
+        return <ProfileContent user={user} />;
+      case "History":
+        return (
+          <main className="flex-1 px-6 py-8 bg-gray-950 text-white min-h-[calc(100vh-64px)]">
+            <div className="max-w-2xl mx-auto">
+              <h2 className="text-2xl font-bold mb-4">History</h2>
+              <p className="mb-6 text-gray-300">
+                View your previously generated emails and activity.
+              </p>
+            </div>
+          </main>
+        );
+      case "Settings":
+        return (
+          <main className="flex-1 px-6 py-8 bg-gray-950 text-white min-h-[calc(100vh-64px)]">
+            <div className="max-w-2xl mx-auto">
+              <h2 className="text-2xl font-bold mb-4">Settings</h2>
+              <p className="mb-6 text-gray-300">
+                Adjust your preferences and account settings.
+              </p>
+            </div>
+          </main>
+        );
+      case "Logout":
+        return (
+          <main className="flex-1 px-6 py-8 bg-gray-950 text-white min-h-[calc(100vh-64px)] flex items-center justify-center">
+            <div className="max-w-md mx-auto text-center">
+              <h2 className="text-2xl font-bold mb-4">Logout</h2>
+              <p className="mb-6 text-gray-300">
+                You have been logged out. See you next time!
+              </p>
+              {/* Add logout logic or redirect here */}
+            </div>
+          </main>
+        );
+      default:
+        return <ProfileContent user={user} />;
+    }
+  };
+
   return (
     <div className="flex min-h-screen flex-col">
       <ProfileHeader
@@ -163,12 +232,8 @@ const MailGenerator = () => {
             onClick={() => setSidebarOpen(false)}
           ></div>
         )}
-        {/* Render Dashboard if selected */}
-        {selectedPage === "Dashboard" ? (
-          <Dashboard />
-        ) : (
-          <ProfileContent user={user} />
-        )}
+        {/* Main Content */}
+        {renderContent()}
       </div>
       <ProfileFooter />
     </div>
