@@ -24,8 +24,6 @@ import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
-  // const { setUser } = useContext(AuthContext);
-  // const [form, setForm] = useState({ username: '', password: '' });
   const { auth, setAuth } = useAuth();
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -92,7 +90,7 @@ const Login = () => {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden pt-30 pb-5">
-      <Meteors number={30} />
+      {/* <Meteors number={30} /> */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 40 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -102,7 +100,7 @@ const Login = () => {
       >
         <Card className="w-full max-w-2xl h-150 flex justify-center shadow-2xl border-1 bg-black/90 backdrop-blur-xl">
           <CardHeader className="text-center mb-8">
-            <CardTitle className="text-3xl font-extrabold tracking-tight drop-shadow-lg bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text">
+            <CardTitle className="text-3xl font-extrabold tracking-tight drop-shadow-lg text-cyan-500">
               Welcome Back
             </CardTitle>
             <CardDescription className="text-gray-300 text-base">
@@ -111,7 +109,7 @@ const Login = () => {
             <CardAction>
               <Button
                 variant="link"
-                className="text-base text-white hover:text-indigo-500 cursor-pointer"
+                className="text-base text-white hover:text-cyan-500 cursor-pointer"
                 onClick={() => navigate("/register")}
               >
                 Sign Up
@@ -143,7 +141,7 @@ const Login = () => {
                   <div className="flex items-center">
                     <Button
                       onClick={() => navigate("/forgot-password")}
-                      className="ml-auto inline-block text-sm underline-offset-4 hover:underline text-white hover:bg-gradient-to-r from-purple-600 to-pink-500 hover:text-transparent bg-clip-text"
+                      className="ml-auto inline-block text-sm underline-offset-4 hover:underline text-white hover:text-cyan-500"
                     >
                       Forgot your password?
                     </Button>
@@ -161,7 +159,7 @@ const Login = () => {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white hover:text-blue-600"
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white hover:text-cyan-500"
                     >
                       {showPassword ? (
                         <FaEye size={20} />
@@ -193,7 +191,7 @@ const Login = () => {
           <div className="text-gray-300 text-base text-center mt-4">
             Don't have an account?{" "}
             <span
-              className="text-pink-300 font-semibold cursor-pointer hover:underline"
+              className="text-cyan-500 font-semibold cursor-pointer hover:underline"
               onClick={() => navigate("/register")}
             >
               Register
