@@ -14,36 +14,42 @@ import VerifyResetCode from "./Pages/VerifyResetCode";
 import ProtectedRoute from "./Routes/ProtectedRoute";
 import Hero from "./Pages/Hero";
 import GoogleSuccess from "./Pages/GoogleSuccess";
-import MailGenerator from "./Pages/MailGenerator";
+import MailGenerator from "./AIMail/MailGenerator";
+import Dashboard from "./Pages/Dashboard";
+import { HelmetProvider } from "react-helmet-async";
 
 const App = () => {
   return (
-    <Routes>
-      {/* Public Routes */}
-      <Route element={<LandingPage />}>
-        <Route path="/" element={<Hero />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/solutions" element={<Solutions />} />
-        <Route path="/industries" element={<Industries />} />
-        <Route path="/demo" element={<Demo />} />
-        <Route path="/get-started" element={<GetStarted />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/verify-reset-code" element={<VerifyResetCode />} />
-        <Route path="/google-linked-success" element={<GoogleSuccess />} />
-        <Route path="/mail-generate" element={<MailGenerator />} />
-        <Route
-          path="/ai-mail-compose"
-          element={
-            <ProtectedRoute>
-              <AIMailCompose />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-    </Routes>
+    <HelmetProvider>
+      <Routes>
+        {/* Public Routes */}
+        <Route element={<LandingPage />}>
+          <Route path="/" element={<Hero />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/solutions" element={<Solutions />} />
+          <Route path="/industries" element={<Industries />} />
+          <Route path="/demo" element={<Demo />} />
+          <Route path="/get-started" element={<GetStarted />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/verify-reset-code" element={<VerifyResetCode />} />
+          <Route path="/google-linked-success" element={<GoogleSuccess />} />
+
+          <Route
+            path="/ai-mail-compose"
+            element={
+              <ProtectedRoute>
+                <AIMailCompose />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path="/mail" element={<MailGenerator />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </HelmetProvider>
   );
 };
 
