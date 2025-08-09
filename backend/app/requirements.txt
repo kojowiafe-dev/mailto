@@ -16,3 +16,6 @@ fastapi-mail
 jinja2
 google-generativeai
 python-multipart
+google-auth-oauthlib
+google-api-python-client
+google-auth
