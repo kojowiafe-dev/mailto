@@ -63,7 +63,7 @@ const GmailStatusBadge = () => {
             {!gmailLinked && (
               <button
                 className="mt-3 text-sm underline"
-                onClick={() => (window.location.href = 'https://mailto-6rgd.onrender.com/auth/google/')}
+                onClick={() => (window.location.href = 'https://mailto-6rgd.onrender.com/auth/google')}
               >
                 Connect Gmail
               </button>

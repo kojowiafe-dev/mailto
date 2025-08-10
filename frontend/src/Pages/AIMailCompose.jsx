@@ -284,7 +284,7 @@ const AIMailCompose = () => {
               <Button
                 className="bg-purple-600 hover:bg-purple-700 text-white"
                 onClick={() => {
-                  window.location.href = "http://localhost:8000/auth/google";
+                  window.location.href = "https://mailto-6rgd.onrender.com/auth/google";
                 }}
               >
                 Connect
