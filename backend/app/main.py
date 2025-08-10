@@ -13,7 +13,7 @@ app = FastAPI()
 
 
 origins = [
-    "https://mailto-nu.vercel.app/"
+    "https://mailto-nu.vercel.app"
     # "http://localhost:5173",
     # "http://localhost:5173/register",
     # "http://localhost:5173/login",
