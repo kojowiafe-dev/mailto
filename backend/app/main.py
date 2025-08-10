@@ -13,10 +13,11 @@ app = FastAPI()
 
 
 origins = [
-    "http://localhost:5173",
-    "http://localhost:5173/register",
-    "http://localhost:5173/login",
-    "http://localhost:5173/index"
+    "https://mailto-nu.vercel.app/"
+    # "http://localhost:5173",
+    # "http://localhost:5173/register",
+    # "http://localhost:5173/login",
+    # "http://localhost:5173/index"
 ]
 
 app.add_middleware(
