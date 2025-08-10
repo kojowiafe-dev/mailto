@@ -21,7 +21,7 @@ SCOPES = [
     "https://www.googleapis.com/auth/userinfo.profile",
     "openid"
 ]
-REDIRECT_URI = "http://localhost:8000/auth/google/callback"
+REDIRECT_URI = "https://mailto-6rgd.onrender.com/auth/google/callback"
 
 router = APIRouter(prefix="/auth/google", tags=["Google Auth"])
 
