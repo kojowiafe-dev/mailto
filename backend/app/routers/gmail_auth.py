@@ -22,7 +22,7 @@ def get_authorization_url():
     flow = Flow.from_client_secrets_file(
         CLIENT_SECRETS_FILE,
         scopes=SCOPES,
-        redirect_uri='http://localhost:8000/auth/google/callback'
+        redirect_uri='https://mailto-6rgd.onrender.com/auth/google/callback'
     )
     auth_url, _ = flow.authorization_url(prompt='consent')
     return auth_url, flow
