@@ -296,7 +296,7 @@ def google_callback(request: Request):
         logger.info(f"Successfully authenticated user: {user_email}")
 
         # success_url = f"http://localhost:5173/gmail/success?email={user_email}"
-        success_url = f"http://localhost:5173/ai-mail-compose"
+        success_url = f"https://mailto-nu.vercel.app/ai-mail-compose"
         return RedirectResponse(url=success_url)
 
         
@@ -360,7 +360,7 @@ def setup_help():
                 <p>Make sure you have:</p>
                 <ul>
                     <li><code>credentials.json</code> - Download from Google Cloud Console</li>
-                    <li>Correct redirect URI: <code>http://localhost:8000/auth/google/callback</code></li>
+                    <li>Correct redirect URI: <code>https://mailto-6rgd.onrender.com/auth/google/callback</code></li>
                 </ul>
                 
                 <h3>5. Scopes Configuration</h3>
