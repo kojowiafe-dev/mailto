@@ -73,6 +73,7 @@ const Login = () => {
       notifySuccess(response.message || "Login successfully!");
       setTimeout(() => {
         navigate("/ai-mail-compose");
+        // navigate("/mail");
       }, 3000);
       setUserName("");
       setPassword("");

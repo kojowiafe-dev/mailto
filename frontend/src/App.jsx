@@ -42,7 +42,14 @@ const App = () => {
           </ProtectedRoute>
         }
       />
-      <Route path="/mail" element={<MailGenerator />} />
+      <Route
+        path="/mail"
+        element={
+          <ProtectedRoute>
+            <MailGenerator />
+          </ProtectedRoute>
+        }
+      />
       {/* <Route path="/dashboard" element={<Dashboard />} /> */}
     </Routes>
   );

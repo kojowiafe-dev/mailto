@@ -151,7 +151,7 @@ const AIMailCompose = () => {
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-2xl mt-24"
+        className="w-full max-w-2xl"
       >
         <Card className="bg-white/10 backdrop-blur-lg border-white/20 text-white shadow-xl">
           <CardHeader className="text-center">
