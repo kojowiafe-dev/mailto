@@ -147,7 +147,7 @@ const AIMailCompose = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-indigo-950 text-white flex items-center justify-center py-12 px-2 pt-25">
+    <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-indigo-950 text-white flex items-center justify-center py-12 px-2">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -284,7 +284,8 @@ const AIMailCompose = () => {
               <Button
                 className="bg-purple-600 hover:bg-purple-700 text-white"
                 onClick={() => {
-                  window.location.href = "https://mailto-6rgd.onrender.com/auth/google";
+                  window.location.href =
+                    "https://mailto-6rgd.onrender.com/auth/google";
                 }}
               >
                 Connect
