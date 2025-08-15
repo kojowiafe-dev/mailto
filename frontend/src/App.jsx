@@ -33,16 +33,15 @@ const App = () => {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/verify-reset-code" element={<VerifyResetCode />} />
         <Route path="/google-linked-success" element={<GoogleSuccess />} />
-
-        <Route
-          path="/ai-mail-compose"
-          element={
-            <ProtectedRoute>
-              <AIMailCompose />
-            </ProtectedRoute>
-          }
-        />
       </Route>
+      <Route
+        path="/ai-mail-compose"
+        element={
+          <ProtectedRoute>
+            <AIMailCompose />
+          </ProtectedRoute>
+        }
+      />
       <Route path="/mail" element={<MailGenerator />} />
       {/* <Route path="/dashboard" element={<Dashboard />} /> */}
     </Routes>
