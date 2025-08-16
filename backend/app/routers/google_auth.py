@@ -296,7 +296,8 @@ def google_callback(request: Request):
         logger.info(f"Successfully authenticated user: {user_email}")
 
         # success_url = f"http://localhost:5173/gmail/success?email={user_email}"
-        success_url = f"https://mailto-nu.vercel.app/ai-mail-compose"
+        # success_url = f"https://mailto-nu.vercel.app/ai-mail-compose"
+        success_url = f"https://mailto-nu.vercel.app/mail"
         return RedirectResponse(url=success_url)
 
         
