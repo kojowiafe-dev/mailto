@@ -147,27 +147,27 @@ const AIMailCompose = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-indigo-950 text-white flex items-center justify-center py-12 px-2">
+    <div className="min-h-screen bg-gradient-to-b from-black via-gray-950 to-black text-white flex items-center justify-center py-12 px-4">
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-2xl"
       >
-        <Card className="bg-white/10 backdrop-blur-lg border-white/20 text-white shadow-xl">
+        <Card className="bg-black/40 backdrop-blur-xl border border-cyan-500/20 text-white shadow-2xl rounded-xl">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold flex items-center justify-center gap-2">
-              <Sparkles className="w-6 h-6 text-purple-400 animate-pulse" />
+            <CardTitle className="text-3xl font-bold flex items-center justify-center gap-3 bg-gradient-to-r from-cyan-400 via-white to-cyan-400 text-transparent bg-clip-text">
+              <Sparkles className="w-7 h-7 text-cyan-400" />
               Compose with AI
             </CardTitle>
-            <p className="text-gray-300 mt-2 text-base font-normal">
+            <p className="text-gray-400 mt-3 text-base font-light tracking-wide">
               Tell the AI what kind of email you want to send. Edit the draft,
               specify the recipient, and send!
             </p>
           </CardHeader>
 
           <CardContent className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium mb-1 text-gray-200">
+            <div className="space-y-2">
+              <label className="block text-sm font-medium mb-2 text-cyan-300">
                 Describe your email to the AI
               </label>
               <div className="flex gap-2">
@@ -175,7 +175,7 @@ const AIMailCompose = () => {
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
                   placeholder="e.g. Write a follow-up email about the meeting yesterday"
-                  className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-gray-400"
+                  className="flex-1 bg-white/5 border-cyan-500/30 text-white placeholder:text-gray-500 focus:border-cyan-400 transition-colors duration-200"
                   disabled={loading || sending}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") handleGenerate();
@@ -184,7 +184,7 @@ const AIMailCompose = () => {
                 <Button
                   onClick={handleGenerate}
                   disabled={!prompt.trim() || loading || sending}
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
+                  className="bg-cyan-500 hover:bg-cyan-600 text-black font-medium transition-colors duration-200 px-6"
                 >
                   {loading ? (
                     "Generating..."
@@ -197,25 +197,25 @@ const AIMailCompose = () => {
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1 text-gray-200">
+            <div className="space-y-2">
+              <label className="block text-sm font-medium mb-2 text-cyan-300">
                 Subject
               </label>
               <Input
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
                 placeholder="e.g. Meeting follow-up"
-                className="bg-white/10 border-white/20 text-white placeholder:text-gray-400"
+                className="bg-white/5 border-cyan-500/30 text-white placeholder:text-gray-500 focus:border-cyan-400 transition-colors duration-200"
                 disabled={loading || sending}
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1 text-gray-200">
+            <div className="space-y-2">
+              <label className="block text-sm font-medium mb-2 text-cyan-300">
                 AI-generated message
               </label>
               {loading && (
-                <p className="text-sm text-purple-400 mb-1 animate-pulse">
+                <p className="text-sm text-cyan-400 mb-2 animate-pulse">
                   Generating email, please wait...
                 </p>
               )}
@@ -223,20 +223,20 @@ const AIMailCompose = () => {
                 value={aiMessage}
                 onChange={(e) => setAIMessage(e.target.value)}
                 placeholder="The AI's draft will appear here. You can edit it before sending."
-                className="min-h-[140px] bg-white/10 border-white/20 text-white placeholder:text-gray-400"
+                className="min-h-[180px] bg-white/5 border-cyan-500/30 text-white placeholder:text-gray-500 focus:border-cyan-400 transition-colors duration-200 resize-none"
                 disabled={sending}
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1 text-gray-200">
+            <div className="space-y-2">
+              <label className="block text-sm font-medium mb-2 text-cyan-300">
                 Recipient Email
               </label>
               <Input
                 value={recipient}
                 onChange={(e) => setRecipient(e.target.value)}
                 placeholder="recipient@email.com"
-                className="bg-white/10 border-white/20 text-white placeholder:text-gray-400"
+                className="bg-white/5 border-cyan-500/30 text-white placeholder:text-gray-500 focus:border-cyan-400 transition-colors duration-200"
                 disabled={loading || sending}
                 type="email"
               />
@@ -245,13 +245,13 @@ const AIMailCompose = () => {
             <div className="flex flex-col items-center gap-2 mt-4">
               <Button
                 onClick={handleSend}
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white flex items-center justify-center cursor-pointer"
+                className="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-medium transition-colors duration-200 flex items-center justify-center gap-2 py-6 text-lg"
               >
                 {sending ? (
                   "Sending..."
                 ) : (
                   <>
-                    <Send className="w-4 h-4 mr-1" /> Send Message
+                    <Send className="w-5 h-5" /> Send Message
                   </>
                 )}
               </Button>
@@ -262,27 +262,31 @@ const AIMailCompose = () => {
                 </div>
               )} */}
 
-              {error && <div className="text-red-400 mt-2">{error}</div>}
+              {error && (
+                <div className="text-red-400 mt-3 text-center">{error}</div>
+              )}
             </div>
           </CardContent>
         </Card>
 
-        <div className="mt-6">
+        <div className="mt-8">
           <GmailStatusBadge />
         </div>
       </motion.div>
 
       {showGmailPrompt && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-xl max-w-sm text-black text-center space-y-4 shadow-xl">
-            <h2 className="text-lg font-semibold">Connect Gmail</h2>
-            <p className="text-sm text-gray-700">
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-black p-8 rounded-xl max-w-sm border border-cyan-500/30 text-white text-center space-y-4 shadow-2xl">
+            <h2 className="text-xl font-semibold text-cyan-400">
+              Connect Gmail
+            </h2>
+            <p className="text-gray-300">
               You need to connect your Gmail account to send emails. Would you
               like to connect now?
             </p>
             <div className="flex justify-center gap-4 mt-4">
               <Button
-                className="bg-purple-600 hover:bg-purple-700 text-white"
+                className="bg-cyan-500 hover:bg-cyan-600 text-black font-medium px-6"
                 onClick={() => {
                   window.location.href =
                     "https://mailto-6rgd.onrender.com/auth/google";
@@ -291,7 +295,8 @@ const AIMailCompose = () => {
                 Connect
               </Button>
               <Button
-                variant="ghost"
+                variant="outline"
+                className="border-cyan-500/30 hover:bg-cyan-500/10 text-white"
                 onClick={() => {
                   setShowGmailPrompt(false);
                   setPopupDismissed(true); // ❌ disables Send
