@@ -118,7 +118,6 @@ async def verify_reset_code(
 
     entry.verified = True
     session.commit()
-
     return {"msg": "Code verified successfully"}
 
 @router.post("/reset-password")
