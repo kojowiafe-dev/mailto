@@ -4,7 +4,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { MarqueeDemo } from "../Routes/ReviewCard";
 import { InteractiveHoverButton } from "../components/magicui/interactive-hover-button";
-// import { Meteors } from '@/components/magicui/meteors';
+import { Meteors } from "@/components/magicui/meteors";
 import { Globe } from "@/components/magicui/globe";
 import Tech from "../assets/tech.png";
 import Demo from "./Demo";
@@ -25,7 +25,7 @@ const Hero = () => {
       id="hero"
       className="min-h-screen flex flex-col scrollbar-thin scrollbar-thumb-indigo-500 scrollbar-track-gray-200 overflow-y-auto pt-25 sm:pt-28 overflow-x-hidden"
     >
-      {/* <Meteors number={30} /> */}
+      <Meteors number={30} />
 
       {/* Hero Header */}
       <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 flex-1 pb-8 lg:pb-10 gap-8 lg:gap-0 mt-8 sm:mt-0">

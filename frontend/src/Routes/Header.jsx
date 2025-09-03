@@ -34,7 +34,7 @@ const Header = React.memo(() => {
       >
         Eventus
       </FlipText>
-      <ul className="flex items-center justify-around gap-6 text-sm font-medium">
+      <ul className="md:flex items-center justify-around gap-6 text-sm font-medium hidden">
         <li>
           <Link
             onClick={() => navigate("/")}

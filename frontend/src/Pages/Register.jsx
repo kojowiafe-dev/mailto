@@ -104,7 +104,7 @@ const Register = () => {
             <CardAction>
               <Button
                 variant="link"
-                className="text-base text-white hover:bg-gradient-to-r from-purple-600 to-pink-500 hover:text-transparent bg-clip-text cursor-pointer"
+                className="text-base text-white hover:text-cyan-500 cursor-pointer"
                 onClick={() => navigate("/login")}
               >
                 Login
