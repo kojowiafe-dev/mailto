@@ -180,7 +180,7 @@ const Register = () => {
                 </InteractiveHoverButton>
                 <InteractiveHoverButton
                   variant="outline"
-                  className="col-span-2"
+                  className="col-span-2 shadow-xl font-bold border-2 border-white/10"
                 >
                   SIgn Up with Google
                 </InteractiveHoverButton>

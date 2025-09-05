@@ -175,14 +175,14 @@ const Login = () => {
               <div className="grid grid-cols-3 gap-2">
                 <InteractiveHoverButton
                   type="submit"
-                  className="font-semibold text-black"
+                  className="text-black shadow-xl col-span-1 font-bold border-2 border-white/10"
                   disabled={loading}
                 >
                   {loading ? "Logging in..." : "Log In"}
                 </InteractiveHoverButton>
                 <InteractiveHoverButton
                   variant="outline"
-                  className="col-span-2"
+                  className="col-span-2 shadow-xl font-bold border-2 border-white/10"
                 >
                   Login with Google
                 </InteractiveHoverButton>
